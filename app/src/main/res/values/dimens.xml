@@ -1,0 +1,48 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="card_margin">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="list_item_avatar_size">40dp</dimen>
+
+    <!-- 公共尺寸 -->
+    <dimen name="mshow_txt_small">14sp</dimen>
+    <dimen name="mshow_txt_normal">16sp</dimen>
+    <dimen name="mshow_txt_normal_b">17sp</dimen>
+    <dimen name="mshow_txt_mid">18sp</dimen>
+    <dimen name="mshow_txt_max">20sp</dimen>
+    <dimen name="mshow_txt_maxx">22sp</dimen>
+    <dimen name="txt_min_ll">8sp</dimen>
+    <dimen name="txt_min_l">10sp</dimen>
+    <dimen name="txt_min">12sp</dimen>
+    <dimen name="txt_small">14sp</dimen>
+    <dimen name="txt_normal_l">15sp</dimen>
+    <dimen name="txt_normal">16sp</dimen>
+    <dimen name="txt_normal_b">17sp</dimen>
+    <dimen name="txt_mid">18sp</dimen>
+    <dimen name="txt_max">20sp</dimen>
+    <dimen name="txt_maxx">22sp</dimen>
+    <dimen name="mshow_header_title_text_size">23sp</dimen>
+    <dimen name="header_title_text_size">23sp</dimen>
+    <!-- 秀场 -->
+    <dimen name="mshow_room_chat_arae_min_marginbottom">90dp</dimen>
+    <dimen name="mshow_room_chat_arae_max_marginbottom">51dp</dimen>
+    <dimen name="mshow_room_face_exp_btn_marginleft">12dp</dimen>
+    <dimen name="mshow_room_private_checkbox_marginleft">12dp</dimen>
+    <dimen name="mshow_room_private_checkbox_text_marginleft">8dp</dimen>
+    <dimen name="mshow_room_chat_list_btn_width">149dp</dimen>
+    <dimen name="mshow_chat_contact_textview_padding">4dp</dimen>
+    <dimen name="mshow_chat_input_edittext_height">25dp</dimen>
+    <dimen name="mshow_show_gift_item_icon">28dp</dimen>
+    <dimen name="mshow_room_anchor_info_layout_height">218dp</dimen>
+    <!-- 游戏模块dimension资源 start -->
+    <!-- 全局padding -->
+    <dimen name="mshow_global_padding">8dip</dimen>
+    <dimen name="mshow_global_10dp_padding">10dip</dimen>
+
+    <!-- 全局文字-->
+    <dimen name="mshow_my_setting_textview_size">16sp</dimen>
+    <dimen name="lebi_gridview_vetical_space">6dp</dimen>
+</resources>

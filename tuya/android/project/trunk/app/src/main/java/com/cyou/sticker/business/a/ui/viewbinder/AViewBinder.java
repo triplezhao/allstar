@@ -63,7 +63,7 @@ public class AViewBinder extends BaseViewBinder<AViewBinder.AViewHolder> {
 //                });
         Picasso.with(binding.getRoot().getContext())
                 .load(bean.getIcon())
-                .placeholder(R.drawable.ic_launcher)
+                .placeholder(R.drawable.icon_tab_home)
                 .resize(100,100)
                 .into(binding.avatar);
     }

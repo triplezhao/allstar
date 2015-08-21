@@ -56,7 +56,8 @@
         android:theme="@style/Theme.AppTheme">
         <activity
             android:name=".base.MainTabActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,7 +68,7 @@
         <activity android:name=".business.a.ui.act.BActivity"></activity>
         <activity android:name=".business.a.ui.act.ADetailActivity"></activity>
         <activity android:name=".business.jiongtu.ui.act.JiongtuActivity"></activity>
-        <activity android:name=".business.jiongtu.ui.act.JiongTuDetailActivity" android:hardwareAccelerated="false" ></activity>
+        <activity android:name=".business.jiongtu.ui.act.JiongTuDetailActivity" android:hardwareAccelerated="true" ></activity>
 
         <provider
             android:name="com.cyou.model.library.net.RequestCacheProvider"

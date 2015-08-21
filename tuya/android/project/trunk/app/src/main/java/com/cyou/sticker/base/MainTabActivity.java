@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cyou.sticker.R;
 import com.cyou.sticker.business.a.ui.act.AActivity;
@@ -24,15 +23,10 @@ public class MainTabActivity extends BaseTabHostActivity {
 
         TabItem tabItem = new TabItem();
         View tabItemView = mLayoutflater.inflate(R.layout.item_main_tab, null);
-        TextView textView = (TextView) tabItemView.findViewById(R.id.tab_item_tv);
         ImageView iv_icon = (ImageView) tabItemView.findViewById(R.id.iv_icon);
         switch (position) {
             case 0:
-                textView.setPadding(3, 3, 3, 3);
-                textView.setText("" + position);
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.icon_tab_home), null, null);
-
-                tabItem.setIcon(R.drawable.icon_tab_home);
+                iv_icon.setImageResource(R.drawable.selector_nav_home);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
                 tabItem.setIntent(new Intent(getApplication(), JiongtuActivity.class));
@@ -40,33 +34,29 @@ public class MainTabActivity extends BaseTabHostActivity {
 
             case 1:
 
-                textView.setPadding(3, 3, 3, 3);
-                textView.setText("" + position);
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.icon_tab_home), null, null);
-
-                tabItem.setIcon(R.drawable.icon_tab_home);
+                iv_icon.setImageResource(R.drawable.selector_nav_explore);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
                 tabItem.setIntent(new Intent(getApplication(), AActivity.class));
                 break;
             case 2:
 
-                textView.setPadding(3, 3, 3, 3);
-                textView.setText("" + position);
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_launcher), null, null);
+                iv_icon.setImageResource(R.drawable.selector_nav_workout);
 
-                tabItem.setIcon(R.drawable.icon_tab_home);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
                 tabItem.setIntent(new Intent(getApplication(), AActivity.class));
                 break;
             case 3:
 
-                textView.setPadding(3, 3, 3, 3);
-                textView.setText("" + position);
-                textView.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_launcher), null, null);
+                iv_icon.setImageResource(R.drawable.selector_nav_contact);
+                tabItem.setTitle("" + position);
+                tabItem.setView(tabItemView);
+                tabItem.setIntent(new Intent(getApplication(), BActivity.class));
+                break;
+            case 4:
 
-                tabItem.setIcon(R.drawable.icon_tab_home);
+                iv_icon.setImageResource(R.drawable.selector_nav_profile);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
                 tabItem.setIntent(new Intent(getApplication(), BActivity.class));
@@ -78,7 +68,7 @@ public class MainTabActivity extends BaseTabHostActivity {
 
     @Override
     protected int getTabItemCount() {
-        return 4;
+        return 5;
     }
 
     @Override

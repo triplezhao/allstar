@@ -17,6 +17,9 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap = "false"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="5dp"
             >
 
             <LinearLayout
@@ -31,7 +34,7 @@
                     android:scaleType="fitXY"
                     >
                 </com.cyou.sticker.view.AutoChangeImageView>
-            </LinearLayout>`
+            </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
 </layout>

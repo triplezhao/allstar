@@ -14,11 +14,19 @@
             android:layout_height="fill_parent"
             android:layout_above="@android:id/tabs"></FrameLayout>
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_above="@android:id/tabs"
+            android:background="@color/potato_gray3"/>
+
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"></TabWidget>
+            android:layout_alignParentBottom="true"
+            android:background="@color/potato_white"
+            android:divider="@color/potato_white"></TabWidget>
     </RelativeLayout>
 
 </TabHost>

@@ -107,7 +107,7 @@ public class UIUtils {
         if (context == null)
             return;
         if (toast == null) {
-            toast = Toast.makeText(context, R.string.mshow_net_timeout,
+            toast = Toast.makeText(context, R.string.sticker_net_timeout,
                     Toast.LENGTH_SHORT);
         }
 
@@ -119,25 +119,25 @@ public class UIUtils {
                 case 504:
                 case 408:
                 case 0:
-                    toast.setText(R.string.mshow_net_timeout);
+                    toast.setText(R.string.sticker_net_timeout);
                     break;
                 case 9999:
-                    toast.setText(R.string.mshow_no_net);
+                    toast.setText(R.string.sticker_no_net);
                     break;
                 default:
                     // toast.setText(""+code);
 
                     int errorcode = code / 100;
                     if (errorcode == 4 || errorcode == 5) {
-                        toast.setText(R.string.mshow_data_exception);
+                        toast.setText(R.string.sticker_data_exception);
                     }
 
                     break;
             }
         } else if (error instanceof InterruptedIOException) {
-            toast.setText(R.string.mshow_net_timeout);
+            toast.setText(R.string.sticker_net_timeout);
         } else if (error instanceof SocketException) {
-            toast.setText(R.string.mshow_net_timeout);
+            toast.setText(R.string.sticker_net_timeout);
         } else {
             // toast.setText("error=="+error);
         }

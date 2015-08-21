@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyou.sticker.view.slidingtab;
+package com.cyou.model.library.view.slidingtab;
 
 import android.content.Context;
 import android.graphics.Bitmap;

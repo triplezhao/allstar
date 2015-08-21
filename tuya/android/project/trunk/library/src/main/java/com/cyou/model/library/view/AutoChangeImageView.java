@@ -1,4 +1,4 @@
-package com.cyou.sticker.view;
+package com.cyou.model.library.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

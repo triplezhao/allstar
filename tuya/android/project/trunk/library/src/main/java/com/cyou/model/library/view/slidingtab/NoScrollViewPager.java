@@ -1,4 +1,4 @@
-package com.cyou.sticker.view.slidingtab;
+package com.cyou.model.library.view.slidingtab;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

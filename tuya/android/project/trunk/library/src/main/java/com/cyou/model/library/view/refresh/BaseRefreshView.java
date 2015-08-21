@@ -1,4 +1,4 @@
-package com.cyou.sticker.view.refresh;
+package com.cyou.model.library.view.refresh;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyou.sticker.view.slidingtab;
+package com.cyou.model.library.view.slidingtab;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,8 +30,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cyou.model.common.R;
 import com.cyou.model.library.util.L;
-import com.cyou.sticker.R;
 
 
 /**

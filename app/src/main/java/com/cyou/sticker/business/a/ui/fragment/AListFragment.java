@@ -31,7 +31,7 @@ import com.cyou.sticker.business.a.data.bean.ABean;
 import com.cyou.sticker.business.a.ui.viewbinder.AViewBinder;
 import com.cyou.sticker.databinding.FragmentAListBinding;
 import com.cyou.sticker.base.BaseListAdapter;
-import com.cyou.sticker.view.refresh.RefreshListView;
+import com.cyou.model.library.view.refresh.RefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;

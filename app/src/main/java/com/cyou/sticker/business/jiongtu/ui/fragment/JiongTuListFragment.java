@@ -36,7 +36,7 @@ import com.cyou.sticker.business.jiongtu.data.request.JiongtuRequestBuilder;
 import com.cyou.sticker.business.jiongtu.ui.viewbinder.JiongTuViewBinder;
 import com.cyou.sticker.databinding.FragmentAListBinding;
 import com.cyou.sticker.base.BaseListAdapter;
-import com.cyou.sticker.view.refresh.RefreshListView;
+import com.cyou.model.library.view.refresh.RefreshListView;
 
 import java.util.ArrayList;
 

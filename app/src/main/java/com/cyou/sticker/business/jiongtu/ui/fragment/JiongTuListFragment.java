@@ -220,8 +220,8 @@ public class JiongTuListFragment extends BaseFragment {
         }
         albumList.addAll(moreData);
         mAdapter.setDataList(albumList);
-        mAdapter.notifyDataSetChanged();
         mRefreshLayout.setLoading(false);
+        mAdapter.notifyDataSetChanged();
     }
 
 }

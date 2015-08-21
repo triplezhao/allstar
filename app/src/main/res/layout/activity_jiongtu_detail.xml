@@ -23,20 +23,20 @@
             name="bean"
             type="com.cyou.sticker.business.jiongtu.data.bean.JiongtuAlbum" />
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_view"
+        <LinearLayout
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="8dp"
-            >
+            android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="51dip"
-                 >
+                >
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:layout_marginLeft="100dp"
-                     />
+                    />
                 <ImageView
                     android:id="@+id/iv_back"
                     android:layout_width="wrap_content"
@@ -59,14 +59,31 @@
                     android:onClick="onClick"
                     />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
-        <ListView
-            android:id="@+id/lv_list"
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/cv_view"
-            android:cacheColorHint="#00000000"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="15dip"/>
+            android:layout_below="@id/toolbar">
+
+            <ListView
+                android:id="@+id/lv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@color/potato_trans"
+                android:divider="@color/potato_trans"
+                />
+
+        </FrameLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/toolbar"
+            android:background="@drawable/bottom_shadow_bg" />
+
     </RelativeLayout>
+
 </layout>

@@ -28,12 +28,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.cyou.sticker.view.NormalEmptyView
+        <com.cyou.model.library.view.NormalEmptyView
             android:id="@+id/empty_view"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-        </com.cyou.sticker.view.NormalEmptyView>
+        </com.cyou.model.library.view.NormalEmptyView>
 
         <com.cyou.model.library.view.refresh.RefreshListView
             android:id="@+id/swipe_container1"

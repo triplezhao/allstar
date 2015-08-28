@@ -36,7 +36,6 @@ import com.cyou.sticker.business.jiongtu.data.parser.JiongtuAlbumListParser;
 import com.cyou.sticker.business.jiongtu.data.request.JiongtuRequestBuilder;
 import com.cyou.sticker.business.jiongtu.ui.viewbinder.JiongTuViewBinder;
 import com.cyou.sticker.databinding.FragmentJiongtuListBinding;
-import com.cyou.sticker.view.NormalEmptyView;
 
 import java.util.ArrayList;
 
@@ -100,11 +99,9 @@ public class JiongTuListFragment extends BaseFragment {
             }
         });
 
-
+        binding.swipeContainer1.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
-
-        binding.swipeContainer1.setRefreshing(true);
-
+        binding.swipeContainer1.showProgress();
         sendRequest2RefreshList();
 
         return binding.getRoot();
@@ -135,8 +132,7 @@ public class JiongTuListFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.empty_view:
-                binding.emptyView.setEmptyType(NormalEmptyView.EMPTY_TYPE_LOADING);
-                binding.swipeContainer1.setRefreshing(true);
+                binding.swipeContainer1.showProgress();
                 sendRequest2RefreshList();
                 break;
         }
@@ -163,8 +159,7 @@ public class JiongTuListFragment extends BaseFragment {
                 binding.swipeContainer1.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        binding.swipeContainer1.setRefreshing(false);
-                        binding.emptyView.setEmptyType(NormalEmptyView.EMPTY_TYPE_ERROR);
+                        binding.swipeContainer1.showEmptyViewFail();
                     }
                 }, 2000);
 
@@ -218,19 +213,19 @@ public class JiongTuListFragment extends BaseFragment {
     }
 
     private void onRefreshSucc(String content) {
+        binding.swipeContainer1.showSucc();
         albumList = albumParser.parseToAlbumList(content);
-
         mAdapter.setDataList(albumList);
         mAdapter.notifyDataSetChanged();
         binding.swipeContainer1.setRefreshing(false);
         if (albumList != null || albumList.size() != 0) {
-            binding.emptyView.setEmptyType(NormalEmptyView.EMPTY_TYPE_CUCC);
             binding.swipeContainer1.setLoadEnable(true);
         }
 
     }
 
     private void onLoadSucc(String content) {
+        binding.swipeContainer1.setLoading(false);
         ArrayList<JiongtuAlbum> moreData = albumParser.parseToAlbumList(content);
         if (moreData == null || moreData.size() == 0) {
             binding.swipeContainer1.setLoadEnable(false);
@@ -238,7 +233,6 @@ public class JiongTuListFragment extends BaseFragment {
         }
         albumList.addAll(moreData);
         mAdapter.setDataList(albumList);
-        binding.swipeContainer1.setLoading(false);
         mAdapter.notifyDataSetChanged();
     }
 

@@ -1,28 +1,47 @@
 <!--为了使header下面带有阴影，所以页面整体布局如下结构--><!--头部布局--><!--页面内容布局--><!--toolbar下面的阴影-->
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/your_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp" />
-    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@color/sticker_blue"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="FitTime"
+            android:textColor="@color/potato_white"
+            android:textSize="@dimen/mshow_txt_max" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:padding="10dip"
+            android:src="@drawable/ic_add_white_24dp" />
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/rl_header">
 
         <View
             android:id="@+id/your_content"

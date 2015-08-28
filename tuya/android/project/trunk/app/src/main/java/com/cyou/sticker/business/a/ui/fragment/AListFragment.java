@@ -23,15 +23,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
+import com.cyou.model.library.view.refresh.RefreshListView;
 import com.cyou.sticker.R;
 import com.cyou.sticker.base.BaseFragment;
+import com.cyou.sticker.base.BaseListAdapter;
 import com.cyou.sticker.business.a.data.bean.ABean;
 import com.cyou.sticker.business.a.ui.viewbinder.AViewBinder;
 import com.cyou.sticker.databinding.FragmentAListBinding;
-import com.cyou.sticker.base.BaseListAdapter;
-import com.cyou.model.library.view.refresh.RefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +44,9 @@ public class AListFragment extends BaseFragment {
     /**
      * logic
      */
-    private RefreshListView mRefreshLayout;
-    private ListView mListView;
     private List<ABean> mValues = new ArrayList<ABean>();
     private BaseListAdapter mAdapter;
+    private FragmentAListBinding binding;
 
     @Nullable
     @Override
@@ -58,27 +56,24 @@ public class AListFragment extends BaseFragment {
         bindEvent();
         bindData();
 
-        FragmentAListBinding binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 LayoutInflater.from(container.getContext()),
                 R.layout.fragment_a_list,
                 container,
                 false);
 
-        mListView = binding.list;
-        mRefreshLayout = binding.swipeContainer;
 
-
-        mRefreshLayout.setFooterView(getActivity(), mListView, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(getActivity(), binding.list, R.layout.listview_footer);
 
         mAdapter = new BaseListAdapter(getActivity(), new AViewBinder());
-        mListView.setAdapter(mAdapter);
+        binding.list.setAdapter(mAdapter);
 
-        mRefreshLayout.setColorSchemeResources(R.color.google_blue,
+        binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
                 R.color.google_red,
                 R.color.google_yellow);
 
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mHandler.postDelayed(new Runnable() {
@@ -87,12 +82,12 @@ public class AListFragment extends BaseFragment {
                         mValues = getRandomSublist(Cheeses.sCheeseStrings, 30);
                         mAdapter.setDataList(mValues);
                         mAdapter.notifyDataSetChanged();
-                        mRefreshLayout.setRefreshing(false);
+                        binding.swipeContainer.setRefreshing(false);
                     }
                 }, 3000);
             }
         });
-        mRefreshLayout.setOnLoadListener(new RefreshListView.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new RefreshListView.OnLoadListener() {
             @Override
             public void onLoad() {
                 mHandler.postDelayed(new Runnable() {
@@ -101,23 +96,23 @@ public class AListFragment extends BaseFragment {
                         mValues.addAll(getRandomSublist(Cheeses.sCheeseStrings, 30));
                         mAdapter.setDataList(mValues);
                         mAdapter.notifyDataSetChanged();
-                        mRefreshLayout.setLoading(false);
+                        binding.swipeContainer.setLoading(false);
                     }
                 }, 3000);
 
             }
         });
-        mRefreshLayout.setRefreshing(true);
+        binding.swipeContainer.setRefreshing(true);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mValues = getRandomSublist(Cheeses.sCheeseStrings, 30);
                 mAdapter.setDataList(mValues);
                 mAdapter.notifyDataSetChanged();
-                mRefreshLayout.setRefreshing(false);
+                binding.swipeContainer.setRefreshing(false);
             }
         }, 3000);
-        return mRefreshLayout;
+        return binding.getRoot();
     }
 
     private List<ABean> getRandomSublist(String[] array, int amount) {

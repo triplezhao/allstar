@@ -5,6 +5,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 
+import com.cyou.model.library.view.NormalEmptyView;
+
 public class BaseRefreshView extends SwipeRefreshLayout {
 
     private int mEnd;
@@ -34,5 +36,41 @@ public class BaseRefreshView extends SwipeRefreshLayout {
         setProgressViewOffset(false, 0, mEnd);
         super.setRefreshing(isLoading);
     }
+
+
+    private NormalEmptyView mEmptyview;
+
+
+
+    public void setEmptyView(NormalEmptyView emptyView){
+        mEmptyview = emptyView;
+    }
+
+    public void showProgress(){
+        if(mEmptyview!=null){
+            mEmptyview.setEmptyType(NormalEmptyView.EMPTY_TYPE_GONE);
+        }
+        setRefreshing(true);
+    }
+    public void showSucc(){
+        if(mEmptyview!=null){
+            mEmptyview.setEmptyType(NormalEmptyView.EMPTY_TYPE_GONE);
+        }
+        setRefreshing(false);
+    }
+    public void showEmptyViewFail(){
+        if(mEmptyview!=null) {
+            mEmptyview.setEmptyType(NormalEmptyView.EMPTY_TYPE_ERROR);
+        }
+        setRefreshing(false);
+    }
+    public void showEmptyViewNoContent(){
+        if(mEmptyview!=null) {
+            mEmptyview.setEmptyType(NormalEmptyView.EMPTY_TYPE_NOCONTENT);
+            setRefreshing(false);
+        }
+    }
+
+
 
 }

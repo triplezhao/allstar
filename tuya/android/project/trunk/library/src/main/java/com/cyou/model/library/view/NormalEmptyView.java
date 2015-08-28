@@ -1,4 +1,4 @@
-package com.cyou.sticker.view;
+package com.cyou.model.library.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,26 +8,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cyou.model.common.R;
 import com.cyou.model.library.util.L;
-import com.cyou.sticker.R;
 
 
 public class NormalEmptyView extends RelativeLayout {
     public static final int EMPTY_TYPE_LOADING = 1;
     public static final int EMPTY_TYPE_ERROR = 2;
     public static final int EMPTY_TYPE_NOCONTENT = 3;
-    public static final int EMPTY_TYPE_CUCC = 4;
+    public static final int EMPTY_TYPE_GONE = 4;
     public TextView tv_empty_text;
     private View pb_empty_loading;
     private View pb_empty_fail;
     private ImageView iv_empty_nocontent;
 
-    private int mEmptyRes = R.string.sticker_content_empty;
-    private int mLoadingRes = R.string.sticker_loading;
-    private int mErrorRes = R.string.sticker_network_error;
+    private int mEmptyRes = R.string.potato_content_empty;
+    private int mLoadingRes = R.string.potato_loading;
+    private int mErrorRes = R.string.potato_network_error;
     private int mEmptyDrawableRes = R.drawable.empty_nocontent;
     private int mErrorDrawableRes = R.drawable.empty_nocontent;
-    private int mEmptyType = EMPTY_TYPE_LOADING;
+    private int mEmptyType = EMPTY_TYPE_GONE;
 
     private Context mContext;
 
@@ -46,7 +46,7 @@ public class NormalEmptyView extends RelativeLayout {
 
         setBackgroundResource(R.color.potato_trans);
 
-        setEmptyRes(R.string.sticker_content_empty);
+        setEmptyRes(R.string.potato_content_empty);
 
         setEmptyType(mEmptyType);
 
@@ -79,7 +79,7 @@ public class NormalEmptyView extends RelativeLayout {
                 pb_empty_loading.setVisibility(View.GONE);
                 setClickable(false);
                 break;
-            case EMPTY_TYPE_CUCC:
+            case EMPTY_TYPE_GONE:
                 this.setVisibility(View.GONE);
                 break;
         }

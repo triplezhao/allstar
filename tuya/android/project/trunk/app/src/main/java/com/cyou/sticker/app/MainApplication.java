@@ -22,10 +22,11 @@ import cn.sharesdk.framework.ShareSDK;
  * Created by zhaobingfeng on 14-12-22.
  */
 public class MainApplication extends Application {
-    /** 获取屏幕的宽和高 */
+    /**
+     * 获取屏幕的宽和高
+     */
     public static int screenHight = 0;
     public static int screenWidth = 0;
-    public static DisplayMetrics displayMetrices;
     /**
      * 设备的 IMEI
      */
@@ -34,6 +35,7 @@ public class MainApplication extends Application {
      * 获取全局的上下文
      */
     public static Context context;
+    public static DisplayMetrics displayMetrics;
 
     @Override
     public void onCreate() {
@@ -41,7 +43,6 @@ public class MainApplication extends Application {
         context = this;
         init();
     }
-
     /**
      */
     private void init() {
@@ -88,7 +89,7 @@ public class MainApplication extends Application {
         Picasso.setSingletonInstance(picasso);
     }
 
-    public void initUIL(){
+    public void initUIL() {
         ImageLoaderUtil.init(context);
     }
 
@@ -96,8 +97,9 @@ public class MainApplication extends Application {
      * 获取设备的宽和高 WangQing 2013-8-12 void
      */
     private void initDeviceWidthAndHeight() {
-        displayMetrices = PhoneUtils.getAppWidthAndHeight(this);
-        screenHight = displayMetrices.heightPixels;
-        screenWidth = displayMetrices.widthPixels;
+        displayMetrics = PhoneUtils.getAppWidthAndHeight(this);
+        screenHight = displayMetrics.heightPixels;
+        screenWidth = displayMetrics.widthPixels;
     }
+
 }

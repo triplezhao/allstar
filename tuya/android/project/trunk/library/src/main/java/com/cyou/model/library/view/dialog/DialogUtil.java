@@ -2,6 +2,7 @@ package com.cyou.model.library.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ public class DialogUtil {
         sure.setText(text1);
         cancel.setText(text2);
         sure.setOnClickListener(new View.OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -57,7 +58,7 @@ public class DialogUtil {
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -66,7 +67,13 @@ public class DialogUtil {
             }
         });
         dialog.setContentView(view);
-        
+        DialogInterface.OnCancelListener a = new DialogInterface.OnCancelListener(){
+
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+
+            }
+        };
         return dialog;
     }
     

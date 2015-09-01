@@ -8,6 +8,10 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.cyou.model.library.view.dialog.DialogUtil;
+import com.cyou.sticker.business.camera.util.DialogHelper;
+import com.cyou.sticker.util.UIUtils;
+
 public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener, Handler.Callback {
     public Context mContext = null;
     public Handler mHandler = null;
@@ -19,6 +23,10 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     /**
      * logic
      */
+    /**
+     * 对话框帮助类
+     */
+    public DialogHelper mDialogHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 //		VMRuntime.getRuntime().setTargetHeapUtilization(TARGET_HEAP_UTILIZATION);
         mContext = this;
         mHandler = new Handler(this);
+        mDialogHelper = new DialogHelper(this);
 //        getExtras();
 //        findViews();
 //        bindEvent();
@@ -81,4 +90,31 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
      */
     public abstract void bindEvent();
 
+
+    /**
+     * TOAST
+     *
+     * @param msg
+     *            消息
+     * @param period
+     *            时长
+     */
+    public void toast(String msg, int period) {
+        UIUtils.toast(mContext, msg, period);
+    }
+
+    /**
+     * 显示进度对话框
+     *
+     * @param msg
+     *            消息
+     */
+    public void showProgressDialog(String msg) {
+        DialogUtil.createProgressDialog(mContext);
+    }
+
+
+    public void dismissProgressDialog() {
+        mDialogHelper.dismissProgressDialog();
+    }
 }

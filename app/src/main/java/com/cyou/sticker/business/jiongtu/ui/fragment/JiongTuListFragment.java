@@ -221,7 +221,6 @@ public class JiongTuListFragment extends BaseFragment {
         if (albumList != null || albumList.size() != 0) {
             binding.swipeContainer1.setLoadEnable(true);
         }
-
     }
 
     private void onLoadSucc(String content) {

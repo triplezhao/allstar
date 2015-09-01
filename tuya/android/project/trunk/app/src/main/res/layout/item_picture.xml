@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginTop="4dp"
-    app:cardBackgroundColor="#FFF"
-    app:cardCornerRadius="2dp"
-    app:cardPreventCornerOverlap="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/pictureLayout"
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="bean"
+            type="com.cyou.sticker.business.camera.data.bean.FeedItem" />
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        app:cardBackgroundColor="#FFF"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/picture"
+        <RelativeLayout
+            android:id="@+id/pictureLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/def_gray_small"
-            android:scaleType="centerInside"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content">
 
-</android.support.v7.widget.CardView>
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/def_gray_small" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

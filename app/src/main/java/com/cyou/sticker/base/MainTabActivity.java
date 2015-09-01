@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.cyou.sticker.R;
 import com.cyou.sticker.business.a.ui.act.AActivity;
 import com.cyou.sticker.business.a.ui.act.BActivity;
+import com.cyou.sticker.business.camera.ui.act.MainActivity;
 import com.cyou.sticker.business.jiongtu.ui.act.JiongtuActivity;
 
 public class MainTabActivity extends BaseTabHostActivity {
@@ -29,7 +30,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_home);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), JiongtuActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), MainActivity.class));
                 break;
 
             case 1:
@@ -37,7 +38,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_explore);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), JiongtuActivity.class));
                 break;
             case 2:
 
@@ -52,7 +53,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_contact);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), BActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), AActivity.class));
                 break;
             case 4:
 

@@ -77,7 +77,7 @@ public class NormalEmptyView extends RelativeLayout {
                 iv_empty_nocontent.setVisibility(View.VISIBLE);
                 pb_empty_fail.setVisibility(View.GONE);
                 pb_empty_loading.setVisibility(View.GONE);
-                setClickable(false);
+                setClickable(true);
                 break;
             case EMPTY_TYPE_GONE:
                 this.setVisibility(View.GONE);

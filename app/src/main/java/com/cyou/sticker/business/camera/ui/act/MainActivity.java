@@ -16,6 +16,7 @@ import com.cyou.sticker.business.camera.ui.viewbinder.TagViewBinder;
 import com.cyou.sticker.business.camera.util.AppConstants;
 import com.cyou.sticker.business.camera.util.CameraManager;
 import com.cyou.sticker.databinding.ActivityMainCameraBinding;
+import com.cyou.sticker.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,6 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         binding.fab.setOnClickListener(this);
 
-
         mAdapter = new BaseListAdapter(mContext, new TagViewBinder());
         binding.list.setAdapter(mAdapter);
 
@@ -63,16 +63,25 @@ public class MainActivity extends BaseActivity {
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
 
-
         sendRequest2RefreshList();
     }
 
 
     public void sendRequest2RefreshList() {
-        String str = DataUtils.getStringPreferences(getBaseContext(), AppConstants.FEED_INFO);
-        if (StringUtils.isNotEmpty(str)) {
-            onRefreshSucc(str);
-        }
+
+        binding.getRoot().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String str = DataUtils.getStringPreferences(getBaseContext(), AppConstants.FEED_INFO);
+                if (StringUtils.isNotEmpty(str)) {
+                    onRefreshSucc(str);
+                } else {
+                    UIUtils.toast(mContext, "还没有发布过图片");
+                    binding.swipeContainer.showEmptyViewNoContent();
+                }
+            }
+        }, 2000);
+
     }
 
     private void onRefreshSucc(String content) {
@@ -80,7 +89,6 @@ public class MainActivity extends BaseActivity {
         binding.swipeContainer.showSucc();
         mAdapter.setDataList(feedList);
         mAdapter.notifyDataSetChanged();
-        binding.swipeContainer.setRefreshing(false);
     }
 
 
@@ -90,9 +98,10 @@ public class MainActivity extends BaseActivity {
         }
         feedList.add(0, feedItem);
         DataUtils.setStringPreferences(getBaseContext(), AppConstants.FEED_INFO, JSON.toJSONString(feedList));
+
+        binding.swipeContainer.showSucc();
         mAdapter.setDataList(feedList);
         mAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -121,6 +130,10 @@ public class MainActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.fab:
                 CameraManager.getInst().openCamera(mContext);
+                break;
+            case R.id.empty_view:
+                binding.swipeContainer.showProgress();
+                sendRequest2RefreshList();
                 break;
         }
     }

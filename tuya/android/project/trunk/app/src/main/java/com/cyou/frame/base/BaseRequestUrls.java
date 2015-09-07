@@ -1,4 +1,4 @@
-package com.cyou.sticker.base;
+package com.cyou.frame.base;
 
 /**
  * 这里通常放置一些常量

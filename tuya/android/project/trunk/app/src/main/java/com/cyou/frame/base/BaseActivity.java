@@ -1,4 +1,4 @@
-package com.cyou.sticker.base;
+package com.cyou.frame.base;
 
 
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.cyou.model.library.view.dialog.DialogUtil;
-import com.cyou.sticker.business.camera.util.DialogHelper;
-import com.cyou.sticker.util.UIUtils;
+import com.cyou.sticker.camera.util.DialogHelper;
+import com.cyou.frame.util.UIUtils;
 
 public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener, Handler.Callback {
     public Context mContext = null;

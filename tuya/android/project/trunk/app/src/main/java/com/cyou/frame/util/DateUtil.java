@@ -1,4 +1,4 @@
-package com.cyou.sticker.util;
+package com.cyou.frame.util;
 
 import java.text.ParseException;
 import java.text.ParsePosition;

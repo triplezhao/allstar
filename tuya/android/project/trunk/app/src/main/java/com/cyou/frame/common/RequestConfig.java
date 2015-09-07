@@ -1,12 +1,12 @@
-package com.cyou.sticker.common;
+package com.cyou.frame.common;
 
 import android.databinding.tool.util.L;
 import android.text.TextUtils;
 
 import com.cyou.model.library.util.encrypt.PrivateUtil;
 import com.cyou.model.library.util.encrypt.SecurityUtil;
-import com.cyou.sticker.app.MainApplication;
-import com.cyou.sticker.util.PhoneUtils;
+import com.cyou.frame.app.MainApplication;
+import com.cyou.frame.util.PhoneUtils;
 import com.loopj.android.http.AsyncHttpClient;
 
 /**

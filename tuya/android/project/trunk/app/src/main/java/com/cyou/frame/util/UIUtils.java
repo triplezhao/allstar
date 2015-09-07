@@ -1,4 +1,4 @@
-package com.cyou.sticker.util;
+package com.cyou.frame.util;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,7 +14,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.cyou.sticker.R;
-import com.cyou.sticker.app.MainApplication;
+import com.cyou.frame.app.MainApplication;
 
 import org.apache.http.client.HttpResponseException;
 

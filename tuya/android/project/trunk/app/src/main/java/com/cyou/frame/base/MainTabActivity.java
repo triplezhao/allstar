@@ -1,4 +1,4 @@
-package com.cyou.sticker.base;
+package com.cyou.frame.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.cyou.sticker.R;
-import com.cyou.sticker.business.a.ui.act.AActivity;
-import com.cyou.sticker.business.a.ui.act.BActivity;
-import com.cyou.sticker.business.camera.ui.act.MainActivity;
-import com.cyou.sticker.business.jiongtu.ui.act.JiongtuActivity;
+import com.cyou.sticker.a.ui.act.AActivity;
+import com.cyou.sticker.a.ui.act.BActivity;
+import com.cyou.sticker.camera.ui.act.MainActivity;
+import com.cyou.sticker.jiongtu.ui.act.JiongtuActivity;
 
 public class MainTabActivity extends BaseTabHostActivity {
 

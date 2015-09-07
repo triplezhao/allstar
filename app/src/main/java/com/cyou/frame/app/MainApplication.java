@@ -1,4 +1,4 @@
-package com.cyou.sticker.app;
+package com.cyou.frame.app;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -7,8 +7,8 @@ import android.util.DisplayMetrics;
 
 import com.cyou.model.library.net.RequestHttpClient;
 import com.cyou.model.library.net.RequestManager;
-import com.cyou.sticker.util.ImageLoaderUtil;
-import com.cyou.sticker.util.PhoneUtils;
+import com.cyou.frame.util.ImageLoaderUtil;
+import com.cyou.frame.util.PhoneUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.OkHttpDownloader;

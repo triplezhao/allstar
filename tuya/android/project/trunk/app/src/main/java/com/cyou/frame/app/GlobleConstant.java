@@ -1,4 +1,4 @@
-package com.cyou.sticker.app;
+package com.cyou.frame.app;
 
 /**
  * Created by ztw on 2015/6/30.

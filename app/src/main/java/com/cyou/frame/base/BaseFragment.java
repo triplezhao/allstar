@@ -1,4 +1,4 @@
-package com.cyou.sticker.base;
+package com.cyou.frame.base;
 
 import android.content.Context;
 import android.os.Bundle;

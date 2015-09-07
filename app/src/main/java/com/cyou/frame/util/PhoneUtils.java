@@ -1,4 +1,4 @@
-package com.cyou.sticker.util;
+package com.cyou.frame.util;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -19,7 +19,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.cyou.model.library.util.L;
-import com.cyou.sticker.app.MainApplication;
+import com.cyou.frame.app.MainApplication;
 
 import java.text.DateFormat;
 import java.text.ParseException;

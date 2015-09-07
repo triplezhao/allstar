@@ -1,4 +1,4 @@
-package com.cyou.sticker.common;
+package com.cyou.frame.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.cyou.sticker.business.jiongtu.data.bean.JiongtuAlbum;
-import com.cyou.sticker.business.jiongtu.ui.act.JiongTuDetailActivity;
+import com.cyou.sticker.jiongtu.data.bean.JiongtuAlbum;
+import com.cyou.sticker.jiongtu.ui.act.JiongTuDetailActivity;
 
 
 /**

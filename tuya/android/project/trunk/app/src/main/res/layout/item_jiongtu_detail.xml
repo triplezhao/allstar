@@ -5,7 +5,7 @@
 
         <variable
             name="bean"
-            type="com.cyou.sticker.business.jiongtu.data.bean.JiongtuPhoto" />
+            type="com.cyou.sticker.jiongtu.data.bean.JiongtuPhoto" />
     </data>
 
     <LinearLayout

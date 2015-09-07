@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <com.cyou.sticker.business.camera.customview.CommonTitleBar
+    <com.cyou.sticker.camera.customview.CommonTitleBar
         android:id="@+id/title_layout"
         style="@style/head_default"
         app:leftBtnTxt="取消"

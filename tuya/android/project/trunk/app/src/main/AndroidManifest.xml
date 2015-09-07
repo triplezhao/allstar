@@ -47,7 +47,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
 
 
     <uses-feature android:name="android.hardware.camera" />
@@ -56,13 +55,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".app.MainApplication"
+        android:name="com.cyou.frame.app.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppTheme">
         <activity
-            android:name=".base.MainTabActivity"
+            android:name="com.cyou.frame.base.MainTabActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,21 +69,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".business.a.ui.act.AActivity"></activity>
-        <activity android:name=".business.a.ui.act.BActivity"></activity>
-        <activity android:name=".business.a.ui.act.ADetailActivity"></activity>
-        <activity android:name=".business.jiongtu.ui.act.JiongtuActivity"></activity>
+        <activity android:name=".a.ui.act.AActivity"></activity>
+        <activity android:name=".a.ui.act.BActivity"></activity>
+        <activity android:name=".a.ui.act.ADetailActivity"></activity>
+        <activity android:name=".jiongtu.ui.act.JiongtuActivity"></activity>
         <activity
-            android:name=".business.jiongtu.ui.act.JiongTuDetailActivity"
+            android:name=".jiongtu.ui.act.JiongTuDetailActivity"
             android:hardwareAccelerated="true"></activity>
 
         <!--相机贴纸相关业务-->
-        <activity android:name=".business.camera.ui.act.AlbumActivity"></activity>
-        <activity android:name=".business.camera.ui.act.CameraActivity"></activity>
-        <activity android:name=".business.camera.ui.act.CropPhotoActivity"></activity>
-        <activity android:name=".business.camera.ui.act.EditTextActivity"></activity>
-        <activity android:name=".business.camera.ui.act.MainActivity"></activity>
-        <activity android:name=".business.camera.ui.act.PhotoProcessActivity"></activity>
+        <activity android:name=".camera.ui.act.AlbumActivity"></activity>
+        <activity android:name=".camera.ui.act.CameraActivity"></activity>
+        <activity android:name=".camera.ui.act.CropPhotoActivity"></activity>
+        <activity android:name=".camera.ui.act.EditTextActivity"></activity>
+        <activity android:name=".camera.ui.act.MainActivity"></activity>
+        <activity android:name=".camera.ui.act.PhotoProcessActivity"></activity>
 
         <provider
             android:name="com.cyou.model.library.net.RequestCacheProvider"

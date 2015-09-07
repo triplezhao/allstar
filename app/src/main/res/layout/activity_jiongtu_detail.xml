@@ -21,7 +21,7 @@
 
         <variable
             name="bean"
-            type="com.cyou.sticker.business.jiongtu.data.bean.JiongtuAlbum" />
+            type="com.cyou.sticker.jiongtu.data.bean.JiongtuAlbum" />
     </data>
 
     <RelativeLayout

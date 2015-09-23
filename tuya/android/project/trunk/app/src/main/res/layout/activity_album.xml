@@ -5,13 +5,13 @@
     android:layout_height="fill_parent"
     android:background="#ffffff" >
 
-    <com.cyou.sticker.camera.customview.CommonTitleBar
+    <com.potato.sticker.camera.customview.CommonTitleBar
         android:id="@+id/title_layout"
         style="@style/head_default"
         app:leftBtnIcon="@drawable/icon_back_arrow_selector"
         app:titleTxt="我的图库" />
 
-    <com.cyou.sticker.camera.customview.PagerSlidingTabStrip
+    <com.potato.sticker.camera.customview.PagerSlidingTabStrip
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
         android:layout_height="48dp"

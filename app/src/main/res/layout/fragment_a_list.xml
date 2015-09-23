@@ -18,7 +18,7 @@
     <data>
         <variable name="test" type="String" />
     </data>
-    <com.cyou.model.library.view.refresh.RefreshListView
+    <com.potato.library.view.refresh.RefreshListView
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,5 +33,5 @@
             android:dividerHeight="0px"
             android:listSelector="@android:color/transparent"
             android:scrollbars="none"  />
-    </com.cyou.model.library.view.refresh.RefreshListView>
+    </com.potato.library.view.refresh.RefreshListView>
 </layout>

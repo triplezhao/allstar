@@ -5,7 +5,7 @@
 
         <variable
             name="bean"
-            type="com.cyou.sticker.jiongtu.data.bean.JiongtuPhoto" />
+            type="com.potato.sticker.jiongtu.data.bean.JiongtuPhoto" />
     </data>
 
     <LinearLayout
@@ -27,13 +27,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-                <com.cyou.model.library.view.AutoChangeImageView
+                <com.potato.library.view.AutoChangeImageView
                     android:id="@+id/iv_pic"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
                     >
-                </com.cyou.model.library.view.AutoChangeImageView>
+                </com.potato.library.view.AutoChangeImageView>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

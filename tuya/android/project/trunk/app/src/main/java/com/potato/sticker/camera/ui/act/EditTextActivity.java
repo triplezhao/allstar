@@ -75,25 +75,6 @@ public class EditTextActivity extends BaseActivity {
         contentView.addTextChangedListener(mTextWatcher);
     }
 
-    @Override
-    public void getExtras() {
-
-    }
-
-    @Override
-    public void findViews() {
-
-    }
-
-    @Override
-    public void bindData() {
-
-    }
-
-    @Override
-    public void bindEvent() {
-
-    }
 
     TextWatcher mTextWatcher = new TextWatcher() {
                                  private int editStart;

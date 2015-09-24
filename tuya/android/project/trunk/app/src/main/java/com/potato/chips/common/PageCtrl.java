@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
-import com.potato.sticker.jiongtu.data.bean.JiongtuAlbum;
-import com.potato.sticker.jiongtu.ui.act.JiongTuDetailActivity;
+import com.potato.library.util.L;
 
 
 /**
@@ -72,23 +72,14 @@ public class PageCtrl {
      *
      * @Title: start2WebViewActivity
      * @Description: 跳转到webview界面
-     * @param: @param address 访问的url,可以为null
-     * @param: @param cate 从哪个界面进入的,目前有CATE_PUSH,CATE_DEFAULT_ACTIVITY,CATE_AD,CATE_APPOINT_ACTIVITY,CATE_SPLASH_AD几种方式
-     * @param: @param title   webview的title,可以为null
-     * @return: void    返回类型
      * @date: 2014-8-11 下午4:06:19
      */
-   /* public static void start2WebViewActivity(Context mContext,String address,String cate,String title){
-        L.d("dongxt", "start2WebViewActivity address = "+address);
+    public static void start2WebViewActivity(Context mContext,String address){
+        L.d("dongxt", "start2WebViewActivity address = " + address);
         if(TextUtils.isEmpty(address))return;
         if (address.contains("http")) {
             Intent intent = new Intent(mContext, WebViewActivity.class);
-            if (address.contains("np=1") || address.contains("np=2")||address.contains("np=100")) {
-                address = RequestBuilder.getLoginShowUserInfo(mContext, address);
-            }
-            intent.putExtra(WebViewActivity.CATEGORY, cate);
             intent.putExtra(WebViewActivity.URL_ADDRESS, address);
-            intent.putExtra(WebViewActivity.TITLE, title);
             mContext.startActivity(intent);
         } else {
             // schema 处理
@@ -96,7 +87,7 @@ public class PageCtrl {
                 start2SchemaPage(mContext, address);
             }
         }
-    }*/
+    }
 
     /**
      *
@@ -111,14 +102,6 @@ public class PageCtrl {
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
-    }
-    /*
-    EXTRA_ALBUM
-    */
-    public static void startJiongTuDetailActivity(Context context, JiongtuAlbum album){
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(JiongTuDetailActivity.EXTRA_ALBUM, album);
-        start(context,JiongTuDetailActivity.class,false,"",bundle);
     }
 
 }

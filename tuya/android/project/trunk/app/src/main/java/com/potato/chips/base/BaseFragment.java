@@ -23,10 +23,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         super.onCreate(savedInstanceState);
         mContext = getActivity();
         mHandler = new Handler(this);
-//        getExtras();
-//        findViews();
-//        bindEvent();
-//        bindData();
     }
 
     @Override
@@ -51,24 +47,5 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    /**
-     * 获取页面参数
-     */
-    public abstract void getExtras();
-
-    /**
-     * 初始化界面
-     */
-    public abstract void findViews();
-
-    /**
-     * 绑定事件.
-     */
-    public abstract void bindData();
-
-    /**
-     * 绑定数据. UI上的操作事件,更新数据。
-     */
-    public abstract void bindEvent();
 
 }

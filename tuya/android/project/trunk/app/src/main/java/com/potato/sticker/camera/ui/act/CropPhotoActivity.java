@@ -100,7 +100,7 @@ public class CropPhotoActivity extends CameraBaseActivity {
         findViewById(R.id.picked).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropPhotoActivity.this.showProgressDialog("图片处理中...");
+                CropPhotoActivity.this.showProgressDialog();
                 new Thread() {
                     public void run() {
                         if (btnCropType.isSelected()) {
@@ -110,8 +110,6 @@ public class CropPhotoActivity extends CameraBaseActivity {
                         }
                         dismissProgressDialog();
                     }
-
-                    ;
                 }.start();
             }
         });

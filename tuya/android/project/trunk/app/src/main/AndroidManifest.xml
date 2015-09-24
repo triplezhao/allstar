@@ -69,13 +69,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.potato.sticker.a.ui.act.AActivity"></activity>
-        <activity android:name="com.potato.sticker.a.ui.act.BActivity"></activity>
-        <activity android:name="com.potato.sticker.a.ui.act.ADetailActivity"></activity>
-        <activity android:name="com.potato.sticker.jiongtu.ui.act.JiongtuActivity"></activity>
-        <activity
-            android:name="com.potato.sticker.jiongtu.ui.act.JiongTuDetailActivity"
-            android:hardwareAccelerated="true"></activity>
 
         <!--相机贴纸相关业务-->
         <activity android:name="com.potato.sticker.camera.ui.act.AlbumActivity"></activity>

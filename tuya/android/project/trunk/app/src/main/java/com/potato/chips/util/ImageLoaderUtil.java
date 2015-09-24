@@ -4,8 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.potato.sticker.R;
-import com.potato.chips.app.MainApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.ext.LruDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -15,6 +13,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.potato.chips.app.MainApplication;
+import com.potato.sticker.R;
 
 import java.io.File;
 import java.io.IOException;

@@ -420,7 +420,7 @@ public class CameraActivity extends CameraBaseActivity {
         private byte[] data;
 
         protected void onPreExecute() {
-            showProgressDialog("处理中");
+            showProgressDialog();
         }
 
         ;

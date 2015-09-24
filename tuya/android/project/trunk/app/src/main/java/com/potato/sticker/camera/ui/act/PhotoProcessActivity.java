@@ -1,6 +1,5 @@
 package com.potato.sticker.camera.ui.act;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,6 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.imagezoom.ImageViewTouch;
+import com.potato.library.view.dialog.DialogUtil;
+import com.potato.sticker.R;
 import com.potato.sticker.camera.common.FileUtils;
 import com.potato.sticker.camera.common.ImageUtils;
 import com.potato.sticker.camera.common.StringUtils;
@@ -25,7 +27,6 @@ import com.potato.sticker.camera.customview.LabelSelector;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.customview.MyHighlightView;
 import com.potato.sticker.camera.customview.MyImageViewDrawableOverlay;
-import com.potato.sticker.R;
 import com.potato.sticker.camera.data.bean.Addon;
 import com.potato.sticker.camera.data.bean.FeedItem;
 import com.potato.sticker.camera.data.bean.TagItem;
@@ -38,7 +39,6 @@ import com.potato.sticker.camera.util.EffectService;
 import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.camera.util.FilterEffect;
 import com.potato.sticker.camera.util.GPUImageFilterTools;
-import com.imagezoom.ImageViewTouch;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -270,7 +270,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showProgressDialog("图片处理中...");
+            showProgressDialog();
         }
 
         @Override
@@ -342,13 +342,19 @@ public class PhotoProcessActivity extends CameraBaseActivity {
             if (label.equals(emptyLabelView)) {
                 return;
             }
-            mDialogHelper.alert("温馨提示", "是否需要删除该标签！", "确定", new DialogInterface.OnClickListener() {
+
+            DialogUtil.createCommonDialog(mContext, new DialogUtil.CustomDialogCallBack() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void OkClick() {
                     EffectUtil.removeLabelEditable(mImageView, drawArea, label);
                     labels.remove(label);
                 }
-            }, "取消", null);
+
+                @Override
+                public void CancelClick() {
+
+                }
+            },"温馨提示", "是否需要删除该标签！", "确定","取消");
         }
     };
 
@@ -422,7 +428,16 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         labelSelector.hide();
         emptyLabelView.setVisibility(View.INVISIBLE);
         if (labels.size() >= 5) {
-            mDialogHelper.alert("温馨提示", "您只能添加5个标签！", "确定", null, null, null, true);
+            DialogUtil.createCommonDialog(mContext, new DialogUtil.CustomDialogCallBack() {
+                @Override
+                public void OkClick() {
+                }
+
+                @Override
+                public void CancelClick() {
+
+                }
+            }, "温馨提示", "您只能添加5个标签！", "确定", "取消");
         } else {
             int left = emptyLabelView.getLeft();
             int top = emptyLabelView.getTop();

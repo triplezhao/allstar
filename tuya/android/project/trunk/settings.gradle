@@ -1,1 +1,2 @@
-include ':app', 'library', ':Gpu-Image', ':ImageViewTouch'
+include ':app', ':Gpu-Image', ':ImageViewTouch',':librarygithub'
+project(':librarygithub').projectDir = new File('../potato_framework/library')

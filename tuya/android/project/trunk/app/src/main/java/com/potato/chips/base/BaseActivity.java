@@ -1,20 +1,25 @@
 package com.potato.chips.base;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-import com.potato.library.view.dialog.DialogUtil;
-import com.potato.sticker.camera.util.DialogHelper;
 import com.potato.chips.util.UIUtils;
+import com.potato.library.view.dialog.DialogUtil;
 
-public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener, Handler.Callback {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, Handler.Callback, ActionMode.Callback {
     public Context mContext = null;
     public Handler mHandler = null;
+
+    Dialog mDialog= null;
 
     /** extrars */
     /** views */
@@ -23,10 +28,6 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     /**
      * logic
      */
-    /**
-     * 对话框帮助类
-     */
-    public DialogHelper mDialogHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,6 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 //		VMRuntime.getRuntime().setTargetHeapUtilization(TARGET_HEAP_UTILIZATION);
         mContext = this;
         mHandler = new Handler(this);
-        mDialogHelper = new DialogHelper(this);
-//        getExtras();
-//        findViews();
-//        bindEvent();
-//        bindData();
     }
 
     @Override
@@ -70,51 +66,42 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         }
     }
 
-    /**
-     * 获取页面参数
-     */
-    public abstract void getExtras();
-
-    /**
-     * 初始化界面
-     */
-    public abstract void findViews();
-
-    /**
-     * 绑定事件.
-     */
-    public abstract void bindData();
-
-    /**
-     * 绑定数据. UI上的操作事件,更新数据。
-     */
-    public abstract void bindEvent();
-
-
-    /**
-     * TOAST
-     *
-     * @param msg
-     *            消息
-     * @param period
-     *            时长
-     */
-    public void toast(String msg, int period) {
-        UIUtils.toast(mContext, msg, period);
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        return false;
     }
 
-    /**
-     * 显示进度对话框
-     *
-     * @param msg
-     *            消息
-     */
-    public void showProgressDialog(String msg) {
-        DialogUtil.createProgressDialog(mContext);
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+        return false;
     }
 
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        return false;
+    }
 
-    public void dismissProgressDialog() {
-        mDialogHelper.dismissProgressDialog();
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+
+    }
+
+    public void dismissProgressDialog(){
+        if(mDialog!=null&&mDialog.isShowing()){
+            mDialog.dismiss();
+            mDialog=null;
+        }
+    }
+    public void showProgressDialog(){
+        if(mDialog!=null&&mDialog.isShowing()){
+            mDialog.dismiss();
+            mDialog=null;
+        }
+        mDialog = DialogUtil.createProgressDialog(mContext);
+        mDialog.show();
+    }
+
+    public void toast(String text,int time){
+        UIUtils.toast(mContext,text,time);
     }
 }

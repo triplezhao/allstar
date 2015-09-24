@@ -6,17 +6,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
-import com.potato.sticker.R;
 import com.potato.chips.base.BaseActivity;
-import com.potato.chips.base.BaseListAdapter;
+import com.potato.chips.util.UIUtils;
+import com.potato.sticker.R;
 import com.potato.sticker.camera.common.DataUtils;
 import com.potato.sticker.camera.common.StringUtils;
 import com.potato.sticker.camera.data.bean.FeedItem;
-import com.potato.sticker.camera.ui.viewbinder.TagViewBinder;
+import com.potato.sticker.camera.ui.adapter.TagAdapter;
 import com.potato.sticker.camera.util.AppConstants;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityMainCameraBinding;
-import com.potato.chips.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ import de.greenrobot.event.EventBus;
 public class MainActivity extends BaseActivity {
 
     private List<FeedItem> feedList;
-    private BaseListAdapter mAdapter;
+    private TagAdapter mAdapter;
 
     private ActivityMainCameraBinding binding;
 
@@ -44,7 +43,7 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         binding.fab.setOnClickListener(this);
 
-        mAdapter = new BaseListAdapter(mContext, new TagViewBinder());
+        mAdapter = new TagAdapter(mContext);
         binding.list.setAdapter(mAdapter);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
@@ -110,20 +109,6 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void getExtras() {
-
-    }
-
-    @Override
-    public void findViews() {
-
-    }
-
-    @Override
-    public void bindData() {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -138,9 +123,5 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void bindEvent() {
-
-    }
 
 }

@@ -1,5 +1,9 @@
 package com.potato.chips.util;
 
+import android.content.Context;
+import android.text.format.DateUtils;
+import android.text.format.Time;
+
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -10,9 +14,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import android.content.Context;
-import android.text.format.DateUtils;
-import android.text.format.Time;
 public class DateUtil {
 
 	    // 格式：年－月－日 小时：分钟：秒
@@ -188,7 +189,7 @@ public class DateUtil {
 		 * 
 		 * @param date
 		 * @return
-		 * @throws java.text.ParseException
+		 * @throws ParseException
 		 */
 		public static long parseStringToDate(String date) throws ParseException {
 			Date result = null;

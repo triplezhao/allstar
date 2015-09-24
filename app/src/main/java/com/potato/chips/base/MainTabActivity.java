@@ -6,10 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.potato.sticker.R;
-import com.potato.sticker.a.ui.act.AActivity;
-import com.potato.sticker.a.ui.act.BActivity;
 import com.potato.sticker.camera.ui.act.MainActivity;
-import com.potato.sticker.jiongtu.ui.act.JiongtuActivity;
+
 
 public class MainTabActivity extends BaseTabHostActivity {
 
@@ -38,7 +36,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_explore);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), JiongtuActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), MainActivity.class));
                 break;
             case 2:
 
@@ -46,21 +44,21 @@ public class MainTabActivity extends BaseTabHostActivity {
 
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), MainActivity.class));
                 break;
             case 3:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_contact);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), MainActivity.class));
                 break;
             case 4:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_profile);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), BActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), MainActivity.class));
                 break;
         }
 

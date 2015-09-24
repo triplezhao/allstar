@@ -1,10 +1,17 @@
-<!--为了使header下面带有阴影，所以页面整体布局如下结构--><!--头部布局--><!--页面内容布局--><!--toolbar下面的阴影-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<data>
+
+    <variable
+        name="test"
+        type="String" />
+</data>
+
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <RelativeLayout
         android:id="@+id/rl_header"
@@ -17,24 +24,25 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_centerInParent="true"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="FitTime"
+            android:text="Shop"
             android:textColor="@color/potato_white"
-            android:textSize="@dimen/mshow_txt_max" />
+            android:textSize="@dimen/txt_max" />
+
 
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/iv_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="10dip"
-            android:src="@drawable/ic_add_white_24dp" />
+            android:src="@drawable/icon_close" />
+
+
     </RelativeLayout>
 
     <FrameLayout
@@ -43,17 +51,33 @@
         android:layout_height="match_parent"
         android:layout_below="@id/rl_header">
 
-        <View
-            android:id="@+id/your_content"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp" />
+            android:orientation="vertical">
+
+            <com.potato.library.view.NormalEmptyView
+                android:id="@+id/empty_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            </com.potato.library.view.NormalEmptyView>
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/app_bg"
+                android:fadingEdge="none"
+                android:scrollbarStyle="outsideOverlay" />
+
+        </LinearLayout>
     </FrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@id/toolbar"
-        android:background="@drawable/bottom_shadow" />
+        android:layout_below="@id/rl_header"
+        android:background="@drawable/bottom_shadow_bg" />
 </RelativeLayout>
-
+</layout>

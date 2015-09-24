@@ -31,21 +31,21 @@ public class App {
 
     public float getScreenDensity() {
         if (this.displayMetrics == null) {
-            setDisplayMetrics(MainApplication.displayMetrics);
+            setDisplayMetrics(MainApplication.displayMetrices);
         }
         return this.displayMetrics.density;
     }
 
     public int getScreenHeight() {
         if (this.displayMetrics == null) {
-            setDisplayMetrics(MainApplication.displayMetrics);
+            setDisplayMetrics(MainApplication.displayMetrices);
         }
         return this.displayMetrics.heightPixels;
     }
 
     public int getScreenWidth() {
         if (this.displayMetrics == null) {
-            setDisplayMetrics(MainApplication.displayMetrics);
+            setDisplayMetrics(MainApplication.displayMetrices);
         }
         return this.displayMetrics.widthPixels;
     }

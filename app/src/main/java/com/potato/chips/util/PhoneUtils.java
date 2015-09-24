@@ -18,8 +18,8 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.potato.library.util.L;
 import com.potato.chips.app.MainApplication;
+import com.potato.library.util.L;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -203,7 +203,7 @@ public class PhoneUtils {
         try {
             versionName = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (NameNotFoundException e) {
             L.e(TAG, e.getMessage());
         }
         return versionName;

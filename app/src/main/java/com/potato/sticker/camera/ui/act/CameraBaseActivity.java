@@ -20,23 +20,4 @@ public class CameraBaseActivity extends BaseActivity {
         CameraManager.getInst().removeActivity(this);
     }
 
-    @Override
-    public void getExtras() {
-
-    }
-
-    @Override
-    public void findViews() {
-
-    }
-
-    @Override
-    public void bindData() {
-
-    }
-
-    @Override
-    public void bindEvent() {
-
-    }
 }

@@ -72,6 +72,7 @@
 
         <!--相机贴纸相关业务-->
         <activity android:name="com.potato.sticker.camera.ui.act.AlbumActivity"></activity>
+        <activity android:name="com.potato.sticker.camera.ui.act.CameraAlbumActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.CameraActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.CropPhotoActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.EditTextActivity"></activity>

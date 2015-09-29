@@ -12,7 +12,7 @@ import com.potato.sticker.R;
 import com.potato.sticker.camera.common.DataUtils;
 import com.potato.sticker.camera.common.StringUtils;
 import com.potato.sticker.camera.data.bean.FeedItem;
-import com.potato.sticker.camera.ui.adapter.TagAdapter;
+import com.potato.sticker.camera.ui.adapter.TopicAdapter;
 import com.potato.sticker.camera.util.AppConstants;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityMainCameraBinding;
@@ -31,7 +31,7 @@ import de.greenrobot.event.EventBus;
 public class MainActivity extends BaseActivity {
 
     private List<FeedItem> feedList;
-    private TagAdapter mAdapter;
+    private TopicAdapter mAdapter;
 
     private ActivityMainCameraBinding binding;
 
@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         binding.fab.setOnClickListener(this);
 
-        mAdapter = new TagAdapter(mContext);
+        mAdapter = new TopicAdapter(mContext);
         binding.list.setAdapter(mAdapter);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,

@@ -43,10 +43,20 @@ public class ImageLoaderUtil {
         optionsBuider.showImageOnFail(imageRes); // resource or drawable
         ImageLoader.getInstance().displayImage(url,view,optionsBuider.build());
     }
-    public static void displayImage(String url,ImageView view,int imageRes,int w,int h){
+    public static void displayImage(String url,ImageView view,DisplayImageOptions.Builder optionsBuider){
         //改变图片宽高还没实现。。。等195版本的UIL
         //只能在config里设置全局的最大宽高
-        displayImage(url, view, imageRes);
+        ImageLoader.getInstance().displayImage(url, view, optionsBuider.build());
+    }
+    public static void displayImage(String url,ImageView view,int imageRes,ImageScaleType scaleType){
+        //改变图片宽高还没实现。。。等195版本的UIL
+        //只能在config里设置全局的最大宽高
+        DisplayImageOptions.Builder optionsBuider = getDefOptionsBuilder();
+        optionsBuider.showImageOnLoading(imageRes); // resource or drawable
+        optionsBuider.showImageForEmptyUri(imageRes); // resource or drawable
+        optionsBuider.showImageOnFail(imageRes); // resource or drawable
+        optionsBuider.imageScaleType(scaleType);
+        ImageLoader.getInstance().displayImage(url,view,optionsBuider.build());
     }
     public static void displayImage(String url,ImageView view,DisplayImageOptions options){
         ImageLoader.getInstance().displayImage(url, view, options);
@@ -57,7 +67,11 @@ public class ImageLoaderUtil {
 
 
 
-
+   /* EXACTLY :图像将完全按比例缩小的目标大小
+    EXACTLY_STRETCHED:图片会缩放到目标大小完全
+    IN_SAMPLE_INT:图像将被二次采样的整数倍
+    IN_SAMPLE_POWER_OF_2:图片将降低2倍，直到下一减少步骤，使图像更小的目标大小
+    NONE:图片不会调整*/
     public static DisplayImageOptions.Builder getDefOptionsBuilder(){
         // This configuration tuning is custom. You can tune every option, you may tune some of them,
         // or you can create default configuration by
@@ -87,6 +101,7 @@ public class ImageLoaderUtil {
 //                })
 //                .extraForDownloader(null)
 //                .considerExifParams(false) // default
+//                .imageScaleType(ImageScaleType.NONE) // default
                 .imageScaleType(ImageScaleType.NONE) // default
 //                .bitmapConfig(Bitmap.Config.ARGB_8888) // default
 //                .decodingOptions(new BitmapFactory.Options());

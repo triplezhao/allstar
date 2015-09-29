@@ -219,7 +219,7 @@ public class CameraActivity extends CameraBaseActivity {
         {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CameraActivity.this, AlbumActivity.class));
+                startActivity(new Intent(CameraActivity.this, CameraAlbumActivity.class));
             }
         });
         //返回按钮

@@ -26,7 +26,6 @@ public class GalleryAdapter extends BaseAdapter {
     public static GalleryHolder holder;
 
     /**
-     * @param albumActivity
      * @param values
      */
     public GalleryAdapter(Context context, List<PhotoItem> values) {

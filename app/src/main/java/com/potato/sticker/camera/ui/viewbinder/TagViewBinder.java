@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.potato.sticker.R;
 import com.potato.chips.base.BaseViewBinder;
-import com.potato.chips.base.BaseViewHolder;
+import com.potato.library.adapter.BaseViewHolder;
+import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.FeedItem;
 import com.potato.sticker.camera.data.bean.TagItem;

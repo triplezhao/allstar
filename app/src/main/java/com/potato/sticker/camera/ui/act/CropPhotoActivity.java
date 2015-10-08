@@ -147,7 +147,7 @@ public class CropPhotoActivity extends CameraBaseActivity {
         try {
             //得到图片宽高比
             double rate = ImageUtils.getImageRadio(getContentResolver(), fileUri);
-            oriBitmap = ImageUtils.decodeBitmapWithOrientationMax(fileUri.getPath(), App.getApp().getScreenWidth(), App.getApp().getScreenHeight());
+            oriBitmap = ImageUtils.decodeBitmapWithOrientationMax(fileUri.getPath(), App.getApp().getScreenWidth()/3, App.getApp().getScreenHeight()/3);
 
             initWidth = oriBitmap.getWidth();
             initHeight = oriBitmap.getHeight();

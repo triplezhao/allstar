@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.PhoneUtils;
+import com.potato.chips.util.QiniuUtil;
 import com.potato.library.net.RequestHttpClient;
 import com.potato.library.net.RequestManager;
 
@@ -54,7 +55,7 @@ public class MainApplication extends Application {
 //        instence.setUserAgent(PhoneUtils.getDeviceUA(context));
         initPicasso();
         initUIL();
-
+        QiniuUtil.init(context);
     }
 
 

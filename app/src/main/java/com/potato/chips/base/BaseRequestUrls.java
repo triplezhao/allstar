@@ -12,4 +12,8 @@ public class BaseRequestUrls {
 	// //测试地址-新闻、视频等
 	public static String BaseYoukuURL = "https://openapi.youku.com/v2"; // 正式地址-囧图
 
+
+
+	public final static String REMOTE_SERVICE_SERVER = "http://allstar1.sinaapp.com";
+	public final static String QINIU_PIC_DOMAIN = "http://7xn5ru.com1.z0.glb.clouddn.com/";
 }

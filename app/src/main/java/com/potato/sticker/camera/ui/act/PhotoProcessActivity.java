@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.imagezoom.ImageViewTouch;
+import com.potato.chips.util.QiniuUtil;
+import com.potato.library.util.MD5Util;
 import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.common.FileUtils;
@@ -39,6 +41,11 @@ import com.potato.sticker.camera.util.EffectService;
 import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.camera.util.FilterEffect;
 import com.potato.sticker.camera.util.GPUImageFilterTools;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -290,25 +297,46 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         }
 
         @Override
-        protected void onPostExecute(String fileName) {
+        protected void onPostExecute(final String fileName) {
             super.onPostExecute(fileName);
-            dismissProgressDialog();
             if (StringUtils.isEmpty(fileName)) {
+                dismissProgressDialog();
                 return;
             }
+            final String enCodeFileName = MD5Util.md5(fileName);
+            QiniuUtil.uploadManager.put(fileName, enCodeFileName, QiniuUtil.def_token,
+                    new UpCompletionHandler() {
+                        @Override
+                        public void complete(String key, ResponseInfo respInfo,
+                                             JSONObject jsonData) {
 
-            //将照片信息保存至sharedPreference
-            //保存标签信息
-            List<TagItem> tagInfoList = new ArrayList<TagItem>();
-            for (LabelView label : labels) {
-                tagInfoList.add(label.getTagInfo());
-            }
+                            if (respInfo.isOK()) {
+                                try {
+                                    String fileKey = jsonData.getString("key");
+                                    String fileHash = jsonData.getString("hash");
 
-            //将图片信息通过EventBus发送到MainActivity
-            FeedItem feedItem = new FeedItem(tagInfoList, fileName);
-            EventBus.getDefault().post(feedItem);
-            CameraManager.getInst().close();
+                                    dismissProgressDialog();
+
+                                    //将照片信息保存至sharedPreference
+                                    //保存标签信息
+                                    List<TagItem> tagInfoList = new ArrayList<TagItem>();
+                                    for (LabelView label : labels) {
+                                        tagInfoList.add(label.getTagInfo());
+                                    }
+
+                                    //将图片信息通过EventBus发送到MainActivity
+                                    FeedItem feedItem = new FeedItem(tagInfoList, enCodeFileName);
+                                    EventBus.getDefault().post(feedItem);
+                                    CameraManager.getInst().close();
+                                } catch (JSONException e) {
+
+                                }
+
+                            }
+                        }
+                    }, null);
         }
+
     }
 
 
@@ -354,7 +382,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                 public void CancelClick() {
 
                 }
-            },"温馨提示", "是否需要删除该标签！", "确定","取消");
+            }, "温馨提示", "是否需要删除该标签！", "确定", "取消");
         }
     };
 

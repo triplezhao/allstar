@@ -1,5 +1,6 @@
 package com.potato.sticker.camera.ui.act;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,7 +14,10 @@ import com.potato.chips.base.BaseActivity;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.common.ImageUtils;
 import com.potato.sticker.camera.data.bean.Album;
+import com.potato.sticker.camera.data.bean.PhotoItem;
 import com.potato.sticker.camera.ui.fragment.CameraAblumFragment;
+import com.potato.sticker.camera.util.AppConstants;
+import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityAlbumCameraBinding;
 
 import java.util.ArrayList;
@@ -101,4 +105,21 @@ public class CameraAlbumActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode,
+                                    final Intent result) {
+        if (requestCode == AppConstants.REQUEST_PICK && resultCode == RESULT_OK) {
+            CameraManager.getInst().processPhotoItem(
+                    CameraAlbumActivity.this,
+                    new PhotoItem(result.getData().getPath(), System
+                            .currentTimeMillis()));
+        } else if (requestCode == AppConstants.REQUEST_CROP && resultCode == RESULT_OK) {
+            Intent newIntent = new Intent(this, PhotoProcessActivity.class);
+            newIntent.setData(result.getData());
+            startActivity(newIntent);
+        }
+    }
+
+
 }

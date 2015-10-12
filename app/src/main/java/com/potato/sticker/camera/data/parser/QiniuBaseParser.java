@@ -5,24 +5,30 @@ import com.potato.chips.base.BaseParser;
 /**
  * Created by fgh on 2015/10/10.
  */
-public class QiniuBaseParser extends BaseParser{
+public class QiniuBaseParser extends BaseParser {
+    // 错误信息
 
     public QiniuBaseParser(String jsonStr) {
         super(jsonStr);
+
     }
 
     @Override
     public String getCode() {
-        return null;
+        return "0";
     }
 
     @Override
     public String getMsg() {
-        return null;
+        return "cucc";
     }
 
     @Override
     public boolean isSucc() {
-        return true;
+        if (root != null) {
+            return true;
+        }
+        return false;
     }
+
 }

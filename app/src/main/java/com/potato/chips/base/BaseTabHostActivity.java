@@ -14,10 +14,10 @@ public abstract class BaseTabHostActivity extends TabActivity implements OnTabCh
 
 	private TabHost mTabHost;
 	private TabWidget mTabWidget;
-	protected LayoutInflater mLayoutflater;
+	public LayoutInflater mLayoutflater;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		mLayoutflater = getLayoutInflater();
@@ -52,34 +52,34 @@ public abstract class BaseTabHostActivity extends TabActivity implements OnTabCh
 	}
 
 	/** 在初始化界面之前调用 */
-	protected void onPprepare() {
+	public void onPprepare() {
 		// do nothing or you override it
 	}
 
 
-	protected int getTabCount() {
+	public int getTabCount() {
 		return mTabHost.getTabWidget().getTabCount();
 	}
 
 	/** 设置TabItem的图标和标题等*/
-//	abstract protected void setTabItemTextView(TextView textView, int position);
-	abstract protected TabItem getTabItemView(int position);
+//	abstract public void setTabItemTextView(TextView textView, int position);
+	abstract public TabItem getTabItemView(int position);
 
-	abstract protected int getTabItemCount();
+	abstract public int getTabItemCount();
 
-	protected void setCurrentTab(int index) {
+	public void setCurrentTab(int index) {
 		mTabHost.setCurrentTab(index);
 	}
-	protected int getCurrentTab(){
+	public int getCurrentTab(){
 		return mTabHost.getCurrentTab();
 	}
-	protected void focusCurrentTab(int index) {
+	public void focusCurrentTab(int index) {
 		mTabWidget.focusCurrentTab(index);
 	}
 
 
 
-	class TabItem {
+	public class TabItem {
 		private String title;        // tab item title
 		private int icon;            // tab item icon
 		private Intent intent;    // tab item intent

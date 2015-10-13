@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.potato.library.util.L;
+import com.potato.sticker.login.ui.act.LoginActivity;
 
 
 /**
@@ -102,6 +103,11 @@ public class PageCtrl {
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
+    }
+
+    public static void start2LoginAct(Context context){
+//        start(context, LoginActivity.class,false,null,null);
+        startForResult(context,LoginActivity.class, false, null, null,LoginActivity.LOGIN);
     }
 
 }

@@ -12,7 +12,7 @@ public abstract class BaseParser {
     // 错误信息
     public String code = ""; // 失败Code示例100101 返回code组成：1失败/成功 001 模块ID 01方法
     public String msg = ""; // "succ", //失败fail
-    public boolean succ = false; // "succ", //失败fail
+    public boolean succ = true; // "succ", //失败fail
 
     public BaseParser(String jsonStr) {
 

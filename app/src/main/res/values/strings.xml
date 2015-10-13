@@ -36,5 +36,9 @@
   <string name="str_sticker">贴纸</string>
   <string name="str_lvjing">滤镜</string>
   <string name="str_tag">标签</string>
+  <string name="passport_register_account_hint">手机号</string>
+  <string name="str_done">完成</string>
+  <string name="str_input_code">输入验证码</string>
+  <string name="str_get_code">获取验证码</string>
 
 </resources>

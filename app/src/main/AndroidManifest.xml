@@ -61,7 +61,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppTheme">
         <activity
-            android:name="com.potato.chips.base.MainTabActivity"
+            android:name=".main.ui.act.SplashActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,8 +70,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".main.ui.act.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
+
+        <!--登录 注册-->
+        <activity android:name="com.potato.sticker.login.ui.act.LoginActivity"></activity>
+
         <!--相机贴纸相关业务-->
-        <activity android:name="com.potato.sticker.camera.ui.act.AlbumActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.CameraAlbumActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.CameraActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.CropPhotoActivity"></activity>
@@ -79,9 +86,35 @@
         <activity android:name="com.potato.sticker.camera.ui.act.MainActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.PhotoProcessActivity"></activity>
 
+        <!-- shareSDK -->
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- end shareSDK -->
         <provider
             android:name="com.potato.library.net.RequestCacheProvider"
             android:authorities="com.potato.sticker.RequestCacheProvider" />
+        <provider
+            android:name=".main.data.db.UserBeanProvider"
+            android:authorities="com.potato.sticker.main.data.db.UserBeanProvider" />
     </application>
 
 </manifest>

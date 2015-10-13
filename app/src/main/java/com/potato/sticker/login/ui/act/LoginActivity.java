@@ -1,25 +1,25 @@
-package com.potato.sticker.login.ui.activity;
+package com.potato.sticker.login.ui.act;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.potato.chips.base.BaseActivity;
+import com.potato.sticker.R;
 import com.potato.sticker.login.ui.fragment.LoginFragment;
 
 
 public class LoginActivity extends BaseActivity {
-    
+
+    public static final int LOGIN = 5;
     public static boolean isForget_pwd = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isForget_pwd = false;
-        setContentView(R.layout.activity_login_layout);
+        setContentView(R.layout.activity_login);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();

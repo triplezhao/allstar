@@ -1,0 +1,129 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="test"
+            type="String" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_header"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:background="@color/sticker_blue"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="login"
+                android:textColor="@color/potato_white"
+                android:textSize="@dimen/txt_max" />
+
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:onClick="onClick"
+                android:padding="10dip"
+                android:src="@drawable/icon_close" />
+
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dip">
+
+                <EditText
+                    android:id="@+id/register_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:hint="@string/passport_register_account_hint"
+                    android:inputType="number"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <EditText
+                        android:id="@+id/et_code"
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:hint="@string/str_input_code"
+                        android:inputType="number"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/red"
+                        android:textColorHint="@color/white"
+                        android:text="abc"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:text="@string/str_get_code"
+                        android:textColor="@color/sticker_blue"
+                        android:textSize="@dimen/txt_normal_b"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/register_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/selector_bg_orange"
+                    android:paddingLeft="30dip"
+                    android:paddingRight="30dip"
+                    android:text="@string/str_done"
+                    android:textSize="@dimen/txt_max"
+                    android:textColor="@color/potato_white"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/rl_header"
+            android:background="@drawable/bottom_shadow_bg" />
+    </RelativeLayout>
+</layout>

@@ -13,10 +13,12 @@ import com.potato.library.adapter.BaseListAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
-import com.potato.sticker.camera.data.bean.FeedItem;
 import com.potato.sticker.camera.data.bean.TagItem;
-import com.potato.sticker.camera.data.request.QiniuRequestUrls;
 import com.potato.sticker.databinding.ItemTopicBinding;
+import com.potato.sticker.main.data.bean.PicBean;
+import com.potato.sticker.main.data.bean.TagBean;
+import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.request.StickerRequestUrls;
 
 import java.util.List;
 
@@ -45,10 +47,11 @@ public class TopicAdapter extends BaseListAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ItemTopicBinding binding = (ItemTopicBinding) ((VH) holder).getBinding();
-        FeedItem feedItem = (FeedItem) mData.get(position);
-        binding.setBean(feedItem);
+        TopicBean bean = (TopicBean) mData.get(position);
+        binding.setBean(bean);
 
-        final List<TagItem> list = feedItem.getTagList();
+        final List<PicBean> piclist = bean.getPicBeans();
+        final List<TagBean> list = piclist.get(0).getTagBeans();
 
 //        binding.picture.setImageBitmap(BitmapFactory.decodeFile(feedItem.getImgPath()));
 
@@ -58,16 +61,17 @@ public class TopicAdapter extends BaseListAdapter {
         binding.picture.setTargetWH(1, 1);
         // 这里可能有问题 延迟200毫秒加载是为了等pictureLayout已经在屏幕上显示getWidth才为具体的值
 //        ImageLoaderUtil.displayImage("file://"+feedItem.getImgPath(), binding.picture, R.drawable.def_gray_big);
-        ImageLoaderUtil.displayImage(QiniuRequestUrls.QINIU_PIC_DOMAIN + feedItem.getImgPath(), binding.picture, R.drawable.def_gray_big);
+        ImageLoaderUtil.displayImage(StickerRequestUrls.BaseStickerURL_IMAGE + piclist.get(0).getImgPath(), binding.picture, R.drawable.def_gray_big);
         // 这里可能有问题 延迟200毫秒加载是为了等pictureLayout已经在屏幕上显示getWidth才为具体的值
 
-        for (TagItem feedImageTag : list) {
+        for (TagBean tagBean : list) {
             LabelView tagView = new LabelView(binding.getRoot().getContext());
-            tagView.init(feedImageTag);
+            TagItem tagItem = TagBean.Convert2TagItem(tagBean);
+            tagView.init(tagItem);
             tagView.draw(binding.pictureLayout,
-                    (int) (feedImageTag.getX()),
-                    (int) (feedImageTag.getY()),
-                    feedImageTag.isLeft());
+                    (int) (tagItem.getX()),
+                    (int) (tagItem.getY()),
+                    tagItem.isLeft());
             tagView.wave();
         }
     }

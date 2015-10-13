@@ -31,6 +31,6 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
     compile 'com.melnykov:floatingactionbutton:1.3.0'
-    compile 'com.qiniu:qiniu-android-sdk:7.0.+'
+    compile 'com.qiniu:qiniu-android-sdk:7.0.0'
     compile project(':librarygithub')
 }

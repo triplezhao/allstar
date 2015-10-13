@@ -11,6 +11,9 @@ public class BaseRequestUrls {
 	public static String BaseJIONGURL = "http://a.17173.com"; // 正式地址-囧图
 	// //测试地址-新闻、视频等
 	public static String BaseYoukuURL = "https://openapi.youku.com/v2"; // 正式地址-囧图
+	//涂鸦的api域名
+	public static String BaseStickerURL = "http://s.tuyatou.cn/meApi";
+	public static String BaseStickerURL_IMAGE = "http://s.tuyatou.cn/";
 
 
 

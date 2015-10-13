@@ -15,6 +15,7 @@ public class SPUtils {
 
     // The key of the preference
     public static final String PREF_KEY_ACTIVATE_CODE_UID = "activate_code_uid";
+    public static final String PREF_KEY_ISFIRST = "PREF_KEY_ISFIRST";
 
     public static void write(Context ctx, String spName, String key,
                              String value) {

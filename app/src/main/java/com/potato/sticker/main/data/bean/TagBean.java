@@ -99,18 +99,24 @@ public class TagBean extends BaseBean implements Serializable {
         bean.setLeft(cursor.getString(cursor.getColumnIndex(TagBeanProvider.Columns.left)));
         return bean;
     }
-
+//    {
+//        “label”:””, //标签
+//        “usage”:, //标签类型
+//        “x”:, //横坐标
+//        “y”:, //纵坐标
+//        “dir”: //标签方向
+//    },
     //createFromJSON
     public static TagBean createFromJSON(JSONObject json) throws JSONException {
         if (json == null) return null;
         TagBean bean = new TagBean();
         bean.setId(json.optString("id"));
-        bean.setType(json.optString("type"));
-        bean.setName(json.optString("name"));
+        bean.setType(json.optString("usage"));
+        bean.setName(json.optString("label"));
         bean.setX(json.optString("x"));
         bean.setY(json.optString("y"));
         bean.setRecordCount(json.optString("recordCount"));
-        bean.setLeft(json.optString("left"));
+        bean.setLeft(json.optString("dir"));
         return bean;
     }
 

@@ -26,7 +26,7 @@ public class TopicBean extends BaseBean implements Serializable {
     private String createDate;
     private String status;
 
-    ArrayList<PicBean> picBeans;
+    public ArrayList<PicBean> picBeans;
 
     public ArrayList<PicBean> getPicBeans() {
         return picBeans;
@@ -151,7 +151,22 @@ public class TopicBean extends BaseBean implements Serializable {
         int count = jsonArray.length();
         for (int i = 0; i < count; i++) {
             JSONObject jsonObj = jsonArray.optJSONObject(i);
-            TopicBean entity = TopicBean.createFromJSON(jsonObj);
+            TopicBean entity = TopicBean.createFromJSON(jsonObj,"topic","picLabel");
+            list.add(entity);
+        }
+        return list;
+    }
+    //createFromJSONArray
+    public static ArrayList<TopicBean> createFromJSONArray(JSONArray jsonArray, String key, String lableKey) throws JSONException {
+
+        if (jsonArray == null) return null;
+
+        ArrayList<TopicBean> list = new ArrayList<TopicBean>();
+
+        int count = jsonArray.length();
+        for (int i = 0; i < count; i++) {
+            JSONObject jsonObj = jsonArray.optJSONObject(i);
+            TopicBean entity = TopicBean.createFromJSON(jsonObj,key,lableKey);
             list.add(entity);
         }
         return list;

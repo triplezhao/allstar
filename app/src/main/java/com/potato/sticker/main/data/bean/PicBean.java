@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PicBean extends BaseBean implements Serializable {
 
@@ -44,13 +45,32 @@ public class PicBean extends BaseBean implements Serializable {
         bean.setTagBeans(cursor.getString(cursor.getColumnIndex(PicBeanProvider.Columns.tagList)));
         return bean;
     }*/
-
+/*
+    *  “picLabel”:{  //多组图片地址:图片标签列表
+                                         “picUrl1”:[
+                                        {
+                                        “label”:””, //标签
+                                        “usage”:, //标签类型
+                                        “x”:, //横坐标
+                                        “y”:, //纵坐标
+                                        “dir”: //标签方向
+                                        },
+     ……
+    ],
+                                          ……
+    },
+    */
     //createFromJSON
-    public static PicBean createFromJSON(JSONObject json) throws JSONException {
-        if (json == null) return null;
+    public static PicBean createFromJSON(JSONObject obj) throws JSONException {
+        if (obj == null) return null;
         PicBean bean = new PicBean();
-        bean.setImgPath(json.optString("picurl"));
-        bean.setTagBeans(TagBean.createFromJSONArray(json.optJSONArray("tagList")));
+        Iterator it = obj.keys();
+        while (it.hasNext()) {
+            String picurl = (String) it.next();
+            JSONArray tagArray = obj.optJSONArray(picurl);
+            bean.setImgPath(picurl);
+            bean.setTagBeans(TagBean.createFromJSONArray(tagArray));
+        }
         return bean;
     }
 

@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
+    android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-	<Button
-            android:id="@+id/start_Button"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:textSize="15sp"
-            android:textColor="#ffffff"
-            android:visibility="invisible"
-             />
+
+    <Button
+        android:id="@+id/start_Button"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="75dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/indicator"
@@ -33,25 +33,32 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dip"
             android:gravity="center"
-            android:orientation="horizontal" >
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
     </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/ll_first"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+    <RelativeLayout
+        android:id="@+id/ll_first"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
 
-            >
+        >
 
-            <Button
-                android:id="@+id/bt_first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="75dp"
-                android:text="进入" />
+        <Button
+            android:id="@+id/bt_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="75dp"
+            android:text="进入" />
 
-        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/welcome_bg" />
+
+
 </RelativeLayout>

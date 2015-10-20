@@ -48,7 +48,7 @@ public class RegisterFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
-        userBean = (LoginBean) savedInstanceState.getSerializable("bean");
+        userBean = (LoginBean) getArguments().getSerializable("bean");
     }
 
     @Override

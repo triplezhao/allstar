@@ -28,7 +28,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_home);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
                 break;
 
             case 1:
@@ -36,7 +36,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_explore);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
                 break;
             case 2:
 
@@ -44,21 +44,21 @@ public class MainTabActivity extends BaseTabHostActivity {
 
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
                 break;
             case 3:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_contact);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
                 break;
             case 4:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_profile);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
                 break;
         }
 

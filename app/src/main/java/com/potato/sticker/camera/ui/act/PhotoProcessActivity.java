@@ -17,6 +17,10 @@ import android.widget.Toast;
 
 import com.imagezoom.ImageViewTouch;
 import com.potato.chips.util.QiniuUtil;
+import com.potato.chips.util.UIUtils;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
+import com.potato.library.util.L;
 import com.potato.library.util.MD5Util;
 import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
@@ -30,7 +34,6 @@ import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.customview.MyHighlightView;
 import com.potato.sticker.camera.customview.MyImageViewDrawableOverlay;
 import com.potato.sticker.camera.data.bean.Addon;
-import com.potato.sticker.camera.data.bean.FeedItem;
 import com.potato.sticker.camera.data.bean.TagItem;
 import com.potato.sticker.camera.ui.adapter.FilterAdapter;
 import com.potato.sticker.camera.ui.adapter.StickerToolAdapter;
@@ -41,6 +44,12 @@ import com.potato.sticker.camera.util.EffectService;
 import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.camera.util.FilterEffect;
 import com.potato.sticker.camera.util.GPUImageFilterTools;
+import com.potato.sticker.main.data.bean.PicBean;
+import com.potato.sticker.main.data.bean.TagBean;
+import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.bean.UserBean;
+import com.potato.sticker.main.data.db.DBUtil;
+import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 
@@ -53,7 +62,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import de.greenrobot.event.EventBus;
 import it.sephiroth.android.library.widget.HListView;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageView;
@@ -104,6 +112,8 @@ public class PhotoProcessActivity extends CameraBaseActivity {
     //标签区域
     private View commonLabelArea;
 
+    public UserBean userBean;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +123,8 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         initView();
         initEvent();
         initStickerToolBar();
+
+        userBean = DBUtil.getLoginUser();
 
         ImageUtils.asyncLoadImage(this, getIntent().getData(), new ImageUtils.LoadImageCallback() {
             @Override
@@ -247,6 +259,10 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         titleBar.setRightBtnOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (userBean == null) {
+                    UIUtils.toast(mContext, "请先登录");
+                    return;
+                }
                 savePicture();
             }
         });
@@ -304,6 +320,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                 return;
             }
             final String enCodeFileName = MD5Util.md5(fileName);
+            L.i("PHOTOProcess",QiniuUtil.def_token);
             QiniuUtil.uploadManager.put(fileName, enCodeFileName, QiniuUtil.def_token,
                     new UpCompletionHandler() {
                         @Override
@@ -315,9 +332,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                                     String fileKey = jsonData.getString("key");
                                     String fileHash = jsonData.getString("hash");
 
-                                    dismissProgressDialog();
-
-                                    //将照片信息保存至sharedPreference
+                                    /*//将照片信息保存至sharedPreference
                                     //保存标签信息
                                     List<TagItem> tagInfoList = new ArrayList<TagItem>();
                                     for (LabelView label : labels) {
@@ -326,10 +341,53 @@ public class PhotoProcessActivity extends CameraBaseActivity {
 
                                     //将图片信息通过EventBus发送到MainActivity
                                     FeedItem feedItem = new FeedItem(tagInfoList, enCodeFileName);
-                                    EventBus.getDefault().post(feedItem);
-                                    CameraManager.getInst().close();
-                                } catch (JSONException e) {
+                                    EventBus.getDefault().post(feedItem);*/
 
+                                    ArrayList<PicBean> picBeans = new ArrayList<PicBean>();
+                                    PicBean picBean = new PicBean();
+                                    picBean.setImgPath(fileKey);
+
+                                    //保存标签信息
+                                    ArrayList<TagBean> tagBeans = new ArrayList<TagBean>();
+
+                                    for (LabelView label : labels) {
+                                        TagBean tagBean = new TagBean();
+                                        tagBeans.add(TagBean.createFromTagItem(label.getTagInfo()));
+                                    }
+                                    picBean.setTagBeans(tagBeans);
+                                    picBeans.add(picBean);
+
+                                    TopicBean topicBean = new TopicBean();
+                                    topicBean.setUserId(userBean.getId());
+                                    topicBean.setContent("帖子内容xxxxx");
+                                    topicBean.setTitle("帖子title");
+                                    topicBean.setPicBeans(picBeans);
+
+                                    Request request = StickerRequestBuilder.create(topicBean);
+                                    RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+                                        @Override
+                                        public void onCacheLoaded(String content) {
+
+                                        }
+
+                                        @Override
+                                        public void onSuccess(int statusCode, String content) {
+
+                                            dismissProgressDialog();
+                                            UIUtils.toast(mContext, content);
+                                            CameraManager.getInst().close();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Throwable error, String errMsg) {
+                                            dismissProgressDialog();
+                                            CameraManager.getInst().close();
+                                        }
+                                    }, RequestManager.CACHE_TYPE_NOCACHE);
+
+
+                                } catch (JSONException e) {
+                                    CameraManager.getInst().close();
                                 }
 
                             }

@@ -9,8 +9,8 @@ public class TokenParser extends BaseParser {
     public TokenParser(String jsonStr) {
         super(jsonStr);
         try {
-            if (root.has("uptoken")) {
-                token = root.optString("uptoken");
+            if (root.has("upToken")) {
+                token = root.optString("upToken");
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block

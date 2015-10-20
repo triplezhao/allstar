@@ -61,7 +61,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppTheme">
         <activity
-            android:name=".main.ui.act.SplashActivity"
+            android:name=".main.ui.act.WelcomeActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,11 +70,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".main.ui.act.WelcomeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
-
+        <!--main-->
+        <activity android:name="com.potato.sticker.main.ui.act.MainTabActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.UserTopicActivity"></activity>
         <!--登录 注册-->
         <activity android:name="com.potato.sticker.login.ui.act.LoginActivity"></activity>
 
@@ -91,7 +89,7 @@
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
 

@@ -42,7 +42,7 @@ public class UserBeanProvider extends BaseProvider {
      * @param db
      */
     public static void createTable(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_PATH + "(" + Columns._ID + " integer primary key autoincrement, "
+        db.execSQL("CREATE TABLE " + TABLE_PATH + "(" + Columns._ID + " integer , "
 	                + Columns.country + " text, "
 	                + Columns.headImg + " text, "
 	                + Columns.city + " text, "
@@ -57,7 +57,7 @@ public class UserBeanProvider extends BaseProvider {
 	                + Columns.labelCount + " text, "
 	                + Columns.laudCount + " text, "
 	                + Columns.topicCount + " text, "
-	                + Columns.id + " text, "
+	                + Columns.id + " text primary key not null UNIQUE ON CONFLICT REPLACE, "
 	                + Columns.islogined + " text, "
 	                + Columns.createDate + " text, "
 	                + Columns.status + " text "

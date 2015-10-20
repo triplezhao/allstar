@@ -12,7 +12,8 @@ import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.ui.adapter.TopicAdapter;
-import com.potato.sticker.databinding.ActivityMainCameraBinding;
+import com.potato.sticker.camera.util.CameraManager;
+import com.potato.sticker.databinding.ActivityUserTopicBinding;
 import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.TopicListParser;
@@ -21,29 +22,26 @@ import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
-
 /**
  * 主界面
  * Created by sky on 2015/7/20.
  * Weibo: http://weibo.com/2030683111
  * Email: 1132234509@qq.com
  */
-public class AllTopicActivity extends BaseActivity {
+public class UserTopicActivity extends BaseActivity {
 
     List<TopicBean> list = new ArrayList<TopicBean>();
     private TopicAdapter mAdapter;
     private int mTotal = 0;
     private int mPage = 0;
-    private ActivityMainCameraBinding binding;
+    private ActivityUserTopicBinding binding;
     private int mSize = 20;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
-                this, R.layout.activity_main_camera);
-        EventBus.getDefault().register(this);
+                this, R.layout.activity_user_topic);
         binding.fab.setOnClickListener(this);
 
         mAdapter = new TopicAdapter(mContext);
@@ -83,7 +81,7 @@ public class AllTopicActivity extends BaseActivity {
 //                }
 //            }
 //        }, 2000);
-        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getUid() + "", mPage + "", mSize + "");
+        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", mPage + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -121,11 +119,14 @@ public class AllTopicActivity extends BaseActivity {
                     UIUtils.toast(mContext, content);
                 } else {
                     UIUtils.toast(mContext, content);
+                    binding.swipeContainer.showEmptyViewNoContent();
                 }
             }
 
             @Override
             public void onFailure(Throwable error, String errMsg) {
+                binding.swipeContainer.setRefreshing(false);
+                binding.swipeContainer.showEmptyViewFail();
 
             }
         }, RequestManager.CACHE_TYPE_NOCACHE);
@@ -136,7 +137,6 @@ public class AllTopicActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
 
@@ -146,6 +146,9 @@ public class AllTopicActivity extends BaseActivity {
             case R.id.empty_view:
                 binding.swipeContainer.showProgress();
                 sendRequest2RefreshList();
+                break;
+            case R.id.fab:
+                CameraManager.getInst().openCamera(mContext);
                 break;
         }
     }

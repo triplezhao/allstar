@@ -12,7 +12,7 @@ public class StickerRequestUrls extends BaseRequestUrls{
 
 	public final static String UPTOKEN = BaseStickerURL + "/support/qiniu/upToken";
 	public final static String USER = BaseStickerURL + "/user";
-	public final static String TOPIC = BaseStickerURL + "/user/{userId}/topic";
+	public final static String TOPIC = BaseStickerURL + "/user/{0}/topic";
 	public final static String CREATE = BaseStickerURL + "/content/topic/create";
 
 

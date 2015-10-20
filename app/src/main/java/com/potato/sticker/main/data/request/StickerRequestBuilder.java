@@ -60,7 +60,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
             body.put("uid", bean.uid);
             body.put("headImg", bean.province);
             body.put("nickname", bean.nickname);
-            body.put("sex", bean.sex);
+            body.put("sex", "0");
             body.put("description", bean.description);
             body.put("phone", bean.phone);
             body.put("country", bean.country);
@@ -80,7 +80,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     public static Request topic(String uid, String page, String size) {
         Request request = new DefaultRequest();
         request.reqMethod = Request.REQ_METHOD_POST;
-        request.url = StickerRequestUrls.TOPIC;
+        request.url = getRealRequestUrl(StickerRequestUrls.TOPIC,new String[]{uid});
 
         JSONObject body = new JSONObject();
         try {

@@ -24,6 +24,7 @@ import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
 import com.potato.sticker.main.data.bean.LoginBean;
 import com.potato.sticker.main.data.bean.UserBean;
+import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import com.potato.sticker.databinding.FragmentLoginBinding;
@@ -160,7 +161,7 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
         final Dialog progressDialog = DialogUtil.createProgressDialog(mContext);
         progressDialog.show();
 
-        Request req = StickerRequestBuilder.login(platformDb.getUserId(),platformDb.getUserName());
+        Request req = StickerRequestBuilder.login(platformDb.getUserId(), platformDb.getUserName());
 
         // 实现回调方法
         RequestManager.DataLoadListener dataloadListner = new RequestManager.DataLoadListener() {
@@ -169,6 +170,7 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
             public void onSuccess(int statusCode, String content) {
                 // TODO Auto-generated method stub
                 L.i("login", "checkThirdLoginRequest:onSuccess=" + content);
+                content = content.replace("null", "\"\"");
                 progressDialog.dismiss();
                 // content =
                 // "{ \"code\": \"000101\", \"desc\": \"succ\", \"data\": { \"uid\": \"10\", \"uname\": \"西方失败\", \"portrait\": \"s.png\", \"level\": \"1\", \"desc\": \"没有什么可写的啦这家伙很懒\", \"weburl\": \"www.sohu.com\", \"token\": \"908a0dc9580afcffb13600c1492bf6dd\" } }";
@@ -178,7 +180,9 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
                     UserBean user = parser.user;
                     if (user != null) {
                         // 登陆成功，则返回到我的页面
-                        if (!TextUtils.isEmpty(user.getPhone())){
+                        if (!TextUtils.isEmpty(user.getPhone())) {
+                            user.setIslogined("1");
+                            DBUtil.addUser(user);
                             getActivity().setResult(Activity.RESULT_OK);
                             getActivity().finish();
                         } else {
@@ -196,7 +200,7 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
                             bean.setSex(platformDb.getUserGender());
 
                             Bundle bundle = new Bundle();
-                            bundle.putSerializable("bean",bean);
+                            bundle.putSerializable("bean", bean);
 
                             fragment.setArguments(bundle);
                             fragmentTransaction.add(R.id.fragment_container, fragment);
@@ -204,8 +208,8 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
                         }
 
                     }
-                }else{
-                    UIUtils.toast(mContext,"登录失败");
+                } else {
+                    UIUtils.toast(mContext, "登录失败");
                 }
             }
 
@@ -213,7 +217,7 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
             public void onFailure(Throwable error, String errMsg) {
                 // TODO Auto-generated method stub
                 L.i("login", "checkThirdLoginRequest:onFailure=" + errMsg);
-                UIUtils.toast(mContext,errMsg);
+                UIUtils.toast(mContext, errMsg);
                 progressDialog.dismiss();
             }
 

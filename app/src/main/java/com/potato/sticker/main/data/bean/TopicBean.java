@@ -134,8 +134,8 @@ public class TopicBean extends BaseBean implements Serializable {
         if (jsonParant == null) return null;
         JSONObject json = jsonParant.getJSONObject(key);
         TopicBean bean = createFromJSON(json);
-        JSONArray jsonLable = jsonParant.getJSONArray(lableKey);
-        ArrayList<PicBean> tagsbean = PicBean.createFromJSONArray(jsonLable);
+        JSONObject jsonLable = jsonParant.getJSONObject(lableKey);
+        ArrayList<PicBean> tagsbean = PicBean.createArrayFromJSON(jsonLable);
         bean.setPicBeans(tagsbean);
 //        bean.setPicBeans(PicBean.createFromJSONArray(json.optJSONArray("piclist")));
         return bean;

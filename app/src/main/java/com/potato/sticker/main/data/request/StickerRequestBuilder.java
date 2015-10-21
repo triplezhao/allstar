@@ -127,28 +127,28 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
             JSONObject topic = new JSONObject();
 
-            topic.put("uid", bean.getUserId());
+            topic.put("userId", bean.getUserId());
             topic.put("title", bean.getTitle());
             topic.put("content", bean.getContent());
 
             ArrayList<PicBean> picBeans = bean.picBeans;
+            JSONObject picLabel = new JSONObject();
             for (PicBean pic : picBeans) {
-                JSONObject picobj = new JSONObject();
                 JSONArray tagArray = new JSONArray();
                 for (TagBean tagBean : pic.getTagBeans()) {
                     JSONObject tagobj = new JSONObject();
-                    topic.put("usage", tagBean.getType());
-                    topic.put("title", tagBean.getName());
-                    topic.put("x", tagBean.getX());
-                    topic.put("y", tagBean.getY());
-                    topic.put("dir", tagBean.getLeft());
+                    tagobj.put("genre", tagBean.getType());
+                    tagobj.put("label", tagBean.getName());
+                    tagobj.put("x", tagBean.getX());
+                    tagobj.put("y", tagBean.getY());
+                    tagobj.put("dir", tagBean.getLeft());
                     tagArray.put(tagobj);
                 }
-                picobj.put(pic.getImgPath(), tagArray);
+                picLabel.put(pic.getImgPath(), tagArray);
             }
 
             body.put("topic", topic);
-            body.put("picLabel", picBeans);
+            body.put("picLabel", picLabel);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

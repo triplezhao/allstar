@@ -465,4 +465,8 @@ public class StringUtils {
         }
         return numberStr;
     }
+
+    public static String getPicName(String uid){
+        return uid+"_"+System.currentTimeMillis()+".jpg";
+    }
 }

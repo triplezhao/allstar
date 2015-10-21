@@ -97,9 +97,7 @@ public class UserTopicActivity extends BaseActivity {
                     mAdapter.setDataList(list);
                     mAdapter.notifyDataSetChanged();
 
-                    UIUtils.toast(mContext, content);
                 } else {
-                    UIUtils.toast(mContext, content);
                 }
             }
 
@@ -116,9 +114,7 @@ public class UserTopicActivity extends BaseActivity {
                     mAdapter.setDataList(list);
                     mAdapter.notifyDataSetChanged();
 
-                    UIUtils.toast(mContext, content);
                 } else {
-                    UIUtils.toast(mContext, content);
                     binding.swipeContainer.showEmptyViewNoContent();
                 }
             }

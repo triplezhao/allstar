@@ -74,6 +74,42 @@ public class PicBean extends BaseBean implements Serializable {
         return bean;
     }
 
+    //createFromJSON
+    public static PicBean createFromJSON(String key, JSONArray jsonArray) throws JSONException {
+        PicBean bean = new PicBean();
+        bean.setImgPath(key);
+        bean.setTagBeans(TagBean.createFromJSONArray(jsonArray));
+        return bean;
+    }
+
+    //createFromJSONArray
+    /*
+    * "picLabel":{
+        "01657cf7239ab28818f88a5b6e91069b.jpg":[
+        {
+        "genre": 0,
+        "dir": 0,
+        "label": "哈哈哈哈",
+        "y": 900,
+        "x": 570
+        }
+        ]
+        }*/
+    public static ArrayList<PicBean> createArrayFromJSON(JSONObject obj) throws JSONException {
+
+        if (obj == null) return null;
+
+        ArrayList<PicBean> list = new ArrayList<PicBean>();
+        Iterator it = obj.keys();
+        while (it.hasNext()) {
+            String picurl = (String) it.next();
+            JSONArray jsonArray = obj.getJSONArray(picurl);
+            PicBean entity = PicBean.createFromJSON(picurl,jsonArray);
+            list.add(entity);
+        }
+        return list;
+    }
+
     //createFromJSONArray
     public static ArrayList<PicBean> createFromJSONArray(JSONArray jsonArray) throws JSONException {
 

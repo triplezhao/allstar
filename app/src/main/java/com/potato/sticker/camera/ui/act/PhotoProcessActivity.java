@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +18,15 @@ import android.widget.Toast;
 
 import com.imagezoom.ImageViewTouch;
 import com.potato.chips.util.QiniuUtil;
+import com.potato.chips.util.StringUtils;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
 import com.potato.library.util.L;
-import com.potato.library.util.MD5Util;
 import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.common.FileUtils;
 import com.potato.sticker.camera.common.ImageUtils;
-import com.potato.sticker.camera.common.StringUtils;
 import com.potato.sticker.camera.common.TimeUtils;
 import com.potato.sticker.camera.customview.CommonTitleBar;
 import com.potato.sticker.camera.customview.LabelSelector;
@@ -315,12 +315,13 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         @Override
         protected void onPostExecute(final String fileName) {
             super.onPostExecute(fileName);
-            if (StringUtils.isEmpty(fileName)) {
+            if (TextUtils.isEmpty(fileName)) {
                 dismissProgressDialog();
                 return;
             }
-            final String enCodeFileName = MD5Util.md5(fileName);
-            L.i("PHOTOProcess",QiniuUtil.def_token);
+//            final String enCodeFileName = MD5Util.md5(fileName)+".jpg";
+            final String enCodeFileName = StringUtils.getPicName(userBean.getId());
+            L.i("uptoken",QiniuUtil.def_token);
             QiniuUtil.uploadManager.put(fileName, enCodeFileName, QiniuUtil.def_token,
                     new UpCompletionHandler() {
                         @Override
@@ -544,13 +545,13 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (AppConstants.ACTION_EDIT_LABEL == requestCode && data != null) {
             String text = data.getStringExtra(AppConstants.PARAM_EDIT_TEXT);
-            if (StringUtils.isNotEmpty(text)) {
+            if (!TextUtils.isEmpty(text)) {
                 TagItem tagItem = new TagItem(AppConstants.POST_TYPE_TAG, text);
                 addLabel(tagItem);
             }
         } else if (AppConstants.ACTION_EDIT_LABEL_POI == requestCode && data != null) {
             String text = data.getStringExtra(AppConstants.PARAM_EDIT_TEXT);
-            if (StringUtils.isNotEmpty(text)) {
+            if (!TextUtils.isEmpty(text)) {
                 TagItem tagItem = new TagItem(AppConstants.POST_TYPE_POI, text);
                 addLabel(tagItem);
             }

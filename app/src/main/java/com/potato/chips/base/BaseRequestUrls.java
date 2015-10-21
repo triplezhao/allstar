@@ -13,7 +13,7 @@ public class BaseRequestUrls {
 	public static String BaseYoukuURL = "https://openapi.youku.com/v2"; // 正式地址-囧图
 	//涂鸦的api域名
 	public static String BaseStickerURL = "http://s.tuyatou.cn/meApi";
-	public static String BaseStickerURL_IMAGE = "http://s.tuyatou.cn/";
+	public static String BaseStickerURL_IMAGE = "http://tu.tuyatou.cn/";
 
 
 

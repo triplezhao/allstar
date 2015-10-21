@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.potato.chips.base.BaseBean;
+import com.potato.library.util.L;
 import com.potato.sticker.camera.data.bean.TagItem;
 import com.potato.sticker.main.data.db.TagBeanProvider;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class TagBean extends BaseBean implements Serializable {
 
     //propslist
-    private String id;
+    private String id = "1";
     private String type;
     private String name;
     private String x;
@@ -99,7 +100,8 @@ public class TagBean extends BaseBean implements Serializable {
         bean.setLeft(cursor.getString(cursor.getColumnIndex(TagBeanProvider.Columns.left)));
         return bean;
     }
-//    {
+
+    //    {
 //        “label”:””, //标签
 //        “usage”:, //标签类型
 //        “x”:, //横坐标
@@ -111,7 +113,7 @@ public class TagBean extends BaseBean implements Serializable {
         if (json == null) return null;
         TagBean bean = new TagBean();
         bean.setId(json.optString("id"));
-        bean.setType(json.optString("usage"));
+        bean.setType(json.optString("genre"));
         bean.setName(json.optString("label"));
         bean.setX(json.optString("x"));
         bean.setY(json.optString("y"));
@@ -155,16 +157,18 @@ public class TagBean extends BaseBean implements Serializable {
     }
 
     public static TagItem Convert2TagItem(TagBean bean) {
-
         TagItem tagItem = new TagItem();
-        tagItem.setId(Long.parseLong(bean.getId()));
-        tagItem.setLeft(bean.equals("true"));
-        tagItem.setName(bean.getName());
-        tagItem.setRecordCount(Integer.parseInt(bean.getRecordCount()));
-        tagItem.setType(Integer.parseInt(bean.getType()));
-        tagItem.setX(Integer.parseInt(bean.getX()));
-        tagItem.setY(Integer.parseInt(bean.getY()));
-
+        try {
+            tagItem.setLeft(bean.equals("true"));
+            tagItem.setName(bean.getName());
+//        tagItem.setRecordCount(Integer.parseInt(bean.getRecordCount()));
+            tagItem.setType(Integer.parseInt(bean.getType()));
+            tagItem.setX(Integer.parseInt(bean.getX()));
+            tagItem.setY(Integer.parseInt(bean.getY()));
+            tagItem.setId(Long.parseLong(bean.getId()));
+        } catch (Exception e) {
+            L.i("Convert2TagItem", e.getMessage());
+        }
         return tagItem;
 
     }
@@ -172,12 +176,12 @@ public class TagBean extends BaseBean implements Serializable {
     public static TagBean createFromTagItem(TagItem bean) {
         TagBean tagBean = new TagBean();
         tagBean.setId(bean.getId() + "");
-        tagBean.setLeft(bean.isLeft() + "");
+        tagBean.setLeft(bean.isLeft() ? "1" : "0");
         tagBean.setName(bean.getName());
         tagBean.setRecordCount(bean.getRecordCount() + "");
         tagBean.setType(bean.getType() + "");
-        tagBean.setX(bean.getX() + "");
-        tagBean.setY(bean.getY() + "");
+        tagBean.setX((int) bean.getX() + "");
+        tagBean.setY((int) bean.getY() + "");
         return tagBean;
     }
 

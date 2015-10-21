@@ -27,7 +27,7 @@ public class TopicListParser extends BaseParser {
         super(jsonStr);
         try {
             if (root.optJSONObject("page") != null) {
-                JSONObject obj = root.optJSONObject("obj");
+                JSONObject obj = root.optJSONObject("page");
                 curPage = obj.optString("curPage");
                 pageSize = obj.optString("pageSize");
                 rowCount = obj.optString("rowCount");

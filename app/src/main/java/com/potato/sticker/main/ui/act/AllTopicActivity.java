@@ -15,7 +15,6 @@ import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityUserTopicBinding;
 import com.potato.sticker.main.data.bean.TopicBean;
-import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.TopicListParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import com.potato.sticker.main.ui.adapter.TopicAdapter;
@@ -29,7 +28,7 @@ import java.util.List;
  * Weibo: http://weibo.com/2030683111
  * Email: 1132234509@qq.com
  */
-public class UserTopicActivity extends BaseActivity {
+public class AllTopicActivity extends BaseActivity {
 
     List<TopicBean> list = new ArrayList<TopicBean>();
     private TopicAdapter mAdapter;
@@ -77,7 +76,7 @@ public class UserTopicActivity extends BaseActivity {
 
     public void sendRequest2RefreshList() {
 
-        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.allTopic("", 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -105,7 +104,7 @@ public class UserTopicActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", mPage +1+ "", mSize + "");
+        Request request = StickerRequestBuilder.allTopic("", mPage + 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -137,7 +136,7 @@ public class UserTopicActivity extends BaseActivity {
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             list = parser.list;
-            mPage= Integer.parseInt(parser.curPage);
+            mPage = Integer.parseInt(parser.curPage);
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
@@ -158,13 +157,13 @@ public class UserTopicActivity extends BaseActivity {
         }
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
-            mPage= Integer.parseInt(parser.curPage);
+            mPage = Integer.parseInt(parser.curPage);
             if (parser.list == null || parser.list.size() == 0) {
                 binding.swipeContainer.setLoadEnable(false);
                 return;
             }
             list.addAll(parser.list);
-            if(list.size()>=Integer.parseInt(parser.rowCount)){
+            if (list.size() >= Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

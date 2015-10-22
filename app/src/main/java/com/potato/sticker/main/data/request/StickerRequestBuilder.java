@@ -3,17 +3,20 @@ package com.potato.sticker.main.data.request;
 import com.potato.chips.base.BaseRequestBuilder;
 import com.potato.library.net.DefaultRequest;
 import com.potato.library.net.Request;
-import com.potato.sticker.main.data.bean.LoginBean;
 import com.potato.sticker.main.data.bean.PicBean;
 import com.potato.sticker.main.data.bean.TagBean;
 import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.bean.UserBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import cn.sharesdk.framework.PlatformDb;
 
 public class StickerRequestBuilder extends BaseRequestBuilder {
 
@@ -47,9 +50,30 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         request.body = body.toString();
         return request;
     }
+    //登录，只传递一个uid就ok。第三方的openid
+    public static Request login( PlatformDb platformDb) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.USER;
+//        request.params = new HashMap<String, Object>();
+//        request.params.put("uid", uid);
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("uid", platformDb.getUserId());
+            body.put("nickname", platformDb.getUserName());
+            body.put("headImg", URLEncoder.encode(platformDb.getUserIcon()));
+            body.put("sex", platformDb.getUserGender().equals("m")?"0":"1");
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+        return request;
+    }
 
     //跟登录用一个接口，与修改个人资料也是一个接口。 如果登录后返回没有绑定手机号，则调用这个进行注册流程。
-    public static Request register(LoginBean bean) {
+    public static Request updataUser(UserBean bean) {
         Request request = new DefaultRequest();
         request.reqMethod = Request.REQ_METHOD_POST;
         request.url = StickerRequestUrls.USER;
@@ -57,15 +81,15 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
         JSONObject body = new JSONObject();
         try {
-            body.put("uid", bean.uid);
-            body.put("headImg", bean.province);
-            body.put("nickname", bean.nickname);
-            body.put("sex", "0");
-            body.put("description", bean.description);
-            body.put("phone", bean.phone);
-            body.put("country", bean.country);
-            body.put("province", bean.province);
-            body.put("city", bean.city);
+            body.put("uid", bean.getUid());
+            body.put("headImg", bean.getProvince());
+            body.put("nickname", bean.getNickname());
+            body.put("sex", bean.getSex());
+            body.put("description", bean.getDescription());
+            body.put("phone", bean.getPhone());
+            body.put("country", bean.getCountry());
+            body.put("province", bean.getProvince());
+            body.put("city", bean.getCity());
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -86,6 +110,25 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         try {
             body.put("page", page);
             body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+    //获取所有帖子列表
+    public static Request allTopic(String title, String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.ALLTOPIC;
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+            body.put("title", title);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

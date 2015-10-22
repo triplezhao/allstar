@@ -12,7 +12,7 @@ import com.potato.sticker.R;
 import com.potato.sticker.camera.common.DataUtils;
 import com.potato.sticker.camera.common.StringUtils;
 import com.potato.sticker.camera.data.bean.FeedItem;
-import com.potato.sticker.camera.ui.adapter.TopicAdapter;
+import com.potato.sticker.main.ui.adapter.TopicAdapter;
 import com.potato.sticker.camera.util.AppConstants;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityMainCameraBinding;

@@ -28,7 +28,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_home);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
                 break;
 
             case 1:
@@ -58,7 +58,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_profile);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), UserActivity.class));
                 break;
         }
 

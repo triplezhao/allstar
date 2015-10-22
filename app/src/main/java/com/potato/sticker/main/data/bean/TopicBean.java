@@ -27,6 +27,26 @@ public class TopicBean extends BaseBean implements Serializable {
     private String status;
 
     public ArrayList<PicBean> picBeans;
+    public UserBean userBean;
+    public ArrayList<CommentBean> commentBeans;
+    public String commentCount;
+
+    public ArrayList<CommentBean> getCommentBeans() {
+        return commentBeans;
+    }
+
+    public void setCommentBeans(ArrayList<CommentBean> commentBeans) {
+        this.commentBeans = commentBeans;
+    }
+
+    public UserBean getUserBean() {
+
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
 
     public ArrayList<PicBean> getPicBeans() {
         return picBeans;
@@ -93,6 +113,13 @@ public class TopicBean extends BaseBean implements Serializable {
         return this.status;
     }
 
+    public String getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(String commentCount) {
+        this.commentCount = commentCount;
+    }
 
     //other
     //createFromCursor
@@ -130,13 +157,28 @@ public class TopicBean extends BaseBean implements Serializable {
       topic {id:"",name:""]}
     }],
     * */
-    public static TopicBean createFromJSON(JSONObject jsonParant, String key, String lableKey) throws JSONException {
+    public static TopicBean createFromJSON(JSONObject jsonParant, String topicKey, String picKey, String userKey, String commentKey) throws JSONException {
         if (jsonParant == null) return null;
-        JSONObject json = jsonParant.getJSONObject(key);
+
+        //topic 属性
+        JSONObject json = jsonParant.getJSONObject(topicKey);
         TopicBean bean = createFromJSON(json);
-        JSONObject jsonLable = jsonParant.getJSONObject(lableKey);
-        ArrayList<PicBean> tagsbean = PicBean.createArrayFromJSON(jsonLable);
-        bean.setPicBeans(tagsbean);
+
+        //topic pic属性
+        JSONObject jsonLable = jsonParant.getJSONObject(picKey);
+        ArrayList<PicBean> picBeans = PicBean.createArrayFromJSON(jsonLable);
+
+        //帖子user 属性
+        JSONObject userObj = jsonParant.getJSONObject(userKey);
+        UserBean userBean = UserBean.createFromJSON(userObj);
+        //帖子带的俩最近评论 属性
+        JSONArray commentsObj = jsonParant.getJSONObject(commentKey).getJSONArray("content");
+        ArrayList<CommentBean> commentBeans = CommentBean.createFromJSONArray(commentsObj);
+
+        bean.setPicBeans(picBeans);
+        bean.setUserBean(userBean);
+        bean.setCommentBeans(commentBeans);
+        bean.commentCount = jsonParant.getJSONObject(commentKey).getString("rowCount");
 //        bean.setPicBeans(PicBean.createFromJSONArray(json.optJSONArray("piclist")));
         return bean;
     }
@@ -151,13 +193,14 @@ public class TopicBean extends BaseBean implements Serializable {
         int count = jsonArray.length();
         for (int i = 0; i < count; i++) {
             JSONObject jsonObj = jsonArray.optJSONObject(i);
-            TopicBean entity = TopicBean.createFromJSON(jsonObj,"topic","picLabel");
+            TopicBean entity = TopicBean.createFromJSON(jsonObj, "topic", "picLabel", "user", "comment");
             list.add(entity);
         }
         return list;
     }
+
     //createFromJSONArray
-    public static ArrayList<TopicBean> createFromJSONArray(JSONArray jsonArray, String key, String lableKey) throws JSONException {
+    public static ArrayList<TopicBean> createFromJSONArray(JSONArray jsonArray, String topicKey, String picKey, String userKey, String commentKey) throws JSONException {
 
         if (jsonArray == null) return null;
 
@@ -166,7 +209,7 @@ public class TopicBean extends BaseBean implements Serializable {
         int count = jsonArray.length();
         for (int i = 0; i < count; i++) {
             JSONObject jsonObj = jsonArray.optJSONObject(i);
-            TopicBean entity = TopicBean.createFromJSON(jsonObj,key,lableKey);
+            TopicBean entity = TopicBean.createFromJSON(jsonObj, topicKey, picKey, userKey, commentKey);
             list.add(entity);
         }
         return list;

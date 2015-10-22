@@ -22,12 +22,11 @@ import com.potato.library.net.RequestManager;
 import com.potato.library.util.L;
 import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
-import com.potato.sticker.main.data.bean.LoginBean;
+import com.potato.sticker.databinding.FragmentLoginBinding;
 import com.potato.sticker.main.data.bean.UserBean;
 import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.databinding.FragmentLoginBinding;
 
 import java.util.HashMap;
 
@@ -161,7 +160,7 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
         final Dialog progressDialog = DialogUtil.createProgressDialog(mContext);
         progressDialog.show();
 
-        Request req = StickerRequestBuilder.login(platformDb.getUserId(), platformDb.getUserName());
+        Request req = StickerRequestBuilder.login(platformDb);
 
         // 实现回调方法
         RequestManager.DataLoadListener dataloadListner = new RequestManager.DataLoadListener() {
@@ -192,7 +191,7 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
                                     .beginTransaction();
                             RegisterFragment fragment = new RegisterFragment();
 
-                            LoginBean bean = new LoginBean();
+                            UserBean bean = new UserBean();
 
                             bean.setUid(platformDb.getUserId());
                             bean.setNickname(platformDb.getUserName());

@@ -17,13 +17,12 @@ import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
 import com.potato.library.util.StringUtils;
 import com.potato.sticker.R;
-import com.potato.sticker.main.data.bean.LoginBean;
+import com.potato.sticker.databinding.FragmentRegisterBinding;
+import com.potato.sticker.login.ui.act.LoginActivity;
 import com.potato.sticker.main.data.bean.UserBean;
 import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.databinding.FragmentRegisterBinding;
-import com.potato.sticker.login.ui.act.LoginActivity;
 
 public class RegisterFragment extends BaseFragment {
     private static final String TAG = "RegisterFragment";
@@ -34,7 +33,7 @@ public class RegisterFragment extends BaseFragment {
     /**
      * data
      */
-    LoginBean userBean;
+    UserBean userBean;
     /**
      * logic
      */
@@ -48,7 +47,7 @@ public class RegisterFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
-        userBean = (LoginBean) getArguments().getSerializable("bean");
+        userBean = (UserBean) getArguments().getSerializable("bean");
     }
 
     @Override
@@ -132,7 +131,7 @@ public class RegisterFragment extends BaseFragment {
 
         userBean.setPhone(mobile);
 
-        Request req = StickerRequestBuilder.register(userBean);
+        Request req = StickerRequestBuilder.updataUser(userBean);
 
         // 显示ProgressDialog
         final ProgressDialog progressDialog = ProgressDialog.show(mContext, "Loading...",

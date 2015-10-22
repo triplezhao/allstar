@@ -17,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.imagezoom.ImageViewTouch;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.QiniuUtil;
 import com.potato.chips.util.StringUtils;
 import com.potato.chips.util.UIUtils;
@@ -103,6 +107,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
     //当前图片
     private Bitmap currentBitmap;
     //用于预览的小图片
+    //目前没用，直接用的大图，节省内存
     private Bitmap smallImageBackgroud;
     //小白点标签
     private LabelView emptyLabelView;
@@ -126,7 +131,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
 
         userBean = DBUtil.getLoginUser();
 
-        ImageUtils.asyncLoadImage(this, getIntent().getData(), new ImageUtils.LoadImageCallback() {
+        /*ImageUtils.asyncLoadImage(this, getIntent().getData(), new ImageUtils.LoadImageCallback() {
             @Override
             public void callback(Bitmap result) {
                 currentBitmap = result;
@@ -139,7 +144,54 @@ public class PhotoProcessActivity extends CameraBaseActivity {
             public void callback(Bitmap result) {
                 smallImageBackgroud = result;
             }
-        });
+        });*/
+        ImageLoaderUtil.loadImageAsync(getIntent().getData().toString(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                currentBitmap = bitmap;
+
+                mGPUImageView.setImage(currentBitmap);
+                L.i("onLoadingComplete","ImageSize(500, 500)");
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        },new ImageSize(500, 500));
+        /*ImageLoaderUtil.loadImageAsync(getIntent().getData().toString(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                smallImageBackgroud = bitmap;
+                L.i("onLoadingComplete","ImageSize(300, 300)");
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        }, new ImageSize(300, 300));*/
+
 
     }
 
@@ -321,7 +373,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
             }
 //            final String enCodeFileName = MD5Util.md5(fileName)+".jpg";
             final String enCodeFileName = StringUtils.getPicName(userBean.getId());
-            L.i("uptoken",QiniuUtil.def_token);
+            L.i("uptoken", QiniuUtil.def_token);
             QiniuUtil.uploadManager.put(fileName, enCodeFileName, QiniuUtil.def_token,
                     new UpCompletionHandler() {
                         @Override
@@ -489,7 +541,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
     //初始化滤镜
     private void initFilterToolBar() {
         final List<FilterEffect> filters = EffectService.getInst().getLocalFilters();
-        final FilterAdapter adapter = new FilterAdapter(PhotoProcessActivity.this, filters, smallImageBackgroud);
+        final FilterAdapter adapter = new FilterAdapter(PhotoProcessActivity.this, filters, currentBitmap);
         bottomToolBar.setAdapter(adapter);
         bottomToolBar.setOnItemClickListener(new it.sephiroth.android.library.widget.AdapterView.OnItemClickListener() {
             @Override
@@ -557,4 +609,19 @@ public class PhotoProcessActivity extends CameraBaseActivity {
             }
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (currentBitmap != null) {
+            currentBitmap.recycle();
+            currentBitmap = null;
+        }
+//        if (smallImageBackgroud != null) {
+//            smallImageBackgroud.recycle();
+//            smallImageBackgroud = null;
+//        }
+    }
+
+
 }

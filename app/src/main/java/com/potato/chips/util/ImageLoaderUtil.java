@@ -11,7 +11,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.potato.chips.app.MainApplication;
 import com.potato.sticker.R;
@@ -58,8 +60,20 @@ public class ImageLoaderUtil {
         optionsBuider.imageScaleType(scaleType);
         ImageLoader.getInstance().displayImage(url,view,optionsBuider.build());
     }
+
+
+
     public static void displayImage(String url,ImageView view,DisplayImageOptions options){
         ImageLoader.getInstance().displayImage(url, view, options);
+    }
+    /*public static void loadImageAsync(String uri,ImageLoadingListener imageLoadingListener){
+        ImageLoader.getInstance().loadImage(uri, new ImageSize(MainApplication.screenWidth, MainApplication.screenHight), imageLoadingListener);
+    }*/
+    public static void loadImageAsync(String uri,ImageLoadingListener imageLoadingListener){
+        ImageLoader.getInstance().loadImage(uri,  imageLoadingListener);
+    }
+    public static void loadImageAsync(String uri,ImageLoadingListener imageLoadingListener,ImageSize imageSize){
+        ImageLoader.getInstance().loadImage(uri, imageSize,imageLoadingListener);
     }
 
 

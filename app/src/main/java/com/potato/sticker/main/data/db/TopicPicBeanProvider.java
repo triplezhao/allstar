@@ -10,17 +10,14 @@ import com.potato.chips.base.BaseProvider;
 /**
  * create by freemaker
  */
-public class PicBeanProvider extends BaseProvider {
+public class TopicPicBeanProvider extends BaseProvider {
     public static final String AUTHORITY = "com.potato.sticker.main.data.db.PicBeanProvider";
     public static final String TABLE_PATH = "PicBeanTB";
     public static final Uri CONTENT_URI = Uri.withAppendedPath(Uri.parse("content://" + AUTHORITY), TABLE_PATH);
     
     public static class Columns implements BaseColumns{
-			public static final String topicId = "topicId";
-			public static final String id = "id";
-			public static final String userId = "userId";
-			public static final String url = "url";
-			public static final String status = "status";
+			public static final String imgPath = "imgPath";
+			public static final String tagList = "tagList";
     }
     
     /**
@@ -30,11 +27,8 @@ public class PicBeanProvider extends BaseProvider {
      */
     public static void createTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_PATH + "(" + Columns._ID + " integer primary key autoincrement, "
-	                + Columns.topicId + " text, "
-	                + Columns.id + " text, "
-	                + Columns.userId + " text, "
-	                + Columns.url + " text, "
-	                + Columns.status + " text "
+	                + Columns.imgPath + " text, "
+	                + Columns.tagList + " text "
                 + ");");
     }
     

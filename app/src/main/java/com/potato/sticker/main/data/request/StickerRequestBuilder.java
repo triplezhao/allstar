@@ -3,7 +3,7 @@ package com.potato.sticker.main.data.request;
 import com.potato.chips.base.BaseRequestBuilder;
 import com.potato.library.net.DefaultRequest;
 import com.potato.library.net.Request;
-import com.potato.sticker.main.data.bean.PicBean;
+import com.potato.sticker.main.data.bean.TopicPicBean;
 import com.potato.sticker.main.data.bean.TagBean;
 import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.bean.UserBean;
@@ -174,9 +174,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
             topic.put("title", bean.getTitle());
             topic.put("content", bean.getContent());
 
-            ArrayList<PicBean> picBeans = bean.picBeans;
+            ArrayList<TopicPicBean> picBeans = bean.picBeans;
             JSONObject picLabel = new JSONObject();
-            for (PicBean pic : picBeans) {
+            for (TopicPicBean pic : picBeans) {
                 JSONArray tagArray = new JSONArray();
                 for (TagBean tagBean : pic.getTagBeans()) {
                     JSONObject tagobj = new JSONObject();
@@ -209,4 +209,25 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         request.params = new HashMap<String, Object>();
         return request;
     }
+
+
+    //获取所有帖子列表
+    public static Request userPic(String uid, String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.USERPIC,new String[]{uid});
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+
 }

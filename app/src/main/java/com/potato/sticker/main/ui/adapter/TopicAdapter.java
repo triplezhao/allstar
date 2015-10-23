@@ -18,7 +18,7 @@ import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.TagItem;
 import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.databinding.ItemTopicBinding;
-import com.potato.sticker.main.data.bean.PicBean;
+import com.potato.sticker.main.data.bean.TopicPicBean;
 import com.potato.sticker.main.data.bean.TagBean;
 import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.request.StickerRequestUrls;
@@ -55,7 +55,7 @@ public class TopicAdapter extends BaseListAdapter {
         binding.setBean(bean);
 
         Context context = binding.getRoot().getContext();
-        final List<PicBean> piclist = bean.getPicBeans();
+        final List<TopicPicBean> piclist = bean.getPicBeans();
         final List<TagBean> list = piclist.get(0).getTagBeans();
 
         ImageLoaderUtil.displayImage(URLDecoder.decode(bean.getUserBean().getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);

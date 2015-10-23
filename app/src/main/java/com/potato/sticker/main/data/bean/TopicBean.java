@@ -26,7 +26,7 @@ public class TopicBean extends BaseBean implements Serializable {
     private String createDate;
     private String status;
 
-    public ArrayList<PicBean> picBeans;
+    public ArrayList<TopicPicBean> picBeans;
     public UserBean userBean;
     public ArrayList<CommentBean> commentBeans;
     public String commentCount;
@@ -48,11 +48,11 @@ public class TopicBean extends BaseBean implements Serializable {
         this.userBean = userBean;
     }
 
-    public ArrayList<PicBean> getPicBeans() {
+    public ArrayList<TopicPicBean> getPicBeans() {
         return picBeans;
     }
 
-    public void setPicBeans(ArrayList<PicBean> picBeans) {
+    public void setPicBeans(ArrayList<TopicPicBean> picBeans) {
         this.picBeans = picBeans;
     }
 
@@ -166,7 +166,7 @@ public class TopicBean extends BaseBean implements Serializable {
 
         //topic pic属性
         JSONObject jsonLable = jsonParant.getJSONObject(picKey);
-        ArrayList<PicBean> picBeans = PicBean.createArrayFromJSON(jsonLable);
+        ArrayList<TopicPicBean> picBeans = TopicPicBean.createArrayFromJSON(jsonLable);
 
         //帖子user 属性
         JSONObject userObj = jsonParant.getJSONObject(userKey);

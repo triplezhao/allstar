@@ -48,7 +48,7 @@ import com.potato.sticker.camera.util.EffectService;
 import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.camera.util.FilterEffect;
 import com.potato.sticker.camera.util.GPUImageFilterTools;
-import com.potato.sticker.main.data.bean.PicBean;
+import com.potato.sticker.main.data.bean.TopicPicBean;
 import com.potato.sticker.main.data.bean.TagBean;
 import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.bean.UserBean;
@@ -435,8 +435,8 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                                     FeedItem feedItem = new FeedItem(tagInfoList, enCodeFileName);
                                     EventBus.getDefault().post(feedItem);*/
 
-                                    ArrayList<PicBean> picBeans = new ArrayList<PicBean>();
-                                    PicBean picBean = new PicBean();
+                                    ArrayList<TopicPicBean> picBeans = new ArrayList<TopicPicBean>();
+                                    TopicPicBean picBean = new TopicPicBean();
                                     picBean.setImgPath(fileKey);
 
                                     //保存标签信息

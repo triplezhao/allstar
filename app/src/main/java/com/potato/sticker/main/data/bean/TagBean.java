@@ -159,7 +159,7 @@ public class TagBean extends BaseBean implements Serializable {
     public static TagItem Convert2TagItem(TagBean bean) {
         TagItem tagItem = new TagItem();
         try {
-            tagItem.setLeft(bean.equals("true"));
+            tagItem.setLeft(bean.getLeft().equals("0"));
             tagItem.setName(bean.getName());
 //        tagItem.setRecordCount(Integer.parseInt(bean.getRecordCount()));
             tagItem.setType(Integer.parseInt(bean.getType()));
@@ -176,7 +176,7 @@ public class TagBean extends BaseBean implements Serializable {
     public static TagBean createFromTagItem(TagItem bean) {
         TagBean tagBean = new TagBean();
         tagBean.setId(bean.getId() + "");
-        tagBean.setLeft(bean.isLeft() ? "1" : "0");
+        tagBean.setLeft(bean.isLeft() ? "0" : "1");
         tagBean.setName(bean.getName());
         tagBean.setRecordCount(bean.getRecordCount() + "");
         tagBean.setType(bean.getType() + "");

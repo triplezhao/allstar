@@ -11,13 +11,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.imagezoom.ImageViewTouch;
+import com.potato.library.util.L;
+import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.customview.MyHighlightView;
 import com.potato.sticker.camera.customview.MyImageViewDrawableOverlay;
 import com.potato.sticker.camera.customview.drawable.StickerDrawable;
-import com.potato.sticker.R;
 import com.potato.sticker.camera.data.bean.Addon;
-import com.imagezoom.ImageViewTouch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,6 +161,7 @@ public class EffectUtil {
     }
 
     public static int getStandDis(float realDis, float baseWidth) {
+        L.i("getStandDis", App.getApp().getScreenWidth()+"");
         float imageWidth = baseWidth <= 0 ? App.getApp().getScreenWidth() : baseWidth;
         float radio = AppConstants.DEFAULT_PIXEL / imageWidth;
         return (int) (radio * realDis);

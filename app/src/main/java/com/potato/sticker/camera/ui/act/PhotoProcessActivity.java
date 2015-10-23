@@ -87,7 +87,12 @@ public class PhotoProcessActivity extends CameraBaseActivity {
     //绘图区域
     @InjectView(R.id.drawing_view_container)
     ViewGroup drawArea;
+    //内容区
+    @InjectView(R.id.tv_content)
+    TextView tv_content;
     //底部按钮
+    @InjectView(R.id.bt_content)
+    TextView bt_content;
     @InjectView(R.id.sticker_btn)
     TextView stickerBtn;
     @InjectView(R.id.filter_btn)
@@ -127,7 +132,8 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         EffectUtil.clear();
         initView();
         initEvent();
-        initStickerToolBar();
+
+        setCurrentBtn(bt_content);
 
         userBean = DBUtil.getLoginUser();
 
@@ -230,9 +236,35 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT));
         toolArea.addView(commonLabelArea);
         commonLabelArea.setVisibility(View.GONE);
+
+        tv_content.setVisibility(View.VISIBLE);
+
+
     }
 
     private void initEvent() {
+
+        tv_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditTextActivity.openTextEdit(PhotoProcessActivity.this, "", 100, AppConstants.ACTION_EDIT_CONTENT);
+            }
+        });
+
+        bt_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!PhotoProcessActivity.this.setCurrentBtn(bt_content)) {
+                    return;
+                }
+                tv_content.setVisibility(View.VISIBLE);
+                labelSelector.hide();
+                bottomToolBar.setVisibility(View.GONE);
+                emptyLabelView.setVisibility(View.GONE);
+                commonLabelArea.setVisibility(View.GONE);
+//                EditTextActivity.openTextEdit(PhotoProcessActivity.this, "", 100, AppConstants.ACTION_EDIT_CONTENT);
+            }
+        });
         stickerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,6 +275,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                 labelSelector.hide();
                 emptyLabelView.setVisibility(View.GONE);
                 commonLabelArea.setVisibility(View.GONE);
+                tv_content.setVisibility(View.GONE);
                 PhotoProcessActivity.this.initStickerToolBar();
             }
         });
@@ -257,6 +290,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                 labelSelector.hide();
                 emptyLabelView.setVisibility(View.INVISIBLE);
                 commonLabelArea.setVisibility(View.GONE);
+                tv_content.setVisibility(View.GONE);
                 PhotoProcessActivity.this.initFilterToolBar();
             }
         });
@@ -267,6 +301,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                     return;
                 }
                 bottomToolBar.setVisibility(View.GONE);
+                tv_content.setVisibility(View.GONE);
                 labelSelector.showToTop();
                 commonLabelArea.setVisibility(View.VISIBLE);
 
@@ -313,6 +348,10 @@ public class PhotoProcessActivity extends CameraBaseActivity {
             public void onClick(View v) {
                 if (userBean == null) {
                     UIUtils.toast(mContext, "请先登录");
+                    return;
+                }
+                if(TextUtils.isEmpty(tv_content.getText())){
+                    UIUtils.toast(mContext, "说点什么");
                     return;
                 }
                 savePicture();
@@ -412,7 +451,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
 
                                     TopicBean topicBean = new TopicBean();
                                     topicBean.setUserId(userBean.getId());
-                                    topicBean.setContent("帖子内容xxxxx");
+                                    topicBean.setContent(tv_content.getText().toString());
                                     topicBean.setTitle("帖子title");
                                     topicBean.setPicBeans(picBeans);
 
@@ -606,6 +645,11 @@ public class PhotoProcessActivity extends CameraBaseActivity {
             if (!TextUtils.isEmpty(text)) {
                 TagItem tagItem = new TagItem(AppConstants.POST_TYPE_POI, text);
                 addLabel(tagItem);
+            }
+        } else if (AppConstants.ACTION_EDIT_CONTENT == requestCode && data!= null) {
+            String text = data.getStringExtra(AppConstants.PARAM_EDIT_TEXT);
+            if (!TextUtils.isEmpty(text)) {
+                tv_content.setText(text);
             }
         }
     }

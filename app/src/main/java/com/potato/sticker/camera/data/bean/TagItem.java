@@ -2,6 +2,8 @@ package com.potato.sticker.camera.data.bean;
 
 
 
+import com.potato.library.util.L;
+
 import java.io.Serializable;
 
 public class TagItem implements Serializable {
@@ -69,6 +71,7 @@ public class TagItem implements Serializable {
 
     public void setX(double x) {
         this.x = x;
+        L.i("TagItem",x+"setX");
     }
 
     public double getY() {
@@ -76,7 +79,7 @@ public class TagItem implements Serializable {
     }
 
     public void setY(double y) {
-        this.y = y;
+        this.y = y;L.i("TagItem",y+"setY");
     }
 
 }

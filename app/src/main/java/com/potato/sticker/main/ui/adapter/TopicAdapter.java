@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.potato.chips.app.MainApplication;
 import com.potato.chips.util.ImageLoaderUtil;
+import com.potato.chips.util.PhoneUtils;
 import com.potato.library.adapter.BaseListAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.TagItem;
+import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.databinding.ItemTopicBinding;
 import com.potato.sticker.main.data.bean.PicBean;
 import com.potato.sticker.main.data.bean.TagBean;
@@ -51,6 +54,7 @@ public class TopicAdapter extends BaseListAdapter {
         TopicBean bean = (TopicBean) mData.get(position);
         binding.setBean(bean);
 
+        Context context = binding.getRoot().getContext();
         final List<PicBean> piclist = bean.getPicBeans();
         final List<TagBean> list = piclist.get(0).getTagBeans();
 
@@ -71,14 +75,14 @@ public class TopicAdapter extends BaseListAdapter {
 //        ImageLoaderUtil.displayImage("file://"+feedItem.getImgPath(), binding.picture, R.drawable.def_gray_big);
         ImageLoaderUtil.displayImage(StickerRequestUrls.BaseStickerURL_IMAGE + piclist.get(0).getImgPath(), binding.picture, R.drawable.def_gray_big);
         // 这里可能有问题 延迟200毫秒加载是为了等pictureLayout已经在屏幕上显示getWidth才为具体的值
-
+        int parantWidth = MainApplication.screenWidth- PhoneUtils.dip2px(context, 8);
         for (TagBean tagBean : list) {
             LabelView tagView = new LabelView(binding.getRoot().getContext());
             TagItem tagItem = TagBean.Convert2TagItem(tagBean);
             tagView.init(tagItem);
             tagView.draw(binding.pictureLayout,
-                    (int) (tagItem.getX()),
-                    (int) (tagItem.getY()),
+                    EffectUtil.getRealDis((float)tagItem.getX(), parantWidth),
+                    EffectUtil.getRealDis((float)tagItem.getY(), parantWidth),
                     tagItem.isLeft());
             tagView.wave();
         }

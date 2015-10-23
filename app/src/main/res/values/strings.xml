@@ -30,10 +30,11 @@
     <string name="sticker_net_timeout">网络不太给力哦，一会再试试~</string>
     <string name="sticker_data_exception">数据加载异常，请稍后重试</string>
   <string name="str_wlj">无滤镜</string>
-  <string name="str_edit_photo">编辑相片</string>
+  <string name="str_edit_photo">内容编辑</string>
   <string name="str_back">返回</string>
   <string name="str_next">下一步</string>
   <string name="str_sticker">贴纸</string>
+  <string name="str_content">内容</string>
   <string name="str_lvjing">滤镜</string>
   <string name="str_tag">标签</string>
   <string name="passport_register_account_hint">手机号</string>
@@ -43,5 +44,6 @@
   <string name="str_zan">赞</string>
   <string name="str_focus">关注</string>
   <string name="str_fans">粉丝</string>
+  <string name="str_topic_content_hint">点我编辑帖子内容</string>
 
 </resources>

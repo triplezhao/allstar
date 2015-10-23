@@ -18,14 +18,14 @@
 
 
     <style name="RedTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/potato_red</item>
-        <item name="colorPrimaryDark">@color/potato_red</item>
-        <item name="colorAccent">@color/potato_red</item>
+        <item name="colorPrimary">@color/sticker_blue</item>
+        <item name="colorPrimaryDark">@color/sticker_blue</item>
+        <item name="colorAccent">@color/sticker_blue</item>
     </style>
 
     <style name="head_default">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/height_100px</item>
+        <item name="android:layout_height">50dp</item>
     </style>
 
     <style name="message_divider">

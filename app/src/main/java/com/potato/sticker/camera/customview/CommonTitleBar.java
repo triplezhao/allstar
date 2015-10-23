@@ -58,7 +58,6 @@ public class CommonTitleBar extends RelativeLayout {
         }
 
         LayoutInflater.from(context).inflate(R.layout.view_title_bar, this);
-        findViewById(R.id.title_out_frame).setBackgroundResource(R.color.pink);
         arr.recycle();
     }
 

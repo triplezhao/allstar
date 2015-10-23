@@ -50,8 +50,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         request.body = body.toString();
         return request;
     }
+
     //登录，只传递一个uid就ok。第三方的openid
-    public static Request login( PlatformDb platformDb) {
+    public static Request login(PlatformDb platformDb) {
         Request request = new DefaultRequest();
         request.reqMethod = Request.REQ_METHOD_POST;
         request.url = StickerRequestUrls.USER;
@@ -63,7 +64,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
             body.put("uid", platformDb.getUserId());
             body.put("nickname", platformDb.getUserName());
             body.put("headImg", URLEncoder.encode(platformDb.getUserIcon()));
-            body.put("sex", platformDb.getUserGender().equals("m")?"0":"1");
+            body.put("sex", platformDb.getUserGender().equals("m") ? "0" : "1");
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -104,7 +105,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     public static Request topic(String uid, String page, String size) {
         Request request = new DefaultRequest();
         request.reqMethod = Request.REQ_METHOD_POST;
-        request.url = getRealRequestUrl(StickerRequestUrls.TOPIC,new String[]{uid});
+        request.url = getRealRequestUrl(StickerRequestUrls.USERTOPIC, new String[]{uid});
 
         JSONObject body = new JSONObject();
         try {
@@ -118,6 +119,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
         return request;
     }
+
     //获取所有帖子列表
     public static Request allTopic(String title, String page, String size) {
         Request request = new DefaultRequest();
@@ -211,16 +213,65 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
 
-    //获取所有帖子列表
+    //获取用户图册列表
     public static Request userPic(String uid, String page, String size) {
         Request request = new DefaultRequest();
         request.reqMethod = Request.REQ_METHOD_POST;
-        request.url = getRealRequestUrl(StickerRequestUrls.USERPIC,new String[]{uid});
+        request.url = getRealRequestUrl(StickerRequestUrls.USERPIC, new String[]{uid});
 
         JSONObject body = new JSONObject();
         try {
             body.put("page", page);
             body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+
+    //获取帖子评论列表
+    public static Request commentList(String topicId, String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.COMMENTLIST, new String[]{topicId});
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+
+    //获取帖子详情
+    public static Request topicDetail(String topicId) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_GET;
+        request.url = getRealRequestUrl(StickerRequestUrls.TOPIC_DETAIL, new String[]{topicId});
+        request.params = new HashMap<String, Object>();
+
+        return request;
+    }
+
+    //获取帖子详情
+    public static Request comment(String topicId, String userId, String reviewerId, String content) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.COMMENT;
+        JSONObject body = new JSONObject();
+        try {
+            body.put("topicId", topicId);
+            body.put("userId", userId);
+            body.put("reviewer", reviewerId);
+            body.put("content", content);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -9,6 +9,8 @@ import android.text.TextUtils;
 
 import com.potato.library.util.L;
 import com.potato.sticker.login.ui.act.LoginActivity;
+import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.ui.act.TopicDetailActivity;
 
 
 /**
@@ -107,7 +109,20 @@ public class PageCtrl {
 
     public static void start2LoginAct(Context context){
 //        start(context, LoginActivity.class,false,null,null);
-        startForResult(context,LoginActivity.class, false, null, null,LoginActivity.LOGIN);
+        startForResult(context, LoginActivity.class, false, null, null, LoginActivity.LOGIN);
+    }
+    public static void start2TopicDetail(Context context,String topicId){
+//        start(context, LoginActivity.class,false,null,null);
+        Bundle bundle = new Bundle();
+        bundle.putString(TopicDetailActivity.TOPIC_ID, topicId);
+        start(context, TopicDetailActivity.class, false, null, bundle);
+    }
+
+    public static void start2TopicDetail(Context context,TopicBean bean){
+//        start(context, LoginActivity.class,false,null,null);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN,bean);
+        start(context, TopicDetailActivity.class, false, null, bundle);
     }
 
 }

@@ -150,7 +150,21 @@ public class TopicBean extends BaseBean implements Serializable {
 //        bean.setPicBeans(PicBean.createFromJSONArray(json.optJSONArray("piclist")));
         return bean;
     }
+    public static TopicBean createFromJSON(JSONObject jsonParant, String topicKey, String picKey) throws JSONException {
+        if (jsonParant == null) return null;
 
+        //topic 属性
+        JSONObject json = jsonParant.getJSONObject(topicKey);
+        TopicBean bean = createFromJSON(json);
+
+        //topic pic属性
+        JSONObject jsonLable = jsonParant.getJSONObject(picKey);
+        ArrayList<TopicPicBean> picBeans = TopicPicBean.createArrayFromJSON(jsonLable);
+
+        bean.setPicBeans(picBeans);
+//        bean.setPicBeans(PicBean.createFromJSONArray(json.optJSONArray("piclist")));
+        return bean;
+    }
     /*
     [
     { picLabl{[{picurl:xxxx,[{tag:"",...},...]}]},

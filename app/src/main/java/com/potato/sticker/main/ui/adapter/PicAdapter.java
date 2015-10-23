@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.library.adapter.BaseMutiRowAdapter;
 import com.potato.library.adapter.BaseViewHolder;
@@ -46,7 +47,7 @@ public class PicAdapter extends BaseMutiRowAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ItemPicBinding binding = (ItemPicBinding) ((VH) holder).getBinding();
+        final ItemPicBinding binding = (ItemPicBinding) ((VH) holder).getBinding();
         final PicBean bean = (PicBean) mData.get(position);
         binding.ivPic.setTargetWH(1, 1);
 
@@ -56,6 +57,7 @@ public class PicAdapter extends BaseMutiRowAdapter {
             @Override
             public void onClick(View view) {
 //                CameraManager.getInst().processPhotoItem((Activity) view.getContext(), bean);
+                PageCtrl.start2TopicDetail(binding.getRoot().getContext(),bean.getTopicId());
             }
         });
 //

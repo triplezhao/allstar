@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.potato.chips.app.MainApplication;
+import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.PhoneUtils;
 import com.potato.library.adapter.BaseListAdapter;
@@ -51,10 +52,10 @@ public class TopicAdapter extends BaseListAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ItemTopicBinding binding = (ItemTopicBinding) ((VH) holder).getBinding();
-        TopicBean bean = (TopicBean) mData.get(position);
+        final TopicBean bean = (TopicBean) mData.get(position);
         binding.setBean(bean);
 
-        Context context = binding.getRoot().getContext();
+        final Context context = binding.getRoot().getContext();
         final List<TopicPicBean> piclist = bean.getPicBeans();
         final List<TagBean> list = piclist.get(0).getTagBeans();
 
@@ -86,6 +87,12 @@ public class TopicAdapter extends BaseListAdapter {
                     tagItem.isLeft());
             tagView.wave();
         }
+        binding.ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PageCtrl.start2TopicDetail(context,bean);
+            }
+        });
     }
 
 

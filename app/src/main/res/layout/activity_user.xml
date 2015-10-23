@@ -223,7 +223,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:background="@color/divider"/>
+                    android:background="@color/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -261,8 +261,10 @@
         </LinearLayout>
 
 
-<View
-android:layout_width="match_parent"
-android:layout_height="5dp"
-android:layout_below="@id/rl_header"
-android:background="@drawable/bottom_shadow_bg" /></RelativeLayout></layout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/rl_header"
+            android:background="@drawable/bottom_shadow_bg" />
+    </RelativeLayout>
+</layout>

@@ -75,6 +75,7 @@
         <activity android:name="com.potato.sticker.main.ui.act.UserTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.AllTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.TopicDetailActivity"></activity>
         <!--登录 注册-->
         <activity android:name="com.potato.sticker.login.ui.act.LoginActivity"></activity>
 

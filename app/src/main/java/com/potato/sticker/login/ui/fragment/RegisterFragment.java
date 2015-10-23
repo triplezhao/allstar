@@ -1,5 +1,6 @@
 package com.potato.sticker.login.ui.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import com.potato.library.net.RequestManager;
 import com.potato.library.util.StringUtils;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.FragmentRegisterBinding;
-import com.potato.sticker.login.ui.act.LoginActivity;
 import com.potato.sticker.main.data.bean.UserBean;
 import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.UserParser;
@@ -157,12 +157,10 @@ public class RegisterFragment extends BaseFragment {
                     if (user != null) {
                         user.setIslogined("1");
                         DBUtil.addUser(user);
-                        //注册成功，则返回到我的页面
-//	                    if(getFragmentManager().getBackStackEntryCount()==0){
-                        getActivity().setResult(LoginActivity.LOGIN);
-                        getActivity().finish();
                         UIUtils.toast(mContext, "login succ");
-//
+                        DBUtil.addUser(user);
+                        getActivity().setResult(Activity.RESULT_OK);
+                        getActivity().finish();
                     } else {
                         getFragmentManager().popBackStack();
                     }

@@ -193,16 +193,17 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
 
                             UserBean bean = new UserBean();
 
-                            bean.setUid(platformDb.getUserId());
-                            bean.setNickname(platformDb.getUserName());
-                            bean.setHeadImg(platformDb.getUserIcon());
-                            bean.setSex(platformDb.getUserGender());
+                            bean.setId(user.getId());
+                            bean.setUid(user.getUid());
+                            bean.setNickname(user.getNickname());
+                            bean.setHeadImg(user.getHeadImg());
+                            bean.setSex(user.getSex());
 
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("bean", bean);
 
                             fragment.setArguments(bundle);
-                            fragmentTransaction.add(R.id.fragment_container, fragment);
+                            fragmentTransaction.replace(R.id.fragment_container, fragment);
                             fragmentTransaction.commit();
                         }
 

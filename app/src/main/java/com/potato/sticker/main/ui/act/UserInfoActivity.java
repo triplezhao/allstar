@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
@@ -91,7 +92,7 @@ public class UserInfoActivity extends BaseActivity {
             }
         });
         binding.swipeContainer.setEmptyView(binding.emptyView);
-        binding.emptyView.setOnClickListener(this);
+        binding.btFocus.setOnClickListener(this);
         binding.swipeContainer.showProgress();
 
         requestRefreshUserPic();
@@ -253,6 +254,34 @@ public class UserInfoActivity extends BaseActivity {
 
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_focus:
+                Request request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
+                RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+
+                    @Override
+                    public void onCacheLoaded(String content) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, String content) {
+                        binding.btFocus.setText("已关注");
+                        binding.btFocus.setBackgroundResource(R.drawable.selector_bg_green);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable error, String errMsg) {
+
+                    }
+                }, RequestManager.CACHE_TYPE_NOCACHE);
+                break;
+
+        }
     }
 
     @Override

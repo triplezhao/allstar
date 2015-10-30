@@ -351,4 +351,35 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
         return request;
     }
+
+
+    //用户关注其他用户
+    public static Request focus(String focusId, String fansId) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.FOCUS;
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("focusId", focusId);
+            body.put("fansId", fansId);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+
+    //取消关注
+    public static Request unfocus(String userId, String focusId) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_GET;
+        request.url = StickerRequestUrls.UNFOCUS;
+        request.url = getRealRequestUrl(StickerRequestUrls.UNFOCUS, new String[]{userId, focusId});
+        request.params = new HashMap<String, Object>();
+
+        return request;
+    }
 }

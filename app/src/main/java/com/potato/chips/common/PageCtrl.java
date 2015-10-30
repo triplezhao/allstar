@@ -10,11 +10,12 @@ import android.text.TextUtils;
 import com.potato.library.util.L;
 import com.potato.sticker.login.ui.act.LoginActivity;
 import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.bean.UserBean;
 import com.potato.sticker.main.ui.act.TopicDetailActivity;
+import com.potato.sticker.main.ui.act.UserInfoActivity;
 
 
 /**
- *
  * @ClassName: PageCtrl
  * @Description: 用于处理各模块的跳转
  * @date 2014-8-19 下午4:19:42
@@ -72,28 +73,26 @@ public class PageCtrl {
     }
 
     /**
-     *
      * @Title: start2WebViewActivity
      * @Description: 跳转到webview界面
      * @date: 2014-8-11 下午4:06:19
      */
-    public static void start2WebViewActivity(Context mContext,String address){
+    public static void start2WebViewActivity(Context mContext, String address) {
         L.d("dongxt", "start2WebViewActivity address = " + address);
-        if(TextUtils.isEmpty(address))return;
+        if (TextUtils.isEmpty(address)) return;
         if (address.contains("http")) {
             Intent intent = new Intent(mContext, WebViewActivity.class);
             intent.putExtra(WebViewActivity.URL_ADDRESS, address);
             mContext.startActivity(intent);
         } else {
             // schema 处理
-            if(address.contains("app.17173cucc") || address.contains("app.17173")){
+            if (address.contains("app.17173cucc") || address.contains("app.17173")) {
                 start2SchemaPage(mContext, address);
             }
         }
     }
 
     /**
-     *
      * @Title: start2SchemaPage
      * @Description: 打开schemaHandlerActivity
      * @param: @param context
@@ -101,28 +100,36 @@ public class PageCtrl {
      * @return: void    返回类型
      * @date: 2014-10-20 下午3:45:48
      */
-    public static void start2SchemaPage(Context context, String url){
+    public static void start2SchemaPage(Context context, String url) {
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
     }
 
-    public static void start2LoginAct(Context context){
+    public static void start2LoginAct(Context context) {
 //        start(context, LoginActivity.class,false,null,null);
         startForResult(context, LoginActivity.class, false, null, null, LoginActivity.LOGIN);
     }
-    public static void start2TopicDetail(Context context,String topicId){
+
+    public static void start2TopicDetail(Context context, String topicId) {
 //        start(context, LoginActivity.class,false,null,null);
         Bundle bundle = new Bundle();
         bundle.putString(TopicDetailActivity.TOPIC_ID, topicId);
         start(context, TopicDetailActivity.class, false, null, bundle);
     }
 
-    public static void start2TopicDetail(Context context,TopicBean bean){
+    public static void start2TopicDetail(Context context, TopicBean bean) {
 //        start(context, LoginActivity.class,false,null,null);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN,bean);
+        bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN, bean);
         start(context, TopicDetailActivity.class, false, null, bundle);
+    }
+
+    //用户详情页
+    public static void start2UserInfoActivity(Context context, UserBean bean) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(UserInfoActivity.EXTRARS_USERBEAN, bean);
+        start(context, UserInfoActivity.class, false, null, bundle);
     }
 
 }

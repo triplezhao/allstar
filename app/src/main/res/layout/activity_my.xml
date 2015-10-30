@@ -19,6 +19,7 @@
             android:layout_height="50dip"
             android:background="@color/sticker_blue"
             android:gravity="center_vertical">
+
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -64,7 +65,6 @@
                         android:src="@drawable/def_gray_small" />
 
                     <RelativeLayout
-                        android:layout_weight="2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
 
@@ -92,14 +92,6 @@
                             android:textSize="@dimen/txt_min" />
 
                     </RelativeLayout>
-
-                    <Button
-                        android:id="@+id/bt_focus"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/selector_bg_red"
-                        android:text="@string/str_focus"
-                        android:textColor="@color/potato_white"/>
 
                 </LinearLayout>
 

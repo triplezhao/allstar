@@ -38,7 +38,7 @@ public class UserParser extends BaseParser {
 
     @Override
     public boolean isSucc() {
-        return true;
+        return user != null;
     }
 
 }

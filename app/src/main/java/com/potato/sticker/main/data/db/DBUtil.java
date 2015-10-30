@@ -17,13 +17,21 @@ import cn.sharesdk.wechat.friends.Wechat;
  * Created by ztw on 2015/10/12.
  */
 public class DBUtil {
-    
+
     public static Context context = MainApplication.context;
-    
+
     public static void addUser(UserBean user) {
 
         // public static void addUser(UserBean user) {
         // userDao.insert(user);
+        addUser(user, true);
+    }
+
+    public static void updateUser(UserBean user) {
+
+        // public static void addUser(UserBean user) {
+        // userDao.insert(user);
+        user.setIslogined("1");
         addUser(user, true);
     }
 

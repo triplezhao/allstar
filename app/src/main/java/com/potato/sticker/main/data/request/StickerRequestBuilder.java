@@ -100,6 +100,25 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
     }
 
+    //获取最新user信息,使用第三方的那个id，不然接口错误
+    public static Request getUserInfo(String uid) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.USER;
+//        request.params = new HashMap<String, Object>();
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("uid", uid);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+        return request;
+
+    }
+
 
     //获取用户发帖列表
     public static Request topic(String uid, String page, String size) {
@@ -281,4 +300,55 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
 
+
+    //获取帖子详情
+    public static Request getClassify() {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_GET;
+        request.url = StickerRequestUrls.TOPIC_CLASSIFY;
+        request.params = new HashMap<String, Object>();
+
+        return request;
+    }
+
+    //获取帖子评论列表
+    public static Request getClassifyRela(String classifyId, String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.TOPIC_CLASSIFY_RELA, new String[]{classifyId});
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+
+    //点赞  “topicId”:, //帖子id
+//    “userId”:, //发帖人id
+//      “laudator”: //点赞人id
+    public static Request topicLaud(String topicId, String userId, String laudator) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.TOPIC_LAUD;
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("topicId", topicId);
+            body.put("userId", userId);
+            body.put("laudator", laudator);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
 }

@@ -69,30 +69,35 @@
 
             </com.potato.library.view.refresh.ListSwipeLayout>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/divider" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
-                >
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:background="@color/potato_white">
+
                 <EditText
                     android:id="@+id/et_send_coment"
-                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/business_comment_input_bg"
                     android:hint="say some thing"
                     android:paddingRight="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/red"
-                    android:textColorHint="@color/white"
-                    />
+                    android:singleLine="true" />
+
                 <ImageView
                     android:id="@+id/iv_send_coment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_comment"
                     android:padding="10dp"
-                    />
+                    android:src="@drawable/ic_comment" />
 
             </LinearLayout>
         </LinearLayout>

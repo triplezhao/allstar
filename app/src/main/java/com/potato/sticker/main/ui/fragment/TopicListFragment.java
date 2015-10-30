@@ -1,59 +1,80 @@
-package com.potato.sticker.main.ui.act;
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import android.content.Intent;
+package com.potato.sticker.main.ui.fragment;
+
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.potato.chips.base.BaseActivity;
-import com.potato.chips.common.PageCtrl;
-import com.potato.chips.util.ImageLoaderUtil;
+import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
 import com.potato.library.view.refresh.ListSwipeLayout;
 import com.potato.sticker.R;
-import com.potato.sticker.databinding.ActivityUserBinding;
-import com.potato.sticker.login.ui.act.LoginActivity;
-import com.potato.sticker.main.data.bean.PicBean;
-import com.potato.sticker.main.data.bean.UserBean;
-import com.potato.sticker.main.data.db.DBUtil;
-import com.potato.sticker.main.data.parser.PicListParser;
+import com.potato.sticker.camera.util.CameraManager;
+import com.potato.sticker.databinding.FragmentTopicListBinding;
+import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.parser.TopicListParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.main.ui.adapter.PicAdapter;
+import com.potato.sticker.main.ui.adapter.TopicAdapter;
 
-import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ztw on 2015/10/21.
- */
-public class UserActivity extends BaseActivity {
+public class TopicListFragment extends BaseFragment {
+    private static final String TAG = "TopicListFragment";
+    /**
+     * extrars
+     */
+    public static final String EXTRARS_SECTION_ID = "EXTRARS_SECTION_ID";
+    public static final String EXTRARS_TITLE = "EXTRARS_TITLE";
+    private String mSectionId;
+    private String mTitle;
 
-    private ActivityUserBinding binding;
-    UserBean userBean;
+
+    List<TopicBean> list = new ArrayList<TopicBean>();
+    private TopicAdapter mAdapter;
+    private int mTotal = 1;
     private int mPage = 1;
+    private FragmentTopicListBinding binding;
     private int mSize = 10;
-    private List<PicBean> list;
-    private PicAdapter mAdapter;
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(
-                this, R.layout.activity_user);
+        binding = DataBindingUtil.inflate(
+                LayoutInflater.from(container.getContext()),
+                R.layout.fragment_topic_list,
+                container,
+                false);
+        mSectionId = getArguments() == null ? "" : getArguments().getString(EXTRARS_SECTION_ID);
+        mTitle = getArguments() == null ? "" : getArguments().getString(EXTRARS_TITLE);
 
-        userBean = DBUtil.getLoginUser();
-
-        if (userBean == null) {
-            PageCtrl.start2LoginAct(mContext);
-        }
-
-        mAdapter = new PicAdapter(mContext);
+        mAdapter = new TopicAdapter(mContext);
         binding.list.setAdapter(mAdapter);
 
-        binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(container.getContext(), binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -77,43 +98,18 @@ public class UserActivity extends BaseActivity {
         binding.swipeContainer.showProgress();
 
         sendRequest2RefreshList();
-
-        init();
+        return binding.getRoot();
     }
 
-    private void init() {
-        ImageLoaderUtil.displayImage(URLDecoder.decode(userBean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
-        binding.tvName.setText(userBean.getNickname());
-        binding.tvTime.setText(userBean.getCreateDate());
-        binding.tvTagCount.setText(userBean.getTopicCount());
-        binding.tvFansCount.setText(userBean.getFansCount());
-        binding.tvFocusCount.setText(userBean.getFocusCount());
-        binding.tvZanCount.setText(userBean.getLaudCount());
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        //requestCode标示请求的标示   resultCode表示有数据
-        if (requestCode == LoginActivity.LOGIN && resultCode == RESULT_OK) {
-            if (DBUtil.getLoginUser() == null) {
-                UIUtils.toast(mContext, "登录失败");
-            } else {
-                userBean = DBUtil.getLoginUser();
-                init();
-            }
-        }
-    }
     public void sendRequest2RefreshList() {
 
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.getClassifyRela(mSectionId, 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
                 onRefreshSucc(content);
-
             }
 
             @Override
@@ -136,7 +132,7 @@ public class UserActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.allTopic(mSectionId, mPage + 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -165,7 +161,7 @@ public class UserActivity extends BaseActivity {
             binding.swipeContainer.showEmptyViewFail();
             return;
         }
-        PicListParser parser = new PicListParser(content);
+        TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             list = parser.list;
             mPage = Integer.parseInt(parser.curPage);
@@ -187,7 +183,7 @@ public class UserActivity extends BaseActivity {
             UIUtils.toast(mContext, "token fail");
             return;
         }
-        PicListParser parser = new PicListParser(content);
+        TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
             if (parser.list == null || parser.list.size() == 0) {
@@ -205,4 +201,19 @@ public class UserActivity extends BaseActivity {
         }
 
     }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.empty_view:
+                binding.swipeContainer.showProgress();
+                sendRequest2RefreshList();
+                break;
+            case R.id.fab:
+                CameraManager.getInst().openCamera(mContext);
+                break;
+        }
+    }
+
 }

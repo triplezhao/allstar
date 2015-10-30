@@ -11,8 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.potato.chips.app.MainApplication;
 import com.potato.chips.base.BaseActivity;
+import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.PhoneUtils;
+import com.potato.chips.util.SPUtils;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
@@ -246,9 +248,9 @@ public class TopicDetailActivity extends BaseActivity {
     }
 
 
-    public void bindHeaderView(TopicBean bean) {
+    public void bindHeaderView(final TopicBean bean) {
         topicBinding.setBean(bean);
-        Context context = topicBinding.getRoot().getContext();
+        final Context context = topicBinding.getRoot().getContext();
         final List<TopicPicBean> piclist = bean.getPicBeans();
         final List<TagBean> list = piclist.get(0).getTagBeans();
 
@@ -259,7 +261,6 @@ public class TopicDetailActivity extends BaseActivity {
         }
 
         topicBinding.tvContent.setText(bean.getContent());
-        topicBinding.tvHeartCount.setText(bean.getLaudCount());
         // 将标签移除,避免回收使用时标签重复
         topicBinding.pictureLayout.removeViews(1, topicBinding.pictureLayout.getChildCount() - 1);
         topicBinding.picture.setTargetWH(1, 1);
@@ -278,6 +279,57 @@ public class TopicDetailActivity extends BaseActivity {
                     tagItem.isLeft());
             tagView.wave();
         }
+        //显示评论数
+        topicBinding.tvCommentCount.setText(bean.getCommentCount());
+        //赞
+        topicBinding.tvHeartCount.setText(bean.getLaudCount());
+        //赞的状态，如果点过赞，则实心
+        if (SPUtils.read(context, SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), false)) {
+            topicBinding.ivHeart.setImageResource(R.drawable.ic_heart_selected);
+            //点赞
+            topicBinding.ivHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    SPUtils.write(view.getContext(), SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), false);
+                }
+            });
+        } else {
+            topicBinding.ivHeart.setImageResource(R.drawable.ic_heart_normal);
+            //点赞
+            topicBinding.ivHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+
+                    Request request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
+                    RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+
+                        @Override
+                        public void onCacheLoaded(String content) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(int statusCode, String content) {
+
+                            SPUtils.write(view.getContext(), SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), true);
+                        }
+
+                        @Override
+                        public void onFailure(Throwable error, String errMsg) {
+
+                        }
+                    }, RequestManager.CACHE_TYPE_NOCACHE);
+                }
+            });
+        }
+
+        topicBinding.ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PageCtrl.start2UserInfoActivity(context, bean.userBean);
+            }
+        });
+
     }
 
     public void sendRequestTopicDetail() {
@@ -360,7 +412,7 @@ public class TopicDetailActivity extends BaseActivity {
         if (topicBean != null) {
 
             String comment_content = binding.etSendComent.getText().toString();
-            Request request = StickerRequestBuilder.comment(topicBean.getId(), DBUtil.getLoginUser().getId(), topicBean.getUserId(), comment_content);
+            Request request = StickerRequestBuilder.comment(topicBean.getId(), topicBean.getUserId(), DBUtil.getLoginUser().getId(), comment_content);
             RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
                 @Override
@@ -374,8 +426,9 @@ public class TopicDetailActivity extends BaseActivity {
                     TopicParser parser = new TopicParser(content);
                     if (parser.isSucc()) {
                         binding.etSendComent.setText("");
+                        UIUtils.toast(mContext, "评论成功");
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow( binding.etSendComent.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(binding.etSendComent.getWindowToken(), 0);
                         sendRequest2RefreshList();
                     }
 

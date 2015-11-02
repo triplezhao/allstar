@@ -36,7 +36,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="2dp">
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -61,8 +61,8 @@
                 android:id="@+id/tv_content"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                android:padding="2dp"
+                android:text="text"
                 android:textSize="@dimen/txt_normal" />
 
         </LinearLayout>

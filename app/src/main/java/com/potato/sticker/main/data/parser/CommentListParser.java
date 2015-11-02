@@ -19,7 +19,7 @@ public class CommentListParser extends BaseParser {
 
     public String curPage = "";
     public String pageSize = "";
-    public String rowCount = "";
+    public String rowCount = "0";
 
     public List<CommentBean> list = new ArrayList<CommentBean>();
 

@@ -20,6 +20,7 @@ import com.imagezoom.ImageViewTouch;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.QiniuUtil;
 import com.potato.chips.util.StringUtils;
@@ -48,9 +49,9 @@ import com.potato.sticker.camera.util.EffectService;
 import com.potato.sticker.camera.util.EffectUtil;
 import com.potato.sticker.camera.util.FilterEffect;
 import com.potato.sticker.camera.util.GPUImageFilterTools;
-import com.potato.sticker.main.data.bean.TopicPicBean;
 import com.potato.sticker.main.data.bean.TagBean;
 import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.bean.TopicPicBean;
 import com.potato.sticker.main.data.bean.UserBean;
 import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
@@ -66,6 +67,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import de.greenrobot.event.EventBus;
 import it.sephiroth.android.library.widget.HListView;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageView;
@@ -449,7 +451,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                                     picBean.setTagBeans(tagBeans);
                                     picBeans.add(picBean);
 
-                                    TopicBean topicBean = new TopicBean();
+                                    final TopicBean topicBean = new TopicBean();
                                     topicBean.setUserId(userBean.getId());
                                     topicBean.setContent(tv_content.getText().toString());
                                     topicBean.setTitle("帖子title");
@@ -467,6 +469,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
 
                                             dismissProgressDialog();
                                             UIUtils.toast(mContext, content);
+                                            EventBus.getDefault().post(new TopicSendedEvent(topicBean));
                                             CameraManager.getInst().close();
                                         }
 
@@ -666,6 +669,5 @@ public class PhotoProcessActivity extends CameraBaseActivity {
 //            smallImageBackgroud = null;
 //        }
     }
-
 
 }

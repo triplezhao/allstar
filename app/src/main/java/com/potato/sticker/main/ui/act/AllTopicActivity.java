@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.potato.chips.base.BaseActivity;
+import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
@@ -21,6 +22,8 @@ import com.potato.sticker.main.ui.adapter.TopicAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 主界面
@@ -40,6 +43,7 @@ public class AllTopicActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_user_topic);
         binding.fab.setOnClickListener(this);
@@ -188,5 +192,16 @@ public class AllTopicActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
+    public void onEventMainThread(TopicSendedEvent topicSendedEvent) {
+        if (topicSendedEvent != null) {
+            binding.swipeContainer.showProgress();
+            sendRequest2RefreshList();
+        }
+    }
 }

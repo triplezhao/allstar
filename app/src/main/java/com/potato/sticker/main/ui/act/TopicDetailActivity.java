@@ -194,14 +194,20 @@ public class TopicDetailActivity extends BaseActivity {
         }
         CommentListParser parser = new CommentListParser(content);
         if (parser.isSucc()) {
+            topicBean.setCommentCount(parser.rowCount);
+            bindHeaderView(topicBean);
+
             list = parser.list;
             mPage = Integer.parseInt(parser.curPage);
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
+            }else{
+                binding.swipeContainer.setLoadEnable(false);
             }
+            binding.swipeContainer.mListView.setSelection(1);
+            mAdapter.notifyDataSetChanged();
         } else {
             binding.swipeContainer.showEmptyViewFail();
         }

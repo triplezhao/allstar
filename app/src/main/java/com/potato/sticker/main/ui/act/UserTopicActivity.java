@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.potato.chips.base.BaseActivity;
+import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
@@ -22,6 +23,8 @@ import com.potato.sticker.main.ui.adapter.TopicAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 主界面
@@ -41,6 +44,7 @@ public class UserTopicActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_user_topic);
         binding.fab.setOnClickListener(this);
@@ -105,7 +109,7 @@ public class UserTopicActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", mPage +1+ "", mSize + "");
+        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", mPage + 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -137,7 +141,7 @@ public class UserTopicActivity extends BaseActivity {
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             list = parser.list;
-            mPage= Integer.parseInt(parser.curPage);
+            mPage = Integer.parseInt(parser.curPage);
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
@@ -158,13 +162,13 @@ public class UserTopicActivity extends BaseActivity {
         }
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
-            mPage= Integer.parseInt(parser.curPage);
+            mPage = Integer.parseInt(parser.curPage);
             if (parser.list == null || parser.list.size() == 0) {
                 binding.swipeContainer.setLoadEnable(false);
                 return;
             }
             list.addAll(parser.list);
-            if(list.size()>=Integer.parseInt(parser.rowCount)){
+            if (list.size() >= Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
@@ -189,5 +193,17 @@ public class UserTopicActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(TopicSendedEvent topicSendedEvent) {
+        if (topicSendedEvent != null) {
+            binding.swipeContainer.showProgress();
+            sendRequest2RefreshList();
+        }
+    }
 
 }

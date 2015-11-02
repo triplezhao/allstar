@@ -287,6 +287,6 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-//        requestRefreshUserBean();
+        requestRefreshUserBean();
     }
 }

@@ -1,5 +1,6 @@
 package com.potato.sticker.main.ui.act;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.potato.chips.util.SPUtils;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
+import com.potato.library.view.dialog.DialogUtil;
 import com.potato.library.view.refresh.ListSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
@@ -297,6 +299,7 @@ public class TopicDetailActivity extends BaseActivity {
                 @Override
                 public void onClick(final View view) {
                     SPUtils.write(view.getContext(), SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), false);
+                    bindHeaderView(topicBean);
                 }
             });
         } else {
@@ -318,6 +321,8 @@ public class TopicDetailActivity extends BaseActivity {
                         public void onSuccess(int statusCode, String content) {
 
                             SPUtils.write(view.getContext(), SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), true);
+//                            mAdapter.notifyDataSetChanged();
+                            bindHeaderView(topicBean);
                         }
 
                         @Override
@@ -339,7 +344,6 @@ public class TopicDetailActivity extends BaseActivity {
     }
 
     public void sendRequestTopicDetail() {
-
 
         Request request = StickerRequestBuilder.topicDetail(mTopic_id);
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
@@ -416,6 +420,8 @@ public class TopicDetailActivity extends BaseActivity {
     public void sendRequestComment() {
 
         if (topicBean != null) {
+            final Dialog dialog = DialogUtil.createProgressDialog(mContext);
+            dialog.show();
 
             String comment_content = binding.etSendComent.getText().toString();
             Request request = StickerRequestBuilder.comment(topicBean.getId(), topicBean.getUserId(), DBUtil.getLoginUser().getId(), comment_content);
@@ -428,7 +434,7 @@ public class TopicDetailActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(int statusCode, String content) {
-
+                    dialog.dismiss();
                     TopicParser parser = new TopicParser(content);
                     if (parser.isSucc()) {
                         binding.etSendComent.setText("");
@@ -442,7 +448,7 @@ public class TopicDetailActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Throwable error, String errMsg) {
-
+                    dialog.dismiss();
                     UIUtils.toast(mContext, errMsg);
                 }
             }, RequestManager.CACHE_TYPE_NOCACHE);

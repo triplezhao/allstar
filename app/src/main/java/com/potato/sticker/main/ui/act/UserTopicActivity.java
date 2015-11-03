@@ -145,7 +145,7 @@ public class UserTopicActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0&&list.size() <= Integer.parseInt(parser.rowCount)){
+            if (list != null && list.size() != 0&&list.size() < Integer.parseInt(parser.rowCount)){
                 binding.swipeContainer.setLoadEnable(true);
             }
         } else {

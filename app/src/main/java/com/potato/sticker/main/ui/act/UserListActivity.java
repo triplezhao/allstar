@@ -157,7 +157,7 @@ public class UserListActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0) {
+            if (list != null && list.size() != 0&&list.size() <Integer.parseInt(parser.rowCount)){
                 binding.swipeContainer.setLoadEnable(true);
             }
         } else {

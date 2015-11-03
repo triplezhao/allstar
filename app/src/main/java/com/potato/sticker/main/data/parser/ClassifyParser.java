@@ -17,7 +17,7 @@ public class ClassifyParser extends BaseParser {
     public ClassifyParser(String jsonStr) {
         super(jsonStr);
         try {
-            if (root.optJSONObject("classify") != null) {
+            if (root.optJSONArray("classify") != null) {
                 JSONArray array = root.optJSONArray("classify");
                 if (array != null) {
                     list = ClassifyBean.createFromJSONArray(array);

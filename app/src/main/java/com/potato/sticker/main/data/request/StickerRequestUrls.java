@@ -30,7 +30,7 @@ public class StickerRequestUrls extends BaseRequestUrls {
     //十八．	获取分类列表接口
     public final static String TOPIC_CLASSIFY = BaseStickerURL + "/support/classify";
     //十九．	获取分类下帖子列表接口
-    public final static String TOPIC_CLASSIFY_RELA = BaseStickerURL + "/classify/{0}/rela";
+    public final static String TOPIC_CLASSIFY_RELA = BaseStickerURL + "/support/classify/{0}/rela";
     //用户对某帖子点赞。
     public final static String TOPIC_LAUD = BaseStickerURL + "/content/topic/laud";
     //用户关注其他用户。

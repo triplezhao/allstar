@@ -56,8 +56,8 @@ public class TopicDetailActivity extends BaseActivity {
      */
     public static final String TOPIC_ID = "TOPIC_ID";
     public static final String TOPIC_BEAN = "TOPIC_BEAN";
-    public static String mTopic_id = "TOPIC_ID";
-    public static TopicBean topicBean;
+    public String mTopic_id = "TOPIC_ID";
+    public TopicBean topicBean;
 
     List<CommentBean> list = new ArrayList<CommentBean>();
     private CommentAdapter mAdapter;
@@ -205,7 +205,7 @@ public class TopicDetailActivity extends BaseActivity {
             mAdapter.setDataList(list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             binding.swipeContainer.mListView.setSelection(1);
@@ -418,12 +418,16 @@ public class TopicDetailActivity extends BaseActivity {
     }
 
     public void sendRequestComment() {
-
+        String comment_content = binding.etSendComent.getText().toString();
+        if (TextUtils.isEmpty(comment_content)) {
+            UIUtils.toast(mContext, "请编辑评论内容");
+            return;
+        }
         if (topicBean != null) {
             final Dialog dialog = DialogUtil.createProgressDialog(mContext);
             dialog.show();
 
-            String comment_content = binding.etSendComent.getText().toString();
+
             Request request = StickerRequestBuilder.comment(topicBean.getId(), topicBean.getUserId(), DBUtil.getLoginUser().getId(), comment_content);
             RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 

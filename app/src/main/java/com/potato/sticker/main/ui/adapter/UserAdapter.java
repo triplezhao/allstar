@@ -13,25 +13,25 @@ import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.library.adapter.BaseListAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.sticker.R;
-import com.potato.sticker.databinding.ItemCommentBinding;
-import com.potato.sticker.main.data.bean.CommentBean;
+import com.potato.sticker.databinding.ItemUserBinding;
+import com.potato.sticker.main.data.bean.UserBean;
 
 import java.net.URLDecoder;
 
 /**
  * Created by ztw on 2015/9/24.
  */
-public class CommentAdapter extends BaseListAdapter {
+public class UserAdapter extends BaseListAdapter {
 
-    public CommentAdapter(Context context) {
+    public UserAdapter(Context context) {
         super(context);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemCommentBinding binding = DataBindingUtil.inflate(
+        ItemUserBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.item_comment,
+                R.layout.item_user,
                 parent,
                 false);
         VH holder = new VH(binding.getRoot());
@@ -42,21 +42,25 @@ public class CommentAdapter extends BaseListAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final ItemCommentBinding binding = (ItemCommentBinding) ((VH) holder).getBinding();
-        final CommentBean bean = (CommentBean) mData.get(position);
+        final ItemUserBinding binding = (ItemUserBinding) ((VH) holder).getBinding();
+        final UserBean bean = (UserBean) mData.get(position);
 
-        final Context context = binding.getRoot().getContext();
+        Context context = binding.getRoot().getContext();
 
-        ImageLoaderUtil.displayImage(URLDecoder.decode(bean.getUserBean().getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
-        binding.tvName.setText(bean.getUserBean().getNickname());
+        ImageLoaderUtil.displayImage(URLDecoder.decode(bean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
+        binding.tvName.setText(bean.getNickname());
         binding.tvTime.setText(bean.getCreateDate());
-        binding.tvContent.setText(bean.getContent());
-        binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
+
+        binding.tvContent.setText(bean.getDescription());
+
+
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2UserInfoActivity(context,bean.getUserBean());
+                PageCtrl.start2UserInfoActivity(mContext, bean);
             }
         });
+
     }
 
 

@@ -60,6 +60,8 @@ public class UserInfoActivity extends BaseActivity {
                 UIUtils.toast(this, "uid为空");
                 finish();
             }
+        } else {
+            uid = userBean.getUid();
         }
 
 
@@ -93,7 +95,10 @@ public class UserInfoActivity extends BaseActivity {
         });
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.btFocus.setOnClickListener(this);
+        binding.llFans.setOnClickListener(this);
+        binding.llFocus.setOnClickListener(this);
         binding.swipeContainer.showProgress();
+
 
         requestRefreshUserPic();
 
@@ -101,6 +106,9 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     private void updateUserUI() {
+        if (userBean == null) {
+            return;
+        }
         ImageLoaderUtil.displayImage(URLDecoder.decode(userBean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
         binding.tvName.setText(userBean.getNickname());
         binding.tvTime.setText(userBean.getCreateDate());
@@ -126,8 +134,13 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     public void requestRefreshUserBean() {
-
-        Request request = StickerRequestBuilder.getUserInfo(userBean.getUid());
+        if (userBean != null) {
+            uid = userBean.getUid();
+        }
+        if (uid == null) {
+            return;
+        }
+        Request request = StickerRequestBuilder.getUserInfo(uid);
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -142,7 +155,6 @@ public class UserInfoActivity extends BaseActivity {
                         content);
                 if (parser.isSucc()) {
                     userBean = parser.user;
-                    DBUtil.updateUser(userBean);
                     updateUserUI();
                 }
             }
@@ -156,6 +168,10 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     public void requestRefreshUserPic() {
+
+        if (userBean == null) {
+            return;
+        }
 
         Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
@@ -186,6 +202,9 @@ public class UserInfoActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void requestMoreUserpic() {
+        if (userBean == null) {
+            return;
+        }
         Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
@@ -258,7 +277,16 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        if(userBean==null){
+            return ;
+        }
         switch (v.getId()) {
+            case R.id.ll_focus:
+                PageCtrl.start2UserListActivity(mContext, userBean.getId(), false);
+                break;
+            case R.id.ll_fans:
+                PageCtrl.start2UserListActivity(mContext, userBean.getId(), true);
+                break;
             case R.id.bt_focus:
                 Request request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
                 RequestManager.requestData(request, new RequestManager.DataLoadListener() {

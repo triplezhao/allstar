@@ -51,7 +51,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_contact);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), MsgActivity.class));
                 break;
             case 4:
 

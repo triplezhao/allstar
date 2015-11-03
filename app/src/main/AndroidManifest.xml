@@ -78,6 +78,8 @@
         <activity android:name="com.potato.sticker.main.ui.act.TopicDetailActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.ClassifyActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserInfoActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.MsgActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.UserListActivity"></activity>
         <!--登录 注册-->
         <activity android:name="com.potato.sticker.login.ui.act.LoginActivity"></activity>
 

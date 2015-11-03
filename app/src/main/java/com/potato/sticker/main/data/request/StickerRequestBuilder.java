@@ -1,5 +1,7 @@
 package com.potato.sticker.main.data.request;
 
+import android.text.TextUtils;
+
 import com.potato.chips.base.BaseRequestBuilder;
 import com.potato.library.net.DefaultRequest;
 import com.potato.library.net.Request;
@@ -376,10 +378,66 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     public static Request unfocus(String userId, String focusId) {
         Request request = new DefaultRequest();
         request.reqMethod = Request.REQ_METHOD_GET;
-        request.url = StickerRequestUrls.UNFOCUS;
         request.url = getRealRequestUrl(StickerRequestUrls.UNFOCUS, new String[]{userId, focusId});
         request.params = new HashMap<String, Object>();
 
         return request;
     }
+
+    //消息列表
+    public static Request message(String userId, String fromDate, String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.MESSAGE, new String[]{userId});
+        JSONObject body = new JSONObject();
+        try {
+            if (!TextUtils.isEmpty(fromDate)) {
+                body.put("fromDate", fromDate);
+            }
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+    //关注人列表
+    public static Request focusUserList(String userId,  String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.FOCUS_USER, new String[]{userId});
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+    //粉丝列表
+    public static Request fansList(String userId,  String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.FANS, new String[]{userId});
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package com.potato.sticker.main.ui.act;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,51 +7,43 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.potato.chips.base.BaseActivity;
-import com.potato.chips.common.PageCtrl;
-import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
 import com.potato.library.view.refresh.ListSwipeLayout;
 import com.potato.sticker.R;
-import com.potato.sticker.databinding.ActivityMyBinding;
-import com.potato.sticker.login.ui.act.LoginActivity;
-import com.potato.sticker.main.data.bean.PicBean;
-import com.potato.sticker.main.data.bean.UserBean;
+import com.potato.sticker.databinding.ActivityMsgBinding;
+import com.potato.sticker.main.data.bean.MsgBean;
 import com.potato.sticker.main.data.db.DBUtil;
-import com.potato.sticker.main.data.parser.PicListParser;
-import com.potato.sticker.main.data.parser.UserParser;
+import com.potato.sticker.main.data.parser.MsgListParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.main.ui.adapter.PicAdapter;
+import com.potato.sticker.main.ui.adapter.MsgAdapter;
 
-import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ztw on 2015/10/21.
+ * 主界面
+ * Created by sky on 2015/7/20.
+ * Weibo: http://weibo.com/2030683111
+ * Email: 1132234509@qq.com
  */
-public class MyActivity extends BaseActivity {
+public class MsgActivity extends BaseActivity {
 
-    private ActivityMyBinding binding;
-    UserBean userBean;
+    List<MsgBean> list = new ArrayList<MsgBean>();
+    private MsgAdapter mAdapter;
+    private int mTotal = 1;
     private int mPage = 1;
+    private ActivityMsgBinding binding;
     private int mSize = 10;
-    private List<PicBean> list;
-    private PicAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
-                this, R.layout.activity_my);
+                this, R.layout.activity_msg);
 
-        userBean = DBUtil.getLoginUser();
-
-        if (userBean == null) {
-            PageCtrl.start2LoginAct(mContext);
-        }
-
-        mAdapter = new PicAdapter(mContext);
+        mAdapter = new MsgAdapter(mContext);
         binding.list.setAdapter(mAdapter);
 
         binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
@@ -65,90 +56,31 @@ public class MyActivity extends BaseActivity {
         binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestRefreshUserPic();
+                sendRequest2RefreshList();
             }
         });
         binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                requestMoreUserpic();
+                sendRequest2LoadMoreList();
             }
         });
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
-        binding.llFans.setOnClickListener(this);
-        binding.llFocus.setOnClickListener(this);
         binding.swipeContainer.showProgress();
 
-        requestRefreshUserPic();
-
-        updateUserUI();
+        sendRequest2RefreshList();
     }
 
-    private void updateUserUI() {
-        ImageLoaderUtil.displayImage(URLDecoder.decode(userBean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
-        binding.tvName.setText(userBean.getNickname());
-        binding.tvTime.setText(userBean.getCreateDate());
-        binding.tvTagCount.setText(userBean.getLabelCount());
-        binding.tvFansCount.setText(userBean.getFansCount());
-        binding.tvFocusCount.setText(userBean.getFocusCount());
-        binding.tvZanCount.setText(userBean.getLaudCount());
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        //requestCode标示请求的标示   resultCode表示有数据
-        if (requestCode == LoginActivity.LOGIN && resultCode == RESULT_OK) {
-            if (DBUtil.getLoginUser() == null) {
-                UIUtils.toast(mContext, "登录失败");
-            } else {
-                userBean = DBUtil.getLoginUser();
-                updateUserUI();
-            }
-        }
-    }
+    public void sendRequest2RefreshList() {
 
-    public void requestRefreshUserBean() {
-
-        Request request = StickerRequestBuilder.getUserInfo(userBean.getUid());
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
-
-            @Override
-            public void onCacheLoaded(String content) {
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, String content) {
-
-                UserParser parser = new UserParser(
-                        content);
-                if (parser.isSucc()) {
-                    userBean = parser.user;
-                    DBUtil.updateUser(userBean);
-                    updateUserUI();
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable error, String errMsg) {
-
-            }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
-
-    }
-
-    public void requestRefreshUserPic() {
-
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.message(DBUtil.getLoginUser().getId(), "", 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
                 onRefreshSucc(content);
-
             }
 
             @Override
@@ -170,8 +102,8 @@ public class MyActivity extends BaseActivity {
     /**
      * 刷新图册列表
      */
-    private void requestMoreUserpic() {
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
+    private void sendRequest2LoadMoreList() {
+        Request request = StickerRequestBuilder.message(DBUtil.getLoginUser().getId(), "", mPage + 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -200,7 +132,7 @@ public class MyActivity extends BaseActivity {
             binding.swipeContainer.showEmptyViewFail();
             return;
         }
-        PicListParser parser = new PicListParser(content);
+        MsgListParser parser = new MsgListParser(content);
         if (parser.isSucc()) {
             list = parser.list;
             mPage = Integer.parseInt(parser.curPage);
@@ -222,7 +154,7 @@ public class MyActivity extends BaseActivity {
             UIUtils.toast(mContext, "token fail");
             return;
         }
-        PicListParser parser = new PicListParser(content);
+        MsgListParser parser = new MsgListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
             if (parser.list == null || parser.list.size() == 0) {
@@ -241,21 +173,21 @@ public class MyActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        requestRefreshUserBean();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_focus:
-                PageCtrl.start2UserListActivity(mContext,userBean.getId(),false);
-                break;
-            case R.id.ll_fans:
-                PageCtrl.start2UserListActivity(mContext,userBean.getId(),true);
+            case R.id.empty_view:
+                binding.swipeContainer.showProgress();
+                sendRequest2RefreshList();
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+
 }

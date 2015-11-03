@@ -37,5 +37,11 @@ public class StickerRequestUrls extends BaseRequestUrls {
     public final static String FOCUS = BaseStickerURL + "/user/focus";
     //用户取消关注
     public final static String UNFOCUS = BaseStickerURL + "/user/{0}/focus/{1}";
+    //用户消息
+    public final static String MESSAGE = BaseStickerURL + "/user/{0}/message";
+    //用户粉丝列表
+    public final static String FANS = BaseStickerURL + "/user/{0}/fans";
+    //用户关注列表
+    public final static String FOCUS_USER = BaseStickerURL + "/user/{0}/focus";
 
 }

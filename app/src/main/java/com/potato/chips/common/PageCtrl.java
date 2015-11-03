@@ -13,6 +13,7 @@ import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.bean.UserBean;
 import com.potato.sticker.main.ui.act.TopicDetailActivity;
 import com.potato.sticker.main.ui.act.UserInfoActivity;
+import com.potato.sticker.main.ui.act.UserListActivity;
 
 
 /**
@@ -130,6 +131,19 @@ public class PageCtrl {
         Bundle bundle = new Bundle();
         bundle.putSerializable(UserInfoActivity.EXTRARS_USERBEAN, bean);
         start(context, UserInfoActivity.class, false, null, bundle);
+    }
+    //用户详情页,第三方id
+    public static void start2UserInfoActivity(Context context, String uid) {
+        Bundle bundle = new Bundle();
+        bundle.putString(UserInfoActivity.EXTRARS_UID, uid);
+        start(context, UserInfoActivity.class, false, null, bundle);
+    }
+    //用户list页,true为粉丝列表,uid为自己系统的id
+    public static void start2UserListActivity(Context context,String uid, boolean isFans) {
+        Bundle bundle = new Bundle();
+        bundle.putString(UserListActivity.EXTRA_UID,uid);
+        bundle.putBoolean(UserListActivity.EXTRA_IS_FANS,isFans);
+        start(context, UserListActivity.class, false, null, bundle);
     }
 
 }

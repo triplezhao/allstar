@@ -10,14 +10,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.potato.chips.base.BaseActivity;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.common.ImageUtils;
 import com.potato.sticker.camera.data.bean.Album;
-import com.potato.sticker.camera.data.bean.PhotoItem;
 import com.potato.sticker.camera.ui.fragment.CameraAblumFragment;
 import com.potato.sticker.camera.util.AppConstants;
-import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityAlbumCameraBinding;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ import java.util.Map;
 /**
  * Created by ztw on 2015/7/3.
  */
-public class CameraAlbumActivity extends BaseActivity {
+public class CameraAlbumActivity extends CameraBaseActivity {
 
     public static final String TAG = "CameraAlbumActivity";
     /** extrars */
@@ -109,12 +106,7 @@ public class CameraAlbumActivity extends BaseActivity {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode,
                                     final Intent result) {
-        if (requestCode == AppConstants.REQUEST_PICK && resultCode == RESULT_OK) {
-            CameraManager.getInst().processPhotoItem(
-                    CameraAlbumActivity.this,
-                    new PhotoItem(result.getData().getPath(), System
-                            .currentTimeMillis()));
-        } else if (requestCode == AppConstants.REQUEST_CROP && resultCode == RESULT_OK) {
+        if (requestCode == AppConstants.REQUEST_CROP && resultCode == RESULT_OK) {
             Intent newIntent = new Intent(this, PhotoProcessActivity.class);
             newIntent.setData(result.getData());
             startActivity(newIntent);

@@ -29,5 +29,6 @@ public class AppConstants {
     public static final int REQUEST_CROP = 6709;
     public static final int REQUEST_PICK = 9162;
     public static final int RESULT_ERROR = 404;
+    public static final int RESULT_SUCC = 404;
 
 }

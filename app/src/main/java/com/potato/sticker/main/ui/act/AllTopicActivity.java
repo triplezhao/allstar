@@ -15,7 +15,7 @@ import com.potato.library.net.RequestManager;
 import com.potato.library.view.refresh.ListSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
-import com.potato.sticker.databinding.ActivityUserTopicBinding;
+import com.potato.sticker.databinding.ActivityAllTopicBinding;
 import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.parser.TopicListParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
@@ -38,7 +38,7 @@ public class AllTopicActivity extends BaseActivity {
     private TopicAdapter mAdapter;
     private int mTotal = 1;
     private int mPage = 1;
-    private ActivityUserTopicBinding binding;
+    private ActivityAllTopicBinding binding;
     private int mSize = 10;
 
     @Override
@@ -46,7 +46,7 @@ public class AllTopicActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         binding = DataBindingUtil.setContentView(
-                this, R.layout.activity_user_topic);
+                this, R.layout.activity_all_topic);
         binding.fab.setOnClickListener(this);
 
         mAdapter = new TopicAdapter(mContext);

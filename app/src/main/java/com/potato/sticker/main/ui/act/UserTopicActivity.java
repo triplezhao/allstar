@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.UIUtils;
@@ -19,7 +20,7 @@ import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.TopicListParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.main.ui.adapter.TopicAdapter;
+import com.potato.sticker.main.ui.adapter.HuodongAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ import de.greenrobot.event.EventBus;
 public class UserTopicActivity extends BaseActivity {
 
     List<TopicBean> list = new ArrayList<TopicBean>();
-    private TopicAdapter mAdapter;
+    private HuodongAdapter mAdapter;
     private int mTotal = 1;
     private int mPage = 1;
     private ActivityUserTopicBinding binding;
@@ -49,7 +50,7 @@ public class UserTopicActivity extends BaseActivity {
                 this, R.layout.activity_user_topic);
         binding.fab.setOnClickListener(this);
 
-        mAdapter = new TopicAdapter(mContext);
+        mAdapter = new HuodongAdapter(mContext);
         binding.list.setAdapter(mAdapter);
 
         binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
@@ -71,9 +72,25 @@ public class UserTopicActivity extends BaseActivity {
                 sendRequest2LoadMoreList();
             }
         });
+
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
+
+        //滑动时候，不加载图片
+        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
+            @Override
+            public void pause() {
+                //设置为正在滚动
+                ImageLoader.getInstance().pause();
+            }
+
+            @Override
+            public void resume() {
+                //设置为停止滚动
+                ImageLoader.getInstance().resume();
+            }
+        });
 
         sendRequest2RefreshList();
     }
@@ -144,12 +161,12 @@ public class UserTopicActivity extends BaseActivity {
             mPage = Integer.parseInt(parser.curPage);
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
+            mAdapter.notifyDataSetChanged();
         } else {
             binding.swipeContainer.showEmptyViewFail();
         }
@@ -172,7 +189,7 @@ public class UserTopicActivity extends BaseActivity {
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

@@ -196,8 +196,10 @@ public class TopicDetailActivity extends BaseActivity {
         }
         CommentListParser parser = new CommentListParser(content);
         if (parser.isSucc()) {
-            topicBean.setCommentCount(parser.rowCount);
-            bindHeaderView(topicBean);
+            if(topicBean!=null){
+                topicBean.setCommentCount(parser.rowCount);
+                bindHeaderView(topicBean);
+            }
 
             list = parser.list;
             mPage = Integer.parseInt(parser.curPage);

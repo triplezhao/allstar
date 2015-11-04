@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
@@ -68,6 +69,21 @@ public class MyActivity extends BaseActivity {
                 requestRefreshUserPic();
             }
         });
+        //滑动时候，不加载图片
+        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
+            @Override
+            public void pause() {
+                //设置为正在滚动
+                ImageLoader.getInstance().pause();
+            }
+
+            @Override
+            public void resume() {
+                //设置为停止滚动
+                ImageLoader.getInstance().resume();
+            }
+        });
+
         binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {

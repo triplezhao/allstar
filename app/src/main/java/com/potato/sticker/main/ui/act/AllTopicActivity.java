@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.UIUtils;
@@ -70,9 +71,26 @@ public class AllTopicActivity extends BaseActivity {
                 sendRequest2LoadMoreList();
             }
         });
+        //滑动时候，不加载图片
+        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
+            @Override
+            public void pause() {
+                //设置为正在滚动
+                ImageLoader.getInstance().pause();
+            }
+
+            @Override
+            public void resume() {
+                //设置为停止滚动
+                ImageLoader.getInstance().resume();
+            }
+        });
+
+
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
+
 
         sendRequest2RefreshList();
     }
@@ -146,7 +164,7 @@ public class AllTopicActivity extends BaseActivity {
             mAdapter.notifyDataSetChanged();
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
         } else {
@@ -167,7 +185,7 @@ public class AllTopicActivity extends BaseActivity {
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

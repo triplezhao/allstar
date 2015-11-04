@@ -157,14 +157,12 @@ public class MsgActivity extends BaseActivity {
         MsgListParser parser = new MsgListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
-            if (parser.list == null || parser.list.size() == 0) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            }else{
                 binding.swipeContainer.setLoadEnable(false);
-                return;
             }
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
-                binding.swipeContainer.setLoadEnable(false);
-            }
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
         } else {

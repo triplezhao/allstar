@@ -41,7 +41,7 @@ public class UserInfoActivity extends BaseActivity {
     UserBean userBean;
     UserBean loginUserBean;
     private int mPage = 1;
-    private int mSize = 10;
+    private int mSize = 12;
     private List<PicBean> list;
     private PicAdapter mAdapter;
 

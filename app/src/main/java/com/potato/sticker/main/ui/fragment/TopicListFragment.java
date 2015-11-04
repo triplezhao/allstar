@@ -132,7 +132,7 @@ public class TopicListFragment extends BaseFragment {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.allTopic(mSectionId, mPage + 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.getClassifyRela(mSectionId, mPage + 1 + "", mSize + "");
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -170,6 +170,8 @@ public class TopicListFragment extends BaseFragment {
             mAdapter.notifyDataSetChanged();
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
+            }else{
+                binding.swipeContainer.setLoadEnable(false);
             }
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -186,12 +188,10 @@ public class TopicListFragment extends BaseFragment {
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
-            if (parser.list == null || parser.list.size() == 0) {
-                binding.swipeContainer.setLoadEnable(false);
-                return;
-            }
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            }else{
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

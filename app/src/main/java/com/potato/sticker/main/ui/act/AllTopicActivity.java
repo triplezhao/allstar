@@ -144,8 +144,10 @@ public class AllTopicActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0&&list.size() < Integer.parseInt(parser.rowCount)){
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
+            }else{
+                binding.swipeContainer.setLoadEnable(false);
             }
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -162,12 +164,10 @@ public class AllTopicActivity extends BaseActivity {
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
-            if (parser.list == null || parser.list.size() == 0) {
-                binding.swipeContainer.setLoadEnable(false);
-                return;
-            }
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            }else{
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

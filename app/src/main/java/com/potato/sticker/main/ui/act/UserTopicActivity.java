@@ -145,8 +145,10 @@ public class UserTopicActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0&&list.size() < Integer.parseInt(parser.rowCount)){
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
+            }else{
+                binding.swipeContainer.setLoadEnable(false);
             }
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -168,7 +170,9 @@ public class UserTopicActivity extends BaseActivity {
                 return;
             }
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            }else{
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

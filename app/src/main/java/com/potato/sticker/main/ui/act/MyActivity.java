@@ -36,7 +36,7 @@ public class MyActivity extends BaseActivity {
     private ActivityMyBinding binding;
     UserBean userBean;
     private int mPage = 1;
-    private int mSize = 10;
+    private int mSize = 12;
     private List<PicBean> list;
     private PicAdapter mAdapter;
 
@@ -207,8 +207,10 @@ public class MyActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
+            }else{
+                binding.swipeContainer.setLoadEnable(false);
             }
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -230,7 +232,9 @@ public class MyActivity extends BaseActivity {
                 return;
             }
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            }else{
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

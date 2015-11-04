@@ -48,7 +48,6 @@ public class UserTopicActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_user_topic);
-        binding.fab.setOnClickListener(this);
 
         mAdapter = new HuodongAdapter(mContext);
         binding.list.setAdapter(mAdapter);

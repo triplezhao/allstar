@@ -28,7 +28,7 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_home);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), AllTopicActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), HomeActivity.class));
                 break;
 
             case 1:
@@ -36,24 +36,24 @@ public class MainTabActivity extends BaseTabHostActivity {
                 iv_icon.setImageResource(R.drawable.selector_nav_explore);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
-                tabItem.setIntent(new Intent(getApplication(), ClassifyActivity.class));
+                tabItem.setIntent(new Intent(getApplication(), PersenalActivity.class));
                 break;
-            case 2:
+            /*case 2:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_workout);
 
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
                 tabItem.setIntent(new Intent(getApplication(), UserTopicActivity.class));
-                break;
-            case 3:
+                break;*/
+            case 2:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_contact);
                 tabItem.setTitle("" + position);
                 tabItem.setView(tabItemView);
                 tabItem.setIntent(new Intent(getApplication(), MsgActivity.class));
                 break;
-            case 4:
+            case 3:
 
                 iv_icon.setImageResource(R.drawable.selector_nav_profile);
                 tabItem.setTitle("" + position);
@@ -67,7 +67,7 @@ public class MainTabActivity extends BaseTabHostActivity {
 
     @Override
     public int getTabItemCount() {
-        return 5;
+        return 4;
     }
 
     @Override

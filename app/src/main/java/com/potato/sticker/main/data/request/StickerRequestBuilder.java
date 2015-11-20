@@ -160,6 +160,24 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
         return request;
     }
+    //获取关注的所有人所有帖子列表
+    public static Request focusTopic(String uid, String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.FOCUSTOPIC,new String[]{uid});
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
 
     //发帖子
     /*
@@ -436,6 +454,75 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         }
         request.body = body.toString();
 
+        return request;
+    }
+    //收藏
+    public static Request favorite(String userId,  String topicId, String title) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = StickerRequestUrls.FAVORITE;
+        JSONObject body = new JSONObject();
+        try {
+            body.put("userId", userId);
+            body.put("topicId", topicId);
+            body.put("title", title);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+    //收藏列表
+    public static Request favoriteList(String userId,  String page, String size) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.FAVORITELIST, new String[]{userId});
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+
+        return request;
+    }
+    ////评论过的list
+    public static Request commentedTopicList(String userId,String page, String size, String fromDate) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.COMMENTEDTOPICLIST, new String[]{userId});
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+//            body.put("fromDate", fromDate);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
+        return request;
+    }
+    ////评论过的list
+    public static Request laudededTopicList(String userId,String page, String size, String fromDate) {
+        Request request = new DefaultRequest();
+        request.reqMethod = Request.REQ_METHOD_POST;
+        request.url = getRealRequestUrl(StickerRequestUrls.LAUDEDEDTOPICLIST, new String[]{userId});
+        JSONObject body = new JSONObject();
+        try {
+            body.put("page", page);
+            body.put("size", size);
+//            body.put("fromDate", fromDate);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        request.body = body.toString();
         return request;
     }
 

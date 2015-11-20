@@ -74,11 +74,12 @@
 
         <!--main-->
         <activity android:name="com.potato.sticker.main.ui.act.MainTabActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.HomeActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.AllTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.MyActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.TopicDetailActivity"></activity>
-        <activity android:name="com.potato.sticker.main.ui.act.ClassifyActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.PersenalActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserInfoActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.MsgActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserListActivity"></activity>

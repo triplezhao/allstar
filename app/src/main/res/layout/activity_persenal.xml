@@ -21,7 +21,7 @@
                 android:layout_marginLeft="20dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="FitTime"
+                android:text="@string/str_app_title"
                 android:textColor="@color/potato_white"
                 android:textSize="@dimen/txt_max" />
 
@@ -40,17 +40,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl_header">
+            android:layout_below="@id/rl_header"
+            android:background="@color/potato_white">
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@color/google_red"
+                app:tabIndicatorColor="@color/sticker_blue"
                 app:tabIndicatorHeight="3dp"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/google_red" />
+                app:tabSelectedTextColor="@color/sticker_blue" />
         </LinearLayout>
 
         <FrameLayout

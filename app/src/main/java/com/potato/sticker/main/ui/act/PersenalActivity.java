@@ -6,16 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 
 import com.potato.chips.base.BaseActivity;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
 import com.potato.library.util.L;
 import com.potato.sticker.R;
 import com.potato.sticker.main.data.bean.ClassifyBean;
-import com.potato.sticker.main.data.parser.ClassifyParser;
-import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import com.potato.sticker.main.ui.fragment.TopicListFragment;
 
 import java.util.ArrayList;
@@ -24,9 +19,9 @@ import java.util.List;
 /**
  * Created by ztw on 2015/7/3.
  */
-public class ClassifyActivity extends BaseActivity {
+public class PersenalActivity extends BaseActivity {
 
-    public static final String TAG = "ClassifyActivity";
+    public static final String TAG = "PersenalActivity";
     /** extrars */
     /**
      * views
@@ -40,57 +35,54 @@ public class ClassifyActivity extends BaseActivity {
     /**
      * data
      */
+    ClassifyBean myTopic = new ClassifyBean();
+    ClassifyBean myFocusTopic = new ClassifyBean();
+    ClassifyBean myFavTopic = new ClassifyBean();
+    ClassifyBean mycommetedTopic = new ClassifyBean();
+    ClassifyBean myLaudedTopic = new ClassifyBean();
     private List<ClassifyBean> mList = new ArrayList<ClassifyBean>();
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_classify);
+        setContentView(R.layout.activity_persenal);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+
         bindData();
     }
 
     public void bindData() {
+
         adapter = new HeaderPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        Request request = StickerRequestBuilder.getClassify();
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
-            @Override
-            public void onCacheLoaded(String content) {
-                updateUI(content);
-            }
-
-            @Override
-            public void onSuccess(int statusCode, String content) {
-                updateUI(content);
-            }
-
-            @Override
-            public void onFailure(Throwable error, String errMsg) {
-                L.i(TAG, errMsg + "");
-            }
-        }, RequestManager.CACHE_TYPE_NORMAL);
+        addLocationClassify();
+        adapter.notifyDataSetChanged();
+        tabLayout.setTabsFromPagerAdapter(adapter);
 
     }
 
 
-    private void updateUI(String content) {
-        L.i(TAG, content + "");
-        if (TextUtils.isEmpty(content)) {
-            return;
-        }
-        ClassifyParser parser = new ClassifyParser(content);
-        List<ClassifyBean> list = parser.list;
-        if (list != null && list.size() > 0) {
-            mList.clear();
-            mList.addAll(list);
-            adapter.notifyDataSetChanged();
-            tabLayout.setTabsFromPagerAdapter(adapter);
-        }
+    private void addLocationClassify(){
+        myTopic.setId(TopicListFragment.MY_SECTION_ID);
+        myTopic.setName(TopicListFragment.MY_SECTION_TITLE);
+        myFocusTopic.setId(TopicListFragment.FOCUS_SECTION_ID);
+        myFocusTopic.setName(TopicListFragment.FOCUS_SECTION_TITLE);
+        myFavTopic.setId(TopicListFragment.FAV_SECTION_ID);
+        myFavTopic.setName(TopicListFragment.FAV_SECTION_TITLE);
+        mycommetedTopic.setId(TopicListFragment.COMMETED_SECTION_ID);
+        mycommetedTopic.setName(TopicListFragment.COMMETED_SECTION_TITLE);
+        myLaudedTopic.setId(TopicListFragment.LAUDED_SECTION_ID);
+        myLaudedTopic.setName(TopicListFragment.LAUDED_SECTION_TITLE);
+        mList.add(myTopic);
+        mList.add(myFocusTopic);
+        mList.add(myFavTopic);
+        mList.add(mycommetedTopic);
+        mList.add(myLaudedTopic);
     }
+
 
     private class HeaderPageAdapter extends FragmentStatePagerAdapter {
 

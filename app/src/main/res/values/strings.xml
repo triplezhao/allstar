@@ -45,5 +45,8 @@
   <string name="str_focus">关注</string>
   <string name="str_fans">粉丝</string>
   <string name="str_topic_content_hint">点我编辑帖子内容</string>
+  <string name="str_app_title">Allstar</string>
+  <string name="str_dongtai">动态</string>
+  <string name="str_my_title">我的</string>
 
 </resources>

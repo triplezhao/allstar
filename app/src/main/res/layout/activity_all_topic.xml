@@ -26,7 +26,7 @@
                 android:layout_marginLeft="20dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="FitTime"
+                android:text="@string/str_app_title"
                 android:textColor="@color/potato_white"
                 android:textSize="@dimen/mshow_txt_max" />
 
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="31dp"
+            android:layout_marginBottom="21dp"
             android:padding="4dp"
             android:src="@drawable/ic_camera_white"
             app:fab_colorNormal="@color/sticker_blue"

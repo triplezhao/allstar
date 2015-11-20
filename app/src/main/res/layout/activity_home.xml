@@ -1,14 +1,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="test"
-            type="String" />
-    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <RelativeLayout
             android:id="@+id/rl_header"
@@ -26,9 +21,9 @@
                 android:layout_marginLeft="20dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@string/str_dongtai"
+                android:text="@string/str_app_title"
                 android:textColor="@color/potato_white"
-                android:textSize="@dimen/mshow_txt_max" />
+                android:textSize="@dimen/txt_max" />
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -41,45 +36,44 @@
                 android:src="@drawable/ic_add_white_24dp" />
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_header"
+            android:background="@color/potato_white">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:tabGravity="fill"
+                app:tabMode="scrollable"
+                app:tabIndicatorColor="@color/sticker_blue"
+                app:tabIndicatorHeight="3dp"
+                app:tabSelectedTextColor="@color/sticker_blue" />
+        </LinearLayout>
+
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rl_header">
+            android:layout_below="@id/toolbar">
 
-            <LinearLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_marginTop="0dp" />
 
-                <com.potato.library.view.NormalEmptyView
-                    android:id="@+id/empty_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                </com.potato.library.view.NormalEmptyView>
-
-                <com.potato.library.view.refresh.ListSwipeLayout
-                    android:id="@+id/swipe_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ListView
-                        android:id="@+id/list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/white"
-                        android:cacheColorHint="@android:color/transparent"
-                        android:divider="@color/divider"
-                        android:dividerHeight="1px"
-                        android:listSelector="@android:color/transparent"
-                        android:scrollbars="none" />
-
-                </com.potato.library.view.refresh.ListSwipeLayout>
-
-
-            </LinearLayout>
         </FrameLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/toolbar"
+            android:background="@drawable/bottom_shadow_bg" />
 
         <View
             android:layout_width="match_parent"
@@ -87,6 +81,7 @@
             android:layout_below="@id/rl_header"
             android:background="@drawable/bottom_shadow_bg" />
 
-
     </RelativeLayout>
+
+
 </layout>

@@ -35,6 +35,7 @@ import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.FragmentTopicListBinding;
 import com.potato.sticker.main.data.bean.TopicBean;
+import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.TopicListParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import com.potato.sticker.main.ui.adapter.TopicAdapter;
@@ -52,6 +53,19 @@ public class TopicListFragment extends BaseFragment {
     private String mSectionId;
     private String mTitle;
 
+    public static final String ALL_SECTION_ID = "ALL_SECTION_ID";
+    public static final String ALL_SECTION_TITLE = "所有";
+
+    public static final String MY_SECTION_ID = "MY_SECTION_ID";
+    public static final String MY_SECTION_TITLE = "发过";
+    public static final String FOCUS_SECTION_ID = "FOCUS_SECTION_ID";
+    public static final String FOCUS_SECTION_TITLE = "关注";
+    public static final String FAV_SECTION_ID = "FAV_SECTION_ID";
+    public static final String FAV_SECTION_TITLE = "藏过";
+    public static final String COMMETED_SECTION_ID = "COMMETED_SECTION_ID";
+    public static final String COMMETED_SECTION_TITLE = "评过";
+    public static final String LAUDED_SECTION_ID = "LAUDED_SECTION_ID";
+    public static final String LAUDED_SECTION_TITLE = "赞过";
 
     List<TopicBean> list = new ArrayList<TopicBean>();
     private TopicAdapter mAdapter;
@@ -119,8 +133,22 @@ public class TopicListFragment extends BaseFragment {
 
 
     public void sendRequest2RefreshList() {
-
-        Request request = StickerRequestBuilder.getClassifyRela(mSectionId, 1 + "", mSize + "");
+        Request request = null;
+        if (mSectionId.equals(MY_SECTION_ID)) {
+            request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId(), 1 + "", mSize + "");
+        } else if (mSectionId.equals(FOCUS_SECTION_ID)) {
+            request = StickerRequestBuilder.focusTopic(DBUtil.getLoginUser().getId(), 1 + "", mSize + "");
+        } else if (mSectionId.equals(ALL_SECTION_ID)) {
+            request = StickerRequestBuilder.allTopic("", 1 + "", mSize + "");
+        } else if (mSectionId.equals(FAV_SECTION_ID)) {
+            request = StickerRequestBuilder.favoriteList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "");
+        } else if (mSectionId.equals(COMMETED_SECTION_ID)) {
+            request = StickerRequestBuilder.commentedTopicList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "", "0");
+        } else if (mSectionId.equals(LAUDED_SECTION_ID)) {
+            request = StickerRequestBuilder.laudededTopicList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "", "0");
+        } else {
+            request = StickerRequestBuilder.getClassifyRela(mSectionId, 1 + "", mSize + "");
+        }
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -148,7 +176,22 @@ public class TopicListFragment extends BaseFragment {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.getClassifyRela(mSectionId, mPage + 1 + "", mSize + "");
+        Request request = null;
+        if (mSectionId.equals(MY_SECTION_ID)) {
+            request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "");
+        } else if (mSectionId.equals(FOCUS_SECTION_ID)) {
+            request = StickerRequestBuilder.focusTopic(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "");
+        } else if (mSectionId.equals(ALL_SECTION_ID)) {
+            request = StickerRequestBuilder.allTopic("", mPage + 1 + "", mSize + "");
+        } else if (mSectionId.equals(FAV_SECTION_ID)) {
+            request = StickerRequestBuilder.favoriteList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "");
+        } else if (mSectionId.equals(COMMETED_SECTION_ID)) {
+            request = StickerRequestBuilder.commentedTopicList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "", "0");
+        } else if (mSectionId.equals(LAUDED_SECTION_ID)) {
+            request = StickerRequestBuilder.laudededTopicList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "", "0");
+        } else {
+            request = StickerRequestBuilder.getClassifyRela(mSectionId, mPage + 1 + "", mSize + "");
+        }
         RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
@@ -186,8 +229,11 @@ public class TopicListFragment extends BaseFragment {
             mAdapter.notifyDataSetChanged();
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
+            }
+            if (list == null || list.size() == 0) {
+                binding.swipeContainer.showEmptyViewNoContent();
             }
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -207,7 +253,7 @@ public class TopicListFragment extends BaseFragment {
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);

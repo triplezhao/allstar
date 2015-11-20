@@ -25,6 +25,8 @@ public class StickerRequestUrls extends BaseRequestUrls {
     public final static String USERTOPIC = BaseStickerURL + "/user/{0}/topic";
     //分页获取不限定发帖人的全部帖子列表
     public final static String ALLTOPIC = BaseStickerURL + "/content/topic";
+    //分页获取关注的所有人帖子列表
+    public final static String FOCUSTOPIC = BaseStickerURL + "/user/{0}/focus/topic";
     //获取帖子详情和帖子图片及图片对应标签。
     public final static String TOPIC_DETAIL = BaseStickerURL + "/content/topic/{0}";
     //十八．	获取分类列表接口
@@ -43,5 +45,15 @@ public class StickerRequestUrls extends BaseRequestUrls {
     public final static String FANS = BaseStickerURL + "/user/{0}/fans";
     //用户关注列表
     public final static String FOCUS_USER = BaseStickerURL + "/user/{0}/focus";
+    //收藏
+    public final static String FAVORITE = BaseStickerURL + "/user/favorite";
+    //收藏的list
+    public final static String FAVORITELIST = BaseStickerURL + "/user/{0}/favorite";
+    //删除收藏
+    public final static String USERFAVORITE_DEL = BaseStickerURL + "/user/{0}/favorite/topic/{1}";
+    //评论过的list
+    public final static String COMMENTEDTOPICLIST = BaseStickerURL + "/user/{0}/topic/commented";
+    //点过赞的list
+    public final static String LAUDEDEDTOPICLIST = BaseStickerURL + "/user/{0}/topic/lauded";
 
 }

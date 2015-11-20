@@ -500,7 +500,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         try {
             body.put("page", page);
             body.put("size", size);
-//            body.put("fromDate", fromDate);
+            body.put("fromDate", fromDate);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -517,7 +517,7 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         try {
             body.put("page", page);
             body.put("size", size);
-//            body.put("fromDate", fromDate);
+            body.put("fromDate", fromDate);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

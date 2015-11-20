@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.potato.sticker"
-    android:versionCode="102001"
-    android:versionName="1.0.2001">
+    android:versionCode="103001"
+    android:versionName="1.0.3001">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -123,6 +123,11 @@
         <provider
             android:name=".main.data.db.UserBeanProvider"
             android:authorities="com.potato.sticker.main.data.db.UserBeanProvider" />
+
+        <!-- TD统计 -->
+        <meta-data android:name="TD_APP_ID" android:value="8B0A3B07DBE0F5BC749F49033E01767B" />
+        <meta-data android:name="TD_CHANNEL_ID" android:value="dev_001" />
+        <!-- TD统计 end-->
     </application>
 
 </manifest>

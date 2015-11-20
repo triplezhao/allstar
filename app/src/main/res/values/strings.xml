@@ -20,6 +20,7 @@
     <string name="str_tab_msg">信息</string>
     <string name="str_tab_my">我的</string>
 
+    <string name="clickAgain2Leave">再按一次返回就退出</string>
 
     <string name="sticker_loading">内容获取中...</string>
     <string name="sticker_loading_present">一大波礼物正在向您靠近...</string>
@@ -29,24 +30,26 @@
     <string name="sticker_no_net">哎呀，手机好像是没连上网~</string>
     <string name="sticker_net_timeout">网络不太给力哦，一会再试试~</string>
     <string name="sticker_data_exception">数据加载异常，请稍后重试</string>
-  <string name="str_wlj">无滤镜</string>
-  <string name="str_edit_photo">内容编辑</string>
-  <string name="str_back">返回</string>
-  <string name="str_next">下一步</string>
-  <string name="str_sticker">贴纸</string>
-  <string name="str_content">内容</string>
-  <string name="str_lvjing">滤镜</string>
-  <string name="str_tag">标签</string>
-  <string name="passport_register_account_hint">手机号</string>
-  <string name="str_done">完成</string>
-  <string name="str_input_code">输入验证码</string>
-  <string name="str_get_code">获取验证码</string>
-  <string name="str_zan">赞</string>
-  <string name="str_focus">关注</string>
-  <string name="str_fans">粉丝</string>
-  <string name="str_topic_content_hint">点我编辑帖子内容</string>
-  <string name="str_app_title">Allstar</string>
-  <string name="str_dongtai">动态</string>
-  <string name="str_my_title">我的</string>
+
+
+    <string name="str_wlj">无滤镜</string>
+    <string name="str_edit_photo">内容编辑</string>
+    <string name="str_back">返回</string>
+    <string name="str_next">下一步</string>
+    <string name="str_sticker">贴纸</string>
+    <string name="str_content">内容</string>
+    <string name="str_lvjing">滤镜</string>
+    <string name="str_tag">标签</string>
+    <string name="passport_register_account_hint">手机号</string>
+    <string name="str_done">完成</string>
+    <string name="str_input_code">输入验证码</string>
+    <string name="str_get_code">获取验证码</string>
+    <string name="str_zan">赞</string>
+    <string name="str_focus">关注</string>
+    <string name="str_fans">粉丝</string>
+    <string name="str_topic_content_hint">点我编辑帖子内容</string>
+    <string name="str_app_title">Allstar</string>
+    <string name="str_dongtai">动态</string>
+    <string name="str_my_title">我的</string>
 
 </resources>

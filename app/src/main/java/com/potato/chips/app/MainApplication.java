@@ -5,11 +5,13 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.potato.chips.common.ChannelUtil;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.PhoneUtils;
 import com.potato.chips.util.QiniuUtil;
 import com.potato.library.net.RequestHttpClient;
 import com.potato.library.net.RequestManager;
+import com.tendcloud.tenddata.TCAgent;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -56,6 +58,7 @@ public class MainApplication extends Application {
         initPicasso();
         initUIL();
         QiniuUtil.init(context);
+        initTD();
     }
 
 
@@ -78,5 +81,9 @@ public class MainApplication extends Application {
         displayMetrices = PhoneUtils.getAppWidthAndHeight(this);
         screenHight = displayMetrices.heightPixels;
         screenWidth = displayMetrices.widthPixels;
+    }
+
+    private void initTD(){
+        TCAgent.init(context,"8B0A3B07DBE0F5BC749F49033E01767B", ChannelUtil.getChannel(context));
     }
 }

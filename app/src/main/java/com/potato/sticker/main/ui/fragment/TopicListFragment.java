@@ -143,9 +143,9 @@ public class TopicListFragment extends BaseFragment {
         } else if (mSectionId.equals(FAV_SECTION_ID)) {
             request = StickerRequestBuilder.favoriteList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "");
         } else if (mSectionId.equals(COMMETED_SECTION_ID)) {
-            request = StickerRequestBuilder.commentedTopicList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "", "0");
+            request = StickerRequestBuilder.commentedTopicList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "", "2000-01-01 00:00:00");
         } else if (mSectionId.equals(LAUDED_SECTION_ID)) {
-            request = StickerRequestBuilder.laudededTopicList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "", "0");
+            request = StickerRequestBuilder.laudededTopicList(DBUtil.getLoginUser().getId(), 1 + "", mSize + "", "2000-01-01 00:00:00");
         } else {
             request = StickerRequestBuilder.getClassifyRela(mSectionId, 1 + "", mSize + "");
         }
@@ -186,9 +186,9 @@ public class TopicListFragment extends BaseFragment {
         } else if (mSectionId.equals(FAV_SECTION_ID)) {
             request = StickerRequestBuilder.favoriteList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "");
         } else if (mSectionId.equals(COMMETED_SECTION_ID)) {
-            request = StickerRequestBuilder.commentedTopicList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "", "0");
+            request = StickerRequestBuilder.commentedTopicList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "", "2000-01-01 00:00:00");
         } else if (mSectionId.equals(LAUDED_SECTION_ID)) {
-            request = StickerRequestBuilder.laudededTopicList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "", "0");
+            request = StickerRequestBuilder.laudededTopicList(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "", "2000-01-01 00:00:00");
         } else {
             request = StickerRequestBuilder.getClassifyRela(mSectionId, mPage + 1 + "", mSize + "");
         }

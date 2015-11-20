@@ -1,7 +1,8 @@
 <resources>
 
-
-    <style name="Theme.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.AppTheme" parent="Base.Theme.AppTheme">
+    </style>
+    <style name="Base.Theme.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
         <item name="colorPrimary">#1D6EC9</item>

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by ztw on 2015/7/3.
  */
-public class HomeActivity extends BaseActivity {
+public class ClassifyActivity extends BaseActivity {
 
     public static final String TAG = "ClassifyActivity";
     /** extrars */
@@ -48,7 +48,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_classify);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -65,7 +65,7 @@ public class HomeActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        addLocationClassify();
+//        addLocationClassify();
         adapter.notifyDataSetChanged();
         tabLayout.setTabsFromPagerAdapter(adapter);
 

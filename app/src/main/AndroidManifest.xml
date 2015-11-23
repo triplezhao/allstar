@@ -74,7 +74,7 @@
 
         <!--main-->
         <activity android:name="com.potato.sticker.main.ui.act.MainTabActivity"></activity>
-        <activity android:name="com.potato.sticker.main.ui.act.HomeActivity"></activity>
+        <activity android:name=".main.ui.act.ClassifyActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.AllTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.MyActivity"></activity>

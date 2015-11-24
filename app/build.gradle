@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.cyou.sticker"
-        minSdkVersion 16
+        minSdkVersion 9
         targetSdkVersion 22
         versionCode 102001
         versionName "1.0.2001"
@@ -16,10 +16,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 

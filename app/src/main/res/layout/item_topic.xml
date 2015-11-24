@@ -12,23 +12,23 @@
 
     </data>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
-        app:cardBackgroundColor="#FFF"
-        app:cardCornerRadius="@dimen/cardview_default_radius"
-        app:cardElevation="4dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/potato_white"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider" />
 
             <LinearLayout
                 android:id="@+id/rl_title"
@@ -36,32 +36,29 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:padding="10dp"
                 android:orientation="horizontal"
-                >
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/def_gray_small"
-                    />
+                    android:src="@drawable/def_gray_small" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:textColor="@color/potato_black"
-                        android:text="name"
-                        android:textSize="@dimen/txt_normal"
                         android:paddingLeft="10dp"
-                        />
+                        android:text="name"
+                        android:textColor="@color/potato_black"
+                        android:textSize="@dimen/txt_normal" />
 
 
                     <TextView
@@ -69,20 +66,20 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:textColor="@color/potato_gray3"
-                        android:text="time"
-                        android:textSize="@dimen/txt_min"
                         android:paddingLeft="10dp"
-                        />
+                        android:text="time"
+                        android:textColor="@color/potato_gray3"
+                        android:textSize="@dimen/txt_min" />
 
                 </RelativeLayout>
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"
-                />
+                android:background="@color/divider" />
+
             <RelativeLayout
                 android:id="@+id/pictureLayout"
                 android:layout_width="match_parent"
@@ -93,87 +90,92 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    android:src="@drawable/def_gray_big1"/>
+                    android:src="@drawable/def_gray_big1" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"
-                />
+                android:background="@color/divider" />
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:padding="10dp"
                 android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                android:textSize="@dimen/txt_normal"
-                android:padding="10dp"/>
+                android:textSize="@dimen/txt_normal" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"
-                />
+                android:background="@color/divider" />
+
             <LinearLayout
                 android:id="@+id/rl_feed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:padding="10dp">
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_weight="1"
                     android:gravity="center"
-                    >
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/iv_heart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_heart_normal"/>
+                        android:src="@drawable/ic_heart_normal" />
+
                     <TextView
                         android:id="@+id/tv_heart_count"
-                        android:text="100"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        />
+                        android:text="100" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_comment_bt"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/iv_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_comment"
-                        />
+                        android:src="@drawable/ic_comment" />
+
                     <TextView
                         android:id="@+id/tv_comment_count"
-                        android:text="100"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"/>
+                        android:paddingLeft="5dp"
+                        android:text="100" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/iv_share"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_share"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_share" />
+
                 <ImageView
                     android:id="@+id/iv_more"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_ellipsis"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_ellipsis" />
 
             </LinearLayout>
 
@@ -184,63 +186,70 @@
                 android:orientation="vertical"
                 android:padding="5dp"
                 android:visibility="gone">
+
                 <LinearLayout
                     android:id="@+id/ll_comment1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tv_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="5dp"
                         android:text="user:"
-                        android:textSize="@dimen/txt_normal"
                         android:textColor="@color/sticker_blue"
-                        android:padding="5dp"/>
+                        android:textSize="@dimen/txt_normal" />
+
                     <TextView
                         android:id="@+id/tv_comment_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
+                        android:padding="5dp"
                         android:text="xxxxxx"
-                        android:textSize="@dimen/txt_normal"
-                        android:padding="5dp"/>
+                        android:textSize="@dimen/txt_normal" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_comment2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tv_user2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="5dp"
                         android:text="user2222:"
-                        android:textSize="@dimen/txt_normal"
                         android:textColor="@color/sticker_blue"
-                        android:padding="5dp"/>
+                        android:textSize="@dimen/txt_normal" />
+
                     <TextView
                         android:id="@+id/tv_comment_content2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
+                        android:padding="5dp"
                         android:text="xxxxx22222x"
-                        android:textSize="@dimen/txt_normal"
-                        android:padding="5dp"/>
+                        android:textSize="@dimen/txt_normal" />
 
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_comment_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:text="more comment..."
-                    android:textSize="@dimen/txt_normal"
                     android:textColor="@color/sticker_blue"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/txt_normal" />
             </LinearLayout>
 
         </LinearLayout>
+    </LinearLayout>
 
-    </android.support.v7.widget.CardView>
 </layout>

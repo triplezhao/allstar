@@ -72,9 +72,12 @@
             </intent-filter>
         </activity>
 
+        <!--demo-->
+        <activity android:name="com.potato.sticker.demo.MainActivity">
+        </activity>
         <!--main-->
         <activity android:name="com.potato.sticker.main.ui.act.MainTabActivity"></activity>
-        <activity android:name=".main.ui.act.ClassifyActivity"></activity>
+        <activity android:name="com.potato.sticker.main.ui.act.ClassifyActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.UserTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.AllTopicActivity"></activity>
         <activity android:name="com.potato.sticker.main.ui.act.MyActivity"></activity>
@@ -125,8 +128,6 @@
             android:authorities="com.potato.sticker.main.data.db.UserBeanProvider" />
 
         <!-- TD统计 -->
-        <meta-data android:name="TD_APP_ID" android:value="8B0A3B07DBE0F5BC749F49033E01767B" />
-        <meta-data android:name="TD_CHANNEL_ID" android:value="dev_001" />
         <!-- TD统计 end-->
     </application>
 

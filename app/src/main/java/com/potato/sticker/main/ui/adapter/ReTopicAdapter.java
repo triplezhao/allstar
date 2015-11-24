@@ -81,7 +81,8 @@ public class ReTopicAdapter extends BaseRecyclerViewAdapter {
 //        ImageLoaderUtil.displayImage("file://"+feedItem.getImgPath(), binding.picture, R.drawable.def_gray_big);
         ImageLoaderUtil.displayImage(StickerRequestUrls.BaseStickerURL_IMAGE + piclist.get(0).getImgPath(), binding.picture, R.drawable.def_gray_big);
         // 这里可能有问题 延迟200毫秒加载是为了等pictureLayout已经在屏幕上显示getWidth才为具体的值
-        int parantWidth = MainApplication.screenWidth - PhoneUtils.dip2px(context, 8);
+//        int parantWidth = MainApplication.screenWidth - PhoneUtils.dip2px(context, 8);
+        int parantWidth = MainApplication.screenWidth;
         for (TagBean tagBean : list) {
             LabelView tagView = new LabelView(binding.getRoot().getContext());
             TagItem tagItem = TagBean.Convert2TagItem(tagBean);

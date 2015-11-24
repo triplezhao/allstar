@@ -13,10 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.potato.chips.util.PhoneUtils;
+import com.potato.chips.app.MainApplication;
 import com.potato.library.util.L;
 import com.potato.sticker.R;
-import com.potato.chips.app.MainApplication;
 import com.potato.sticker.camera.data.bean.TagItem;
 import com.potato.sticker.camera.util.AppConstants;
 import com.potato.sticker.camera.util.EffectUtil;
@@ -75,7 +74,8 @@ public class LabelView extends LinearLayout {
     public void draw(ViewGroup parent, final int left, final int top, boolean isLeft) {
         this.parentWidth = parent.getWidth();
         if (parentWidth <= 0) {
-            parentWidth = MainApplication.screenWidth-PhoneUtils.dip2px(parent.getContext(), 8);
+//            parentWidth = MainApplication.screenWidth-PhoneUtils.dip2px(parent.getContext(), 8);
+            parentWidth = MainApplication.screenWidth;
         }
         L.i("LableView",parentWidth+"");
         setImageWidth((int) parentWidth);

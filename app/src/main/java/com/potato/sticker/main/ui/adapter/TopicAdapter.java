@@ -12,7 +12,7 @@ import com.potato.chips.app.MainApplication;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
-import com.potato.library.adapter.BaseListAdapter;
+import com.potato.library.adapter.BaseRecyclerViewAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Created by ztw on 2015/9/24.
  */
-public class TopicAdapter extends BaseListAdapter {
+public class TopicAdapter extends BaseRecyclerViewAdapter {
 
     public TopicAdapter(Context context) {
         super(context);

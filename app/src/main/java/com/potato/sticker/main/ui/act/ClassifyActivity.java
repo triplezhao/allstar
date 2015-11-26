@@ -17,7 +17,7 @@ import com.potato.sticker.R;
 import com.potato.sticker.main.data.bean.ClassifyBean;
 import com.potato.sticker.main.data.parser.ClassifyParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.main.ui.fragment.ReTopicListFragment;
+import com.potato.sticker.main.ui.fragment.TopicListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +91,8 @@ public class ClassifyActivity extends BaseActivity {
 
 
     private void addLocationClassify(){
-        allTopic.setId(ReTopicListFragment.ALL_SECTION_ID);
-        allTopic.setName(ReTopicListFragment.ALL_SECTION_TITLE);
+        allTopic.setId(TopicListFragment.ALL_SECTION_ID);
+        allTopic.setName(TopicListFragment.ALL_SECTION_TITLE);
         mList.add(allTopic);
     }
 
@@ -125,10 +125,10 @@ public class ClassifyActivity extends BaseActivity {
             L.d("In ViewPager#getItem, header: " + obj.getName() + ", position: "
                     + position);
             Bundle args = new Bundle();
-            args.putString(ReTopicListFragment.EXTRARS_SECTION_ID, obj.getId());
-            args.putString(ReTopicListFragment.EXTRARS_TITLE, obj.getName());
-            ReTopicListFragment pageFragement = (ReTopicListFragment) Fragment.instantiate(mContext, ReTopicListFragment.class.getName(), args);
-//            ReTopicListFragment pageFragement = (ReTopicListFragment) Fragment.instantiate(mContext, ReTopicListFragment.class.getName(), args);
+            args.putString(TopicListFragment.EXTRARS_SECTION_ID, obj.getId());
+            args.putString(TopicListFragment.EXTRARS_TITLE, obj.getName());
+            TopicListFragment pageFragement = (TopicListFragment) Fragment.instantiate(mContext, TopicListFragment.class.getName(), args);
+//            TopicListFragment pageFragement = (TopicListFragment) Fragment.instantiate(mContext, TopicListFragment.class.getName(), args);
             return pageFragement;
         }
 

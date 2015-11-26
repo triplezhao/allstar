@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -14,7 +16,8 @@ import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.ListSwipeLayout;
+import com.potato.library.view.hfrecyclerview.HFGridlayoutSpanSizeLookup;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityMyBinding;
 import com.potato.sticker.login.ui.act.LoginActivity;
@@ -37,7 +40,7 @@ public class MyActivity extends BaseActivity {
     private ActivityMyBinding binding;
     UserBean userBean;
     private int mPage = 1;
-    private int mSize = 12;
+    private int mSize = 20;
     private List<PicBean> list;
     private PicAdapter mAdapter;
 
@@ -47,6 +50,12 @@ public class MyActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_my);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        binding.backdrop.setImageResource(R.drawable.cheese_5);
+
+
         userBean = DBUtil.getLoginUser();
 
         if (userBean == null) {
@@ -54,9 +63,12 @@ public class MyActivity extends BaseActivity {
         }
 
         mAdapter = new PicAdapter(mContext);
-        binding.list.setAdapter(mAdapter);
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
+        layoutManager.setSpanSizeLookup(new HFGridlayoutSpanSizeLookup(binding.swipeContainer.getHFAdapter(), 3));
+        binding.swipeContainer.setLayoutManager(layoutManager);
 
-        binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -70,7 +82,7 @@ public class MyActivity extends BaseActivity {
             }
         });
         //滑动时候，不加载图片
-        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
+        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
                 //设置为正在滚动
@@ -84,7 +96,7 @@ public class MyActivity extends BaseActivity {
             }
         });
 
-        binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 requestMoreUserpic();
@@ -103,7 +115,7 @@ public class MyActivity extends BaseActivity {
 
     private void updateUserUI() {
         ImageLoaderUtil.displayImage(URLDecoder.decode(userBean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
-        binding.tvName.setText(userBean.getNickname());
+        binding.collapsingToolbar.setTitle(userBean.getNickname());
         binding.tvTime.setText(userBean.getCreateDate());
         binding.tvTagCount.setText(userBean.getLabelCount());
         binding.tvFansCount.setText(userBean.getFansCount());
@@ -225,7 +237,7 @@ public class MyActivity extends BaseActivity {
             mAdapter.notifyDataSetChanged();
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
         } else {
@@ -250,7 +262,7 @@ public class MyActivity extends BaseActivity {
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
@@ -271,10 +283,10 @@ public class MyActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_focus:
-                PageCtrl.start2UserListActivity(mContext,userBean.getId(),false);
+                PageCtrl.start2UserListActivity(mContext, userBean.getId(), false);
                 break;
             case R.id.ll_fans:
-                PageCtrl.start2UserListActivity(mContext,userBean.getId(),true);
+                PageCtrl.start2UserListActivity(mContext, userBean.getId(), true);
                 break;
         }
     }

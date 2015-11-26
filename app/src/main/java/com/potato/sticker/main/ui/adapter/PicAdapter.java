@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
-import com.potato.library.adapter.BaseMutiRowAdapter;
+import com.potato.library.adapter.BaseRecyclerViewAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ItemPicBinding;
@@ -21,15 +21,10 @@ import com.potato.sticker.main.data.request.StickerRequestUrls;
 /**
  * Created by ztw on 2015/9/21.
  */
-public class PicAdapter extends BaseMutiRowAdapter {
+public class PicAdapter extends BaseRecyclerViewAdapter {
 
     public PicAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public int getRowNum() {
-        return 3;
     }
 
     @Override

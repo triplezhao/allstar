@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -27,6 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.potato.chips.util.UIUtils;
+import com.potato.sticker.R;
 import com.potato.sticker.camera.common.DistanceUtil;
 import com.potato.sticker.camera.common.FileUtils;
 import com.potato.sticker.camera.common.IOUtil;
@@ -34,13 +35,11 @@ import com.potato.sticker.camera.common.ImageLoaderUtils;
 import com.potato.sticker.camera.common.ImageUtils;
 import com.potato.sticker.camera.common.StringUtils;
 import com.potato.sticker.camera.customview.CameraGrid;
-import com.potato.sticker.R;
 import com.potato.sticker.camera.data.bean.PhotoItem;
 import com.potato.sticker.camera.util.App;
 import com.potato.sticker.camera.util.AppConstants;
 import com.potato.sticker.camera.util.CameraHelper;
 import com.potato.sticker.camera.util.CameraManager;
-import com.potato.chips.util.UIUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -341,7 +340,7 @@ public class CameraActivity extends CameraBaseActivity {
         }
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
-        return FloatMath.sqrt(x * x + y * y);
+        return (float)Math.sqrt(x * x + y * y);
     }
 
     //放大缩小

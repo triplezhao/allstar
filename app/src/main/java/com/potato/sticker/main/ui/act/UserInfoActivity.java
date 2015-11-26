@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -14,7 +16,8 @@ import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.ListSwipeLayout;
+import com.potato.library.view.hfrecyclerview.HFGridlayoutSpanSizeLookup;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityUserBinding;
 import com.potato.sticker.login.ui.act.LoginActivity;
@@ -51,9 +54,11 @@ public class UserInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_user);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         userBean = (UserBean) getIntent().getSerializableExtra(EXTRARS_USERBEAN);
-
 
         if (userBean == null) {
             uid = getIntent().getStringExtra(EXTRARS_UID);
@@ -73,9 +78,12 @@ public class UserInfoActivity extends BaseActivity {
         }
 
         mAdapter = new PicAdapter(mContext);
-        binding.list.setAdapter(mAdapter);
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
+        layoutManager.setSpanSizeLookup(new HFGridlayoutSpanSizeLookup(binding.swipeContainer.getHFAdapter(), 3));
+        binding.swipeContainer.setLayoutManager(layoutManager);
 
-        binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -89,7 +97,7 @@ public class UserInfoActivity extends BaseActivity {
             }
         });
         //滑动时候，不加载图片
-        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
+        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
                 //设置为正在滚动
@@ -103,22 +111,22 @@ public class UserInfoActivity extends BaseActivity {
             }
         });
 
-        binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 requestMoreUserpic();
             }
         });
         binding.swipeContainer.setEmptyView(binding.emptyView);
-        binding.btFocus.setOnClickListener(this);
+        binding.emptyView.setOnClickListener(this);
         binding.llFans.setOnClickListener(this);
         binding.llFocus.setOnClickListener(this);
         binding.swipeContainer.showProgress();
 
-
         requestRefreshUserPic();
 
         updateUserUI();
+
     }
 
     private void updateUserUI() {
@@ -293,8 +301,8 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        if(userBean==null){
-            return ;
+        if (userBean == null) {
+            return;
         }
         switch (v.getId()) {
             case R.id.ll_focus:

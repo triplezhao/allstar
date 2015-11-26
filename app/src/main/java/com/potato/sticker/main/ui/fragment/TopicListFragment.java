@@ -20,6 +20,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,7 @@ import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.ListSwipeLayout;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.FragmentTopicListBinding;
@@ -83,50 +85,49 @@ public class TopicListFragment extends BaseFragment {
                 R.layout.fragment_topic_list,
                 container,
                 false);
+//        View view = inflater.inflate(
+//                R.layout.recycleview, container, false);
+        RecyclerView rv = binding.list;
         mSectionId = getArguments() == null ? "" : getArguments().getString(EXTRARS_SECTION_ID);
         mTitle = getArguments() == null ? "" : getArguments().getString(EXTRARS_TITLE);
 
         mAdapter = new TopicAdapter(mContext);
-        binding.list.setAdapter(mAdapter);
-
-        binding.swipeContainer.setFooterView(container.getContext(), binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
+        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
                 R.color.google_red,
                 R.color.google_yellow);
 
+        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
+            @Override
+            public void pause() {
+                ImageLoader.getInstance().pause();
+            }
+
+            @Override
+            public void resume() {
+                ImageLoader.getInstance().resume();
+            }
+        });
         binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();
-            }
-        });
-        //滑动时候，不加载图片
-        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
-            @Override
-            public void pause() {
-                //设置为正在滚动
-                ImageLoader.getInstance().pause();
-            }
-
-            @Override
-            public void resume() {
-                //设置为停止滚动
-                ImageLoader.getInstance().resume();
             }
         });
 
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
-
         sendRequest2RefreshList();
         return binding.getRoot();
     }

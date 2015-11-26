@@ -27,11 +27,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.RecyclerSwipeLayout;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.FragmentTopicListReBinding;
@@ -91,22 +92,33 @@ public class ReTopicListFragment extends BaseFragment {
         mTitle = getArguments() == null ? "" : getArguments().getString(EXTRARS_TITLE);
 
         mAdapter = new ReTopicAdapter(mContext);
-        rv.setLayoutManager(new LinearLayoutManager(mContext));
-        rv.setAdapter(mAdapter);
-        binding.swipeContainer.setFooterView(container.getContext(), binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
+        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
                 R.color.google_red,
                 R.color.google_yellow);
 
+        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
+            @Override
+            public void pause() {
+                ImageLoader.getInstance().pause();
+            }
+
+            @Override
+            public void resume() {
+                ImageLoader.getInstance().resume();
+            }
+        });
         binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new RecyclerSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();

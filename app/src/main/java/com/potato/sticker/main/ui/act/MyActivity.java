@@ -2,12 +2,14 @@ package com.potato.sticker.main.ui.act;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Explode;
 import android.view.View;
+import android.view.Window;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
@@ -27,7 +29,6 @@ import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.PicListParser;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.main.data.request.StickerRequestUrls;
 import com.potato.sticker.main.ui.adapter.PicAdapter;
 
 import java.net.URLDecoder;
@@ -47,6 +48,10 @@ public class MyActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Explode());
+        }
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_my);

@@ -3,13 +3,15 @@ package com.potato.sticker.main.ui.act;
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import com.potato.chips.app.MainApplication;
@@ -72,6 +74,10 @@ public class TopicDetailActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Explode());
+        }
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_topic_detail);
@@ -94,7 +100,6 @@ public class TopicDetailActivity extends BaseActivity {
         }
 
 
-
         setSupportActionBar(binding.toolbar);
 
         mAdapter = new CommentAdapter(mContext);
@@ -105,7 +110,7 @@ public class TopicDetailActivity extends BaseActivity {
         binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
 
         binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
-        binding.swipeContainer.setHeaderView(binding.list,topicBinding.getRoot());
+        binding.swipeContainer.setHeaderView(binding.list, topicBinding.getRoot());
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,

@@ -117,6 +117,20 @@ public class PageCtrl {
         Bundle bundle = new Bundle();
         bundle.putString(TopicDetailActivity.TOPIC_ID, topicId);
         start(context, TopicDetailActivity.class, false, null, bundle);
+
+        /*Bundle bundle = new Bundle();
+        bundle.putString(TopicDetailActivity.TOPIC_ID, topicId);
+
+        Intent intent = new Intent(context, TopicDetailActivity.class);
+        intent.putExtras(bundle);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ((Activity) context).getWindow().setExitTransition(new Explode());
+            ((Activity) context).startActivity(intent,
+                    ActivityOptions
+                            .makeSceneTransitionAnimation((Activity) context).toBundle());
+        } else {
+            start(context, TopicDetailActivity.class, false, null, bundle);
+        }*/
     }
 
     public static void start2TopicDetail(Context context, TopicBean bean) {
@@ -124,6 +138,19 @@ public class PageCtrl {
         Bundle bundle = new Bundle();
         bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN, bean);
         start(context, TopicDetailActivity.class, false, null, bundle);
+        /*Bundle bundle = new Bundle();
+        bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN, bean);
+        Intent intent = new Intent(context, TopicDetailActivity.class);
+        intent.putExtras(bundle);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ((Activity) context).getWindow().setExitTransition(new Explode());
+            ((Activity) context).startActivity(intent,
+                    ActivityOptions
+                            .makeSceneTransitionAnimation((Activity) context).toBundle());
+        } else {
+            start(context, TopicDetailActivity.class, false, null, bundle);
+        }*/
+
     }
 
     //用户详情页
@@ -132,17 +159,19 @@ public class PageCtrl {
         bundle.putSerializable(UserInfoActivity.EXTRARS_USERBEAN, bean);
         start(context, UserInfoActivity.class, false, null, bundle);
     }
+
     //用户详情页,第三方id
     public static void start2UserInfoActivity(Context context, String uid) {
         Bundle bundle = new Bundle();
         bundle.putString(UserInfoActivity.EXTRARS_UID, uid);
         start(context, UserInfoActivity.class, false, null, bundle);
     }
+
     //用户list页,true为粉丝列表,uid为自己系统的id
-    public static void start2UserListActivity(Context context,String uid, boolean isFans) {
+    public static void start2UserListActivity(Context context, String uid, boolean isFans) {
         Bundle bundle = new Bundle();
-        bundle.putString(UserListActivity.EXTRA_UID,uid);
-        bundle.putBoolean(UserListActivity.EXTRA_IS_FANS,isFans);
+        bundle.putString(UserListActivity.EXTRA_UID, uid);
+        bundle.putBoolean(UserListActivity.EXTRA_IS_FANS, isFans);
         start(context, UserListActivity.class, false, null, bundle);
     }
 

@@ -12,7 +12,6 @@ import com.potato.chips.app.MainApplication;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
-import com.potato.chips.util.UIUtils;
 import com.potato.library.adapter.BaseRecyclerViewAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.library.net.Request;
@@ -60,7 +59,6 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
         final TopicBean bean = (TopicBean) mData.get(position);
         binding.setBean(bean);
 
-        final Context context = binding.getRoot().getContext();
         final List<TopicPicBean> piclist = bean.getPicBeans();
         final List<TagBean> list = piclist.get(0).getTagBeans();
 
@@ -96,7 +94,8 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
         binding.llCommentBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2TopicDetail(context, bean);
+                PageCtrl.start2TopicDetail(mContext, bean);
+
             }
         });
         //显示评论数
@@ -106,7 +105,7 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
         //赞
         binding.tvHeartCount.setText(bean.getLaudCount());
         //赞的状态，如果点过赞，则实心
-        if (SPUtils.read(context, SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), false)) {
+        if (SPUtils.read(mContext, SPUtils.SP_NAME_DEFAULT, bean.getId() + bean.getUserId() + DBUtil.getLoginUser().getId(), false)) {
             binding.ivHeart.setImageResource(R.drawable.ic_heart_selected);
             //点赞
             binding.ivHeart.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +149,7 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
         binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2UserInfoActivity(context, bean.userBean);
+                PageCtrl.start2UserInfoActivity(mContext, bean.userBean);
             }
         });
 //        binding.pictureLayout.setOnClickListener(new View.OnClickListener() {

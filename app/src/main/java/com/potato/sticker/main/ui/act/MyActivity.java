@@ -27,6 +27,7 @@ import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.PicListParser;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
+import com.potato.sticker.main.data.request.StickerRequestUrls;
 import com.potato.sticker.main.ui.adapter.PicAdapter;
 
 import java.net.URLDecoder;
@@ -50,11 +51,7 @@ public class MyActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_my);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        binding.backdrop.setImageResource(R.drawable.cheese_5);
-
+        setSupportActionBar(binding.toolbar);
 
         userBean = DBUtil.getLoginUser();
 
@@ -235,6 +232,11 @@ public class MyActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
+
+            /*if (list != null && list.size() != 0) {
+                ImageLoaderUtil.displayImage(StickerRequestUrls.BaseStickerURL_IMAGE + list.get(0).getUrl(), binding.backdrop, R.color.sticker_blue);
+            }*/
+
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
             } else {
@@ -259,6 +261,7 @@ public class MyActivity extends BaseActivity {
                 binding.swipeContainer.setLoadEnable(false);
                 return;
             }
+            int lastPosition = list.size();
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
@@ -266,7 +269,7 @@ public class MyActivity extends BaseActivity {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }

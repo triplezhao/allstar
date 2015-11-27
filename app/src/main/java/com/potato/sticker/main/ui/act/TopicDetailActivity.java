@@ -5,6 +5,8 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +16,12 @@ import com.potato.chips.app.MainApplication;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
-import com.potato.chips.util.PhoneUtils;
 import com.potato.chips.util.SPUtils;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
 import com.potato.library.view.dialog.DialogUtil;
-import com.potato.library.view.refresh.ListSwipeLayout;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.TagItem;
@@ -92,12 +93,19 @@ public class TopicDetailActivity extends BaseActivity {
             mTopic_id = topicBean.getId();
         }
 
-        binding.list.addHeaderView(topicBinding.getRoot());
+
+
+        setSupportActionBar(binding.toolbar);
 
         mAdapter = new CommentAdapter(mContext);
-        binding.list.setAdapter(mAdapter);
 
-        binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
+        binding.ivSendComent.setOnClickListener(this);
+
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
+
+        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setHeaderView(binding.list,topicBinding.getRoot());
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -110,20 +118,24 @@ public class TopicDetailActivity extends BaseActivity {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sendRequest2RefreshList();
+            }
+        });
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();
             }
         });
+
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
-
-
-        binding.ivSendComent.setOnClickListener(this);
-
         sendRequest2RefreshList();
+
 
         if (isFromTopic) {
             bindHeaderView(topicBean);
@@ -196,7 +208,7 @@ public class TopicDetailActivity extends BaseActivity {
         }
         CommentListParser parser = new CommentListParser(content);
         if (parser.isSucc()) {
-            if(topicBean!=null){
+            if (topicBean != null) {
                 topicBean.setCommentCount(parser.rowCount);
                 bindHeaderView(topicBean);
             }
@@ -210,7 +222,6 @@ public class TopicDetailActivity extends BaseActivity {
             } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
-            binding.swipeContainer.mListView.setSelection(1);
             mAdapter.notifyDataSetChanged();
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -231,12 +242,15 @@ public class TopicDetailActivity extends BaseActivity {
                 binding.swipeContainer.setLoadEnable(false);
                 return;
             }
+            int lastPosition = list.size();
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }

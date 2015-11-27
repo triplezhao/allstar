@@ -3,15 +3,15 @@ package com.potato.sticker.main.ui.act;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.ListSwipeLayout;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityMsgBinding;
 import com.potato.sticker.main.data.bean.MsgBean;
@@ -45,9 +45,12 @@ public class MsgActivity extends BaseActivity {
                 this, R.layout.activity_msg);
 
         mAdapter = new MsgAdapter(mContext);
-        binding.list.setAdapter(mAdapter);
-
-        binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
+        setSupportActionBar(binding.toolbar);
+        binding.toolbar.setTitle("动态");
+        mAdapter = new MsgAdapter(mContext);
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
+        binding.swipeContainer.setFooterView( binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -60,31 +63,22 @@ public class MsgActivity extends BaseActivity {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sendRequest2RefreshList();
+            }
+        });
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();
-            }
-        });
-        //滑动时候，不加载图片
-        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
-            @Override
-            public void pause() {
-                //设置为正在滚动
-                ImageLoader.getInstance().pause();
-            }
-
-            @Override
-            public void resume() {
-                //设置为停止滚动
-                ImageLoader.getInstance().resume();
             }
         });
 
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
-
         sendRequest2RefreshList();
     }
 
@@ -173,14 +167,19 @@ public class MsgActivity extends BaseActivity {
         MsgListParser parser = new MsgListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
+            if (parser.list == null || parser.list.size() == 0) {
+                binding.swipeContainer.setLoadEnable(false);
+                return;
+            }
+            int lastPosition = list.size();
+            list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
-            list.addAll(parser.list);
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }

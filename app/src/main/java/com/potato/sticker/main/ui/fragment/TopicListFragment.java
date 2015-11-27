@@ -251,6 +251,11 @@ public class TopicListFragment extends BaseFragment {
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
+            if (parser.list == null || parser.list.size() == 0) {
+                binding.swipeContainer.setLoadEnable(false);
+                return;
+            }
+            int lastPosition = list.size();
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
@@ -258,7 +263,7 @@ public class TopicListFragment extends BaseFragment {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }

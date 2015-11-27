@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
-import com.potato.library.adapter.BaseListAdapter;
+import com.potato.library.adapter.BaseRecyclerViewAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ItemHuodongBinding;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by ztw on 2015/9/21.
  */
-public class HuodongAdapter extends BaseListAdapter {
+public class HuodongAdapter extends BaseRecyclerViewAdapter {
 
     public HuodongAdapter(Context context) {
         super(context);

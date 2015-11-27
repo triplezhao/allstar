@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -48,6 +49,8 @@ public class AllTopicActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_all_topic);
+        setSupportActionBar(binding.toolbar);
+
         binding.fab.setOnClickListener(this);
 
         mAdapter = new TopicAdapter(mContext);
@@ -184,6 +187,11 @@ public class AllTopicActivity extends BaseActivity {
         TopicListParser parser = new TopicListParser(content);
         if (parser.isSucc()) {
             mPage = Integer.parseInt(parser.curPage);
+            if (parser.list == null || parser.list.size() == 0) {
+                binding.swipeContainer.setLoadEnable(false);
+                return;
+            }
+            int lastPosition = list.size();
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
@@ -191,7 +199,7 @@ public class AllTopicActivity extends BaseActivity {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }

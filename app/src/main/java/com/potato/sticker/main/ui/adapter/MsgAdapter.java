@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.potato.library.adapter.BaseListAdapter;
+import com.potato.library.adapter.BaseRecyclerViewAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ItemMsgBinding;
@@ -17,7 +17,7 @@ import com.potato.sticker.main.data.bean.MsgBean;
 /**
  * Created by ztw on 2015/9/24.
  */
-public class MsgAdapter extends BaseListAdapter {
+public class MsgAdapter extends BaseRecyclerViewAdapter {
 
     public MsgAdapter(Context context) {
         super(context);

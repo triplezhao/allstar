@@ -3,6 +3,8 @@ package com.potato.sticker.main.ui.act;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -11,7 +13,7 @@ import com.potato.chips.base.BaseActivity;
 import com.potato.chips.util.UIUtils;
 import com.potato.library.net.Request;
 import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.ListSwipeLayout;
+import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityUserListBinding;
 import com.potato.sticker.main.data.bean.UserBean;
@@ -57,9 +59,11 @@ public class UserListActivity extends BaseActivity {
         }
 
         mAdapter = new UserAdapter(mContext);
-        binding.list.setAdapter(mAdapter);
+        setSupportActionBar(binding.toolbar);
 
-        binding.swipeContainer.setFooterView(this, binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
+        binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
+        binding.swipeContainer.setFooterView( binding.list, R.layout.listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -72,31 +76,33 @@ public class UserListActivity extends BaseActivity {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new ListSwipeLayout.OnLoadListener() {
-            @Override
-            public void onLoad() {
-                sendRequest2LoadMoreList();
-            }
-        });
-        //滑动时候，不加载图片
-        binding.swipeContainer.setScrollLisener(new ListSwipeLayout.ScrollLisener() {
+        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
-                //设置为正在滚动
                 ImageLoader.getInstance().pause();
             }
 
             @Override
             public void resume() {
-                //设置为停止滚动
                 ImageLoader.getInstance().resume();
+            }
+        });
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sendRequest2RefreshList();
+            }
+        });
+        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                sendRequest2LoadMoreList();
             }
         });
 
         binding.swipeContainer.setEmptyView(binding.emptyView);
         binding.emptyView.setOnClickListener(this);
         binding.swipeContainer.showProgress();
-
         sendRequest2RefreshList();
     }
 
@@ -197,14 +203,15 @@ public class UserListActivity extends BaseActivity {
                 binding.swipeContainer.setLoadEnable(false);
                 return;
             }
+            int lastPosition = list.size();
             list.addAll(parser.list);
             if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
-            }else{
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }

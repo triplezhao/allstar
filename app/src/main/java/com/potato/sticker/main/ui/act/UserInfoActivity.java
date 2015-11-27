@@ -27,6 +27,7 @@ import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.PicListParser;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
+import com.potato.sticker.main.data.request.StickerRequestUrls;
 import com.potato.sticker.main.ui.adapter.PicAdapter;
 
 import java.net.URLDecoder;
@@ -54,9 +55,7 @@ public class UserInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setSupportActionBar(binding.toolbar);
 
         userBean = (UserBean) getIntent().getSerializableExtra(EXTRARS_USERBEAN);
 
@@ -134,7 +133,7 @@ public class UserInfoActivity extends BaseActivity {
             return;
         }
         ImageLoaderUtil.displayImage(URLDecoder.decode(userBean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
-        binding.tvName.setText(userBean.getNickname());
+        binding.collapsingToolbar.setTitle(userBean.getNickname());
         binding.tvTime.setText(userBean.getCreateDate());
         binding.tvTagCount.setText(userBean.getLabelCount());
         binding.tvFansCount.setText(userBean.getFansCount());
@@ -265,8 +264,14 @@ public class UserInfoActivity extends BaseActivity {
             binding.swipeContainer.showSucc();
             mAdapter.setDataList(list);
             mAdapter.notifyDataSetChanged();
-            if (list != null && list.size() != 0) {
+            /*if (list != null && list.size() != 0) {
+                ImageLoaderUtil.displayImage(StickerRequestUrls.BaseStickerURL_IMAGE + list.get(0).getUrl(), binding.backdrop, R.color.sticker_blue);
+            }*/
+
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
                 binding.swipeContainer.setLoadEnable(true);
+            } else {
+                binding.swipeContainer.setLoadEnable(false);
             }
         } else {
             binding.swipeContainer.showEmptyViewFail();
@@ -287,12 +292,15 @@ public class UserInfoActivity extends BaseActivity {
                 binding.swipeContainer.setLoadEnable(false);
                 return;
             }
+            int lastPosition = list.size();
             list.addAll(parser.list);
-            if (list.size() >= Integer.parseInt(parser.rowCount)) {
+            if (list != null && list.size() != 0 && list.size() < Integer.parseInt(parser.rowCount)) {
+                binding.swipeContainer.setLoadEnable(true);
+            } else {
                 binding.swipeContainer.setLoadEnable(false);
             }
             mAdapter.setDataList(list);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(lastPosition);
         } else {
 
         }
@@ -311,7 +319,7 @@ public class UserInfoActivity extends BaseActivity {
             case R.id.ll_fans:
                 PageCtrl.start2UserListActivity(mContext, userBean.getId(), true);
                 break;
-            case R.id.bt_focus:
+            case R.id.fab:
                 Request request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
                 RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
@@ -322,8 +330,7 @@ public class UserInfoActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(int statusCode, String content) {
-                        binding.btFocus.setText("已关注");
-                        binding.btFocus.setBackgroundResource(R.drawable.selector_bg_green);
+                        binding.fab.setBackgroundResource(R.drawable.ic_fav_ed);
                     }
 
                     @Override

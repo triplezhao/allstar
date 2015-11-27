@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.cyou.sticker"
-        minSdkVersion 9
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 102001
         versionName "1.0.2001"

@@ -12,6 +12,7 @@ import com.potato.chips.app.MainApplication;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
+import com.potato.chips.util.UIUtils;
 import com.potato.library.adapter.BaseRecyclerViewAdapter;
 import com.potato.library.adapter.BaseViewHolder;
 import com.potato.library.net.Request;
@@ -152,6 +153,12 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
                 PageCtrl.start2UserInfoActivity(context, bean.userBean);
             }
         });
+//        binding.pictureLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                UIUtils.toast(mContext,"pictureLayout");
+//            }
+//        });
 
     }
 

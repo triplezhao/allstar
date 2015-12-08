@@ -54,7 +54,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter {
         binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2UserInfoActivity(context,bean.getUserBean());
+                PageCtrl.start2UserInfoActivity(context,bean.getUserBean(),binding.getRoot());
             }
         });
     }

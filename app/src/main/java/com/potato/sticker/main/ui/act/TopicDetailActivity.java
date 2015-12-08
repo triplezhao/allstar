@@ -3,12 +3,12 @@ package com.potato.sticker.main.ui.act;
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.transition.Explode;
+import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -59,6 +59,8 @@ public class TopicDetailActivity extends BaseActivity {
      */
     public static final String TOPIC_ID = "TOPIC_ID";
     public static final String TOPIC_BEAN = "TOPIC_BEAN";
+    public static final String VIEW_NAME_PIC = "VIEW_NAME_PIC";
+    public static final String VIEW_NAME_TOPIC = "VIEW_NAME_TOPIC";
     public String mTopic_id = "TOPIC_ID";
     public TopicBean topicBean;
 
@@ -75,9 +77,9 @@ public class TopicDetailActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Explode());
-        }
+        }*/
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_topic_detail);
@@ -141,14 +143,14 @@ public class TopicDetailActivity extends BaseActivity {
         binding.swipeContainer.showProgress();
         sendRequest2RefreshList();
 
-
+        // If all other cases we should just load the full-size image now
         if (isFromTopic) {
             bindHeaderView(topicBean);
-
         } else {
             //用topicid去请求帖子详情，获取成功后，再用userid请求用户详情
             sendRequestTopicDetail();
         }
+
     }
 
 
@@ -278,6 +280,11 @@ public class TopicDetailActivity extends BaseActivity {
 
 
     public void bindHeaderView(final TopicBean bean) {
+        if (isFromTopic) {
+            ViewCompat.setTransitionName(topicBinding.llTopic, VIEW_NAME_TOPIC);
+        } else {
+            ViewCompat.setTransitionName(topicBinding.picture, VIEW_NAME_PIC);
+        }
         topicBinding.setBean(bean);
         final Context context = topicBinding.getRoot().getContext();
         final List<TopicPicBean> piclist = bean.getPicBeans();
@@ -359,7 +366,7 @@ public class TopicDetailActivity extends BaseActivity {
         topicBinding.ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2UserInfoActivity(context, bean.userBean);
+                PageCtrl.start2UserInfoActivity(context, bean.userBean, topicBinding.getRoot());
             }
         });
 
@@ -485,6 +492,53 @@ public class TopicDetailActivity extends BaseActivity {
 
         }
 
+    }
+
+    private boolean addTransitionListener() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Transition transition = getWindow().getSharedElementEnterTransition();
+            if (transition != null) {
+                // There is an entering shared element transition so add a listener to it
+                transition.addListener(new Transition.TransitionListener() {
+                    @Override
+                    public void onTransitionEnd(Transition transition) {
+                        if (isFromTopic) {
+                            bindHeaderView(topicBean);
+                        } else {
+                            //用topicid去请求帖子详情，获取成功后，再用userid请求用户详情
+                            sendRequestTopicDetail();
+                        }
+                        // Make sure we remove ourselves as a listener
+                        transition.removeListener(this);
+                    }
+
+                    @Override
+                    public void onTransitionStart(Transition transition) {
+                        // No-op
+                    }
+
+                    @Override
+                    public void onTransitionCancel(Transition transition) {
+                        // Make sure we remove ourselves as a listener
+                        transition.removeListener(this);
+                    }
+
+                    @Override
+                    public void onTransitionPause(Transition transition) {
+                        // No-op
+                    }
+
+                    @Override
+                    public void onTransitionResume(Transition transition) {
+                        // No-op
+                    }
+                });
+                return true;
+            }
+        }
+
+        // If we reach here then we have not added a listener
+        return false;
     }
 
 }

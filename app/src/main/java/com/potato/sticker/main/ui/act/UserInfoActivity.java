@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -44,6 +45,7 @@ public class UserInfoActivity extends BaseActivity {
     //注意是第三方的uid
     public static final String EXTRARS_UID = "EXTRARS_UID";
     public static final String EXTRARS_USERBEAN = "EXTRARS_USERBEAN";
+    public static final String VIEW_NAME_AVATAR = "VIEW_NAME_AVATAR";
     private ActivityUserBinding binding;
     String uid;
     UserBean userBean;
@@ -55,10 +57,10 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        /*getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Explode());
-        }
+        }*/
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_user);
@@ -139,6 +141,7 @@ public class UserInfoActivity extends BaseActivity {
         if (userBean == null) {
             return;
         }
+        ViewCompat.setTransitionName(binding.ivAvatar, VIEW_NAME_AVATAR);
         ImageLoaderUtil.displayImage(URLDecoder.decode(userBean.getHeadImg()), binding.ivAvatar, R.drawable.def_gray_small);
         binding.collapsingToolbar.setTitle(userBean.getNickname());
         binding.tvTime.setText(userBean.getCreateDate());

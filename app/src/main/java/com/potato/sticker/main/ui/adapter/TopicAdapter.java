@@ -94,7 +94,7 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
         binding.llCommentBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2TopicDetail(mContext, bean);
+                PageCtrl.start2TopicDetail(mContext, bean,binding.getRoot());
 
             }
         });
@@ -149,7 +149,7 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
         binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2UserInfoActivity(mContext, bean.userBean);
+                PageCtrl.start2UserInfoActivity(mContext, bean.userBean,binding.getRoot());
             }
         });
 //        binding.pictureLayout.setOnClickListener(new View.OnClickListener() {

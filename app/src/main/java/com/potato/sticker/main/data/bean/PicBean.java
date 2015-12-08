@@ -99,11 +99,11 @@ public class PicBean extends BaseBean implements Serializable{
         ArrayList<PicBean> list = new ArrayList<PicBean>();
 
         int count = jsonArray.length();
-        for (int i = 0; i < count; i++) {
-            JSONObject jsonObj = jsonArray.optJSONObject(i);
-            PicBean entity = PicBean.createFromJSON(jsonObj);
-            list.add(entity);
-        }
+		for (int i = 0; i < count; i++) {
+			JSONObject jsonObj = jsonArray.optJSONObject(i);
+			PicBean entity = PicBean.createFromJSON(jsonObj);
+			list.add(entity);
+		}
         return list;
     }
 	

@@ -52,7 +52,7 @@ public class PicAdapter extends BaseRecyclerViewAdapter {
             @Override
             public void onClick(View view) {
 //                CameraManager.getInst().processPhotoItem((Activity) view.getContext(), bean);
-                PageCtrl.start2TopicDetail(binding.getRoot().getContext(),bean.getTopicId());
+                PageCtrl.start2TopicDetail(binding.getRoot().getContext(),bean.getTopicId(),binding.getRoot());
             }
         });
 //

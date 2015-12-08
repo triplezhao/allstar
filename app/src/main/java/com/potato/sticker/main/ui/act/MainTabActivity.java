@@ -1,5 +1,6 @@
 package com.potato.sticker.main.ui.act;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,10 +16,12 @@ public class MainTabActivity extends BaseTabHostActivity {
 
     private long lastBackPressedTime = 0;
     private static final int DoubleBackPressedInterval = 2000;
+    public static Activity mainActivity;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
+        mainActivity = this;
     }
 
     @Override

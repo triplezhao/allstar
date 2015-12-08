@@ -4,13 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.potato.library.util.L;
+import com.potato.sticker.R;
 import com.potato.sticker.login.ui.act.LoginActivity;
 import com.potato.sticker.main.data.bean.TopicBean;
 import com.potato.sticker.main.data.bean.UserBean;
+import com.potato.sticker.main.ui.act.AllTopicActivity;
+import com.potato.sticker.main.ui.act.ClassifyActivity;
+import com.potato.sticker.main.ui.act.MainTabActivity;
+import com.potato.sticker.main.ui.act.MyActivity;
+import com.potato.sticker.main.ui.act.PersenalActivity;
 import com.potato.sticker.main.ui.act.TopicDetailActivity;
 import com.potato.sticker.main.ui.act.UserInfoActivity;
 import com.potato.sticker.main.ui.act.UserListActivity;
@@ -117,20 +128,31 @@ public class PageCtrl {
         Bundle bundle = new Bundle();
         bundle.putString(TopicDetailActivity.TOPIC_ID, topicId);
         start(context, TopicDetailActivity.class, false, null, bundle);
+    }
 
-        /*Bundle bundle = new Bundle();
-        bundle.putString(TopicDetailActivity.TOPIC_ID, topicId);
-
+    public static void start2TopicDetail(Context context, String topicId, View view) {
+//        start(context, LoginActivity.class,false,null,null);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TopicDetailActivity.TOPIC_ID, topicId);
         Intent intent = new Intent(context, TopicDetailActivity.class);
         intent.putExtras(bundle);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ((Activity) context).getWindow().setExitTransition(new Explode());
-            ((Activity) context).startActivity(intent,
-                    ActivityOptions
-                            .makeSceneTransitionAnimation((Activity) context).toBundle());
+
+            if (context instanceof AllTopicActivity || context instanceof ClassifyActivity || context instanceof PersenalActivity || context instanceof MyActivity) {
+                context = MainTabActivity.mainActivity;
+            }
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (Activity) context,
+                    // Now we provide a list of Pair items which contain the view we can transitioning
+                    // from, and the name of the view it is transitioning to, in the launched activity
+                    new Pair<View, String>(view.findViewById(R.id.iv_pic),
+                            TopicDetailActivity.VIEW_NAME_PIC));
+
+            // Now we can start the Activity, providing the activity options as a bundle
+            ActivityCompat.startActivity((Activity) context, intent, activityOptions.toBundle());
         } else {
             start(context, TopicDetailActivity.class, false, null, bundle);
-        }*/
+        }
     }
 
     public static void start2TopicDetail(Context context, TopicBean bean) {
@@ -153,11 +175,62 @@ public class PageCtrl {
 
     }
 
+    public static void start2TopicDetail(Context context, TopicBean bean, View view) {
+//        start(context, LoginActivity.class,false,null,null);
+        /*Bundle bundle = new Bundle();
+        bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN, bean);
+        start(context, TopicDetailActivity.class, false, null, bundle);*/
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TopicDetailActivity.TOPIC_BEAN, bean);
+        Intent intent = new Intent(context, TopicDetailActivity.class);
+        intent.putExtras(bundle);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            if (context instanceof AllTopicActivity || context instanceof ClassifyActivity || context instanceof PersenalActivity || context instanceof MyActivity) {
+                context = MainTabActivity.mainActivity;
+            }
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (Activity) context,
+                    // Now we provide a list of Pair items which contain the view we can transitioning
+                    // from, and the name of the view it is transitioning to, in the launched activity
+                    new Pair<View, String>(view.findViewById(R.id.ll_topic),
+                            TopicDetailActivity.VIEW_NAME_TOPIC));
+
+            // Now we can start the Activity, providing the activity options as a bundle
+            ActivityCompat.startActivity((Activity) context, intent, activityOptions.toBundle());
+        } else {
+            start(context, TopicDetailActivity.class, false, null, bundle);
+        }
+    }
+
     //用户详情页
-    public static void start2UserInfoActivity(Context context, UserBean bean) {
+    public static void start2UserInfoActivity(Context context, UserBean bean, View view) {
+        /*Bundle bundle = new Bundle();
+        bundle.putSerializable(UserInfoActivity.EXTRARS_USERBEAN, bean);
+        start(context, UserInfoActivity.class, false, null, bundle);*/
+
         Bundle bundle = new Bundle();
         bundle.putSerializable(UserInfoActivity.EXTRARS_USERBEAN, bean);
-        start(context, UserInfoActivity.class, false, null, bundle);
+        Intent intent = new Intent(context, UserInfoActivity.class);
+        intent.putExtras(bundle);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            if (context instanceof AllTopicActivity || context instanceof ClassifyActivity || context instanceof PersenalActivity || context instanceof MyActivity) {
+                context = MainTabActivity.mainActivity;
+            }
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (Activity) context,
+                    // Now we provide a list of Pair items which contain the view we can transitioning
+                    // from, and the name of the view it is transitioning to, in the launched activity
+                    new Pair<View, String>(view.findViewById(R.id.iv_avatar),
+                            UserInfoActivity.VIEW_NAME_AVATAR)
+            );
+
+            // Now we can start the Activity, providing the activity options as a bundle
+            ActivityCompat.startActivity((Activity) context, intent, activityOptions.toBundle());
+        } else {
+            start(context, UserInfoActivity.class, false, null, bundle);
+        }
     }
 
     //用户详情页,第三方id

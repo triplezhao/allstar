@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +16,22 @@
 
 <resources>
 
-   <!-- <style name="Theme.AppTheme" parent="Base.Theme.AppTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>-->
+    <!-- <style name="Theme.AppTheme" parent="Base.Theme.AppTheme">
+         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+         <item name="android:statusBarColor">@android:color/transparent</item>
+     </style>-->
     <style name="Theme.AppTheme" parent="Base.Theme.AppTheme">
-    </style>-->
+        <!-- Set the transitions which are used for the entrance and exit of shared elements -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/grid_detail_transition
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/grid_detail_transition
+        </item>
+
+        <!-- 允许使用transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+    </style>
+    -->
 </resources>

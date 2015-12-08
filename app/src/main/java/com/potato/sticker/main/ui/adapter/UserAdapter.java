@@ -57,7 +57,7 @@ public class UserAdapter extends BaseRecyclerViewAdapter {
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PageCtrl.start2UserInfoActivity(mContext, bean);
+                PageCtrl.start2UserInfoActivity(mContext, bean, binding.getRoot());
             }
         });
 

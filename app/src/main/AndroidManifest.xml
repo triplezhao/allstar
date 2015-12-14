@@ -64,7 +64,8 @@
         android:theme="@style/Theme.AppTheme">
         <activity
             android:name=".main.ui.act.WelcomeActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -94,7 +95,6 @@
         <activity android:name="com.potato.sticker.camera.ui.act.CameraActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.CropPhotoActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.EditTextActivity"></activity>
-        <activity android:name="com.potato.sticker.camera.ui.act.MainActivity"></activity>
         <activity android:name="com.potato.sticker.camera.ui.act.PhotoProcessActivity"></activity>
 
         <!-- shareSDK -->

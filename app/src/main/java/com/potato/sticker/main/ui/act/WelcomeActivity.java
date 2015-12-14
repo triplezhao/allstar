@@ -1,5 +1,6 @@
 package com.potato.sticker.main.ui.act;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +12,14 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //第一次运行的引导页代码
-public class WelcomeActivity extends BaseActivity implements OnPageChangeListener,
+public class WelcomeActivity extends Activity implements OnPageChangeListener,
         OnClickListener {
     private Context context;
     private ViewPager viewPager;
@@ -53,7 +55,14 @@ public class WelcomeActivity extends BaseActivity implements OnPageChangeListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //定义全屏参数
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //获得当前窗体对象
+        Window window = getWindow();
+        //设置当前窗体为全屏显示
+        window.setFlags(flag, flag);
         setContentView(R.layout.activity_welcome);
+
         context = this;
         ll_fisrt = findViewById(R.id.ll_first);
         ll_fisrt.setVisibility(View.GONE);
@@ -294,7 +303,7 @@ public class WelcomeActivity extends BaseActivity implements OnPageChangeListene
             @Override
             public void run() {
                 // 如果第一次安装启动，则显示页面
-                if (SPUtils.read(mContext, SPUtils.SP_NAME_DEFAULT,
+                if (SPUtils.read(context, SPUtils.SP_NAME_DEFAULT,
                         SPUtils.PREF_KEY_ISFIRST, true)) {
                     SPUtils.write(WelcomeActivity.this,
                             SPUtils.SP_NAME_DEFAULT, SPUtils.PREF_KEY_ISFIRST,

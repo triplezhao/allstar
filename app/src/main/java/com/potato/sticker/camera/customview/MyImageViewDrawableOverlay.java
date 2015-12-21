@@ -13,15 +13,18 @@ import android.view.ViewConfiguration;
 
 import com.potato.sticker.camera.customview.drawable.EditableDrawable;
 import com.potato.sticker.camera.customview.drawable.FeatherDrawable;
-import com.imagezoom.ImageViewTouch;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import it.sephiroth.android.library.imagezoom.ImageViewTouch;
+
 
 public class MyImageViewDrawableOverlay extends ImageViewTouch {
+
+    private static final String LOG_TAG = MyImageViewDrawableOverlay.class.getSimpleName();
 
     public static interface OnDrawableEventListener {
         void onFocusChange(MyHighlightView newFocus, MyHighlightView oldFocus);
@@ -61,8 +64,8 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     /**
      * 用于感知label被点击了
      * @param label
-     * @param locationX
-     * @param locationY
+     * @param eventRawX
+     * @param eventRawY
      */
     //贴纸在上面进行操作
     public void setCurrentLabel(LabelView label, float eventRawX, float eventRawY) {
@@ -124,10 +127,6 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
 
     /************************[END]贴纸处理**********************/
 
-    public MyImageViewDrawableOverlay(Context context) {
-        super(context);
-        //setScrollEnabled(false);
-    }
 
     public MyImageViewDrawableOverlay(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -140,12 +139,13 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     }
 
     protected void panBy(double dx, double dy) {
-        RectF rect = getBitmapRect();
+        /*RectF rect = getBitmapRect();
         mScrollRect.set((float) dx, (float) dy, 0, 0);
         updateRect(rect, mScrollRect);
         //FIXME 贴纸移动到边缘次数多了以后会爆,原因不明朗  。后续需要好好重写ImageViewTouch
         //postTranslate(mScrollRect.left, mScrollRect.top);
-        center(true, true);
+        center(true, true);*/
+        super.panBy(dx,dy);
     }
 
     @Override
@@ -357,7 +357,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
                 Log.d(LOG_TAG, "zooming to: " + (getScale() * diff));
 
                 zoomTo(getScale() * diff, displayRect.centerX(), displayRect.centerY(),
-                    DEFAULT_ANIMATION_DURATION * 1.5f);
+                        (long) (DEFAULT_ANIMATION_DURATION * 1.5f));
                 return true;
             }
         }

@@ -20,12 +20,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.potato.sticker.R;
 import com.potato.sticker.camera.common.FileUtils;
 import com.potato.sticker.camera.common.IOUtil;
 import com.potato.sticker.camera.common.ImageUtils;
-import com.potato.sticker.R;
 import com.potato.sticker.camera.util.App;
-import com.imagezoom.ImageViewTouch;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,6 +32,7 @@ import java.io.InputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 
 /**
  * 裁剪图片界面

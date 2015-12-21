@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.imagezoom.ImageViewTouch;
 import com.potato.library.util.L;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
@@ -23,6 +22,8 @@ import com.potato.sticker.camera.data.bean.Addon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 
 /**
  * Created by sky on 15/7/6.

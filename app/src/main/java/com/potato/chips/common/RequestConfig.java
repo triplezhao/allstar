@@ -1,11 +1,11 @@
 package com.potato.chips.common;
 
-import android.databinding.tool.util.L;
 import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.potato.chips.app.MainApplication;
 import com.potato.chips.util.PhoneUtils;
+import com.potato.library.util.L;
 import com.potato.library.util.encrypt.PrivateUtil;
 import com.potato.library.util.encrypt.SecurityUtil;
 

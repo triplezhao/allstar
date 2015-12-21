@@ -13,13 +13,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.drawable.EditableDrawable;
 import com.potato.sticker.camera.customview.drawable.FeatherDrawable;
-import com.potato.sticker.R;
 import com.potato.sticker.camera.util.App;
 import com.potato.sticker.camera.util.Point2D;
 import com.potato.sticker.camera.util.UIUtils;
-import com.imagezoom.ImageViewTouch;
+
+import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 
 
 public class MyHighlightView implements EditableDrawable.OnSizeChange {

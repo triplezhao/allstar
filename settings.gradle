@@ -1,4 +1,2 @@
-include ':app', ':Gpu-Image',':librarygithub'
+include ':app',':librarygithub'
 project(':librarygithub').projectDir = new File('../potato_framework/library')
-include ':librarygithub_demo'
-project(':librarygithub_demo').projectDir = new File('../potato_framework/app')

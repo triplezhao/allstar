@@ -44,7 +44,7 @@
 
             </com.potato.library.view.NormalEmptyView>
 
-            <com.potato.library.view.refresh.HFRecyclerSwipeLayout
+            <com.potato.library.view.refresh.PotatoRecyclerSwipeLayout
                 android:id="@+id/swipe_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -61,7 +61,7 @@
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none" />
 
-            </com.potato.library.view.refresh.HFRecyclerSwipeLayout>
+            </com.potato.library.view.refresh.PotatoRecyclerSwipeLayout>
 
             <View
                 android:layout_width="fill_parent"

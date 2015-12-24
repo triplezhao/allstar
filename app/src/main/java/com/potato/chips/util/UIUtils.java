@@ -16,12 +16,12 @@ import android.widget.Toast;
 import com.potato.chips.app.MainApplication;
 import com.potato.sticker.R;
 
-import org.apache.http.client.HttpResponseException;
-
 import java.io.File;
 import java.io.InterruptedIOException;
 import java.lang.reflect.Method;
 import java.net.SocketException;
+
+import cz.msebera.android.httpclient.client.HttpResponseException;
 
 
 /**

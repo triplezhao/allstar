@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 android:scaleType="fitCenter" />
         </LinearLayout>
-        <com.imagezoom.ImageViewTouch
+        <it.sephiroth.android.library.imagezoom.ImageViewTouch
             android:id="@+id/crop_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

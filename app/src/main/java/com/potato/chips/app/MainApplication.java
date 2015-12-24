@@ -19,7 +19,9 @@ import cn.sharesdk.framework.ShareSDK;
  * Created by zhaobingfeng on 14-12-22.
  */
 public class MainApplication extends Application {
-    /** 获取屏幕的宽和高 */
+    /**
+     * 获取屏幕的宽和高
+     */
     public static int screenHight = 0;
     public static int screenWidth = 0;
     public static DisplayMetrics displayMetrices;
@@ -70,7 +72,7 @@ public class MainApplication extends Application {
 //            Picasso.setSingletonInstance(picasso);
     }
 
-    public void initUIL(){
+    public void initUIL() {
         ImageLoaderUtil.init(context);
     }
 
@@ -83,7 +85,13 @@ public class MainApplication extends Application {
         screenWidth = displayMetrices.widthPixels;
     }
 
-    private void initTD(){
-        TCAgent.init(context,"8B0A3B07DBE0F5BC749F49033E01767B", ChannelUtil.getChannel(context));
+    private void initTD() {
+        TCAgent.init(context, "8B0A3B07DBE0F5BC749F49033E01767B", ChannelUtil.getChannel(context));
     }
+
+   /* @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }*/
 }

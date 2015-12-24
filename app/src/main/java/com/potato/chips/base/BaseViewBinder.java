@@ -2,12 +2,12 @@ package com.potato.chips.base;
 
 import android.view.ViewGroup;
 
-import com.potato.library.adapter.BaseViewHolder;
+import com.potato.library.adapter.PotatoBaseViewHolder;
 
 /**
  * Created by ztw on 2015/7/22.
  */
-public abstract class BaseViewBinder <VH extends BaseViewHolder>{
+public abstract class BaseViewBinder <VH extends PotatoBaseViewHolder>{
 
     public BaseViewBinder() {
 

@@ -10,8 +10,8 @@ import android.view.View;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityUserListBinding;
@@ -108,11 +108,11 @@ public class UserListActivity extends BaseActivity {
 
     public void sendRequest2RefreshList() {
 
-        PotatoRequest request = StickerRequestBuilder.fansList(uid, 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.fansList(uid, 1 + "", mSize + "");
         if (!isFans) {
             request = StickerRequestBuilder.focusUserList(uid, 1 + "", mSize + "");
         }
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -131,7 +131,7 @@ public class UserListActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -139,11 +139,11 @@ public class UserListActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        PotatoRequest request = StickerRequestBuilder.message(uid, "", mPage + 1 + "", mSize + "");
+        Request request = StickerRequestBuilder.message(uid, "", mPage + 1 + "", mSize + "");
         if (!isFans) {
             request = StickerRequestBuilder.focusUserList(uid, 1 + "", mSize + "");
         }
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -161,7 +161,7 @@ public class UserListActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

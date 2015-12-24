@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.library.adapter.PotatoBaseRecyclerViewAdapter;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.util.L;
 import com.potato.library.view.NormalEmptyView;
 import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
@@ -104,9 +104,9 @@ public abstract class BaseDefaultListActivity extends BaseActivity implements Po
 
     public abstract PotatoBaseRecyclerViewAdapter getAdapter();
 
-    public abstract PotatoRequest getRefreshRequest();
+    public abstract Request getRefreshRequest();
 
-    public abstract PotatoRequest getLoadMoreRequest();
+    public abstract Request getLoadMoreRequest();
 
 
     public abstract BaseParser getParser(String json);
@@ -176,7 +176,7 @@ public abstract class BaseDefaultListActivity extends BaseActivity implements Po
 
     public void reqRefresh() {
 
-        PotatoRequestManager.DataLoadListener dataLoadListener = new PotatoRequestManager.DataLoadListener() {
+        RequestManager.DataLoadListener dataLoadListener = new RequestManager.DataLoadListener() {
 
 
             @Override
@@ -199,15 +199,15 @@ public abstract class BaseDefaultListActivity extends BaseActivity implements Po
                 BaseDefaultListActivity.this.onCacheLoaded(content);
             }
         };
-        PotatoRequestManager.requestData(
+        RequestManager.requestData(
                 getRefreshRequest(),
                 dataLoadListener,
-                PotatoRequestManager.CACHE_TYPE_NOCACHE
+                RequestManager.CACHE_TYPE_NOCACHE
         );
     }
 
     public void reqLoadMore() {
-        PotatoRequestManager.DataLoadListener dataLoadListener = new PotatoRequestManager.DataLoadListener() {
+        RequestManager.DataLoadListener dataLoadListener = new RequestManager.DataLoadListener() {
 
 
             @Override
@@ -229,10 +229,10 @@ public abstract class BaseDefaultListActivity extends BaseActivity implements Po
                 BaseDefaultListActivity.this.onCacheLoaded(content);
             }
         };
-        PotatoRequestManager.requestData(
+        RequestManager.requestData(
                 getLoadMoreRequest(),
                 dataLoadListener,
-                PotatoRequestManager.CACHE_TYPE_NOCACHE
+                RequestManager.CACHE_TYPE_NOCACHE
         );
     }
 }

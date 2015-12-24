@@ -121,7 +121,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- end shareSDK -->
         <provider
-            android:name="com.potato.library.net.PotatoRequestCacheProvider"
+            android:name="com.potato.library.net.RequestCacheProvider"
             android:authorities="com.potato.sticker.RequestCacheProvider" />
         <provider
             android:name=".main.data.db.UserBeanProvider"

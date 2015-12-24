@@ -11,8 +11,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
@@ -101,8 +101,8 @@ public class UserTopicActivity extends BaseActivity {
 
     public void sendRequest2RefreshList() {
 
-        PotatoRequest request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", 1 + "", mSize + "");
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", 1 + "", mSize + "");
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -121,7 +121,7 @@ public class UserTopicActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -129,8 +129,8 @@ public class UserTopicActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        PotatoRequest request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", mPage + 1 + "", mSize + "");
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId() + "", mPage + 1 + "", mSize + "");
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -148,7 +148,7 @@ public class UserTopicActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

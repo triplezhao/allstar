@@ -14,8 +14,8 @@ import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
 import com.potato.library.adapter.PotatoBaseRecyclerViewAdapter;
 import com.potato.library.adapter.PotatoBaseViewHolder;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.TagItem;
@@ -122,8 +122,8 @@ public class TopicAdapter extends PotatoBaseRecyclerViewAdapter {
                 @Override
                 public void onClick(final View view) {
 
-                    PotatoRequest request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
-                    PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+                    Request request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
+                    RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
                         @Override
                         public void onCacheLoaded(String content) {
@@ -141,7 +141,7 @@ public class TopicAdapter extends PotatoBaseRecyclerViewAdapter {
                         public void onFailure(Throwable error, String errMsg) {
 
                         }
-                    }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+                    }, RequestManager.CACHE_TYPE_NOCACHE);
                 }
             });
         }

@@ -24,8 +24,8 @@ import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.QiniuUtil;
 import com.potato.chips.util.StringUtils;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.util.L;
 import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
@@ -457,8 +457,8 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                                     topicBean.setTitle("帖子title");
                                     topicBean.setPicBeans(picBeans);
 
-                                    PotatoRequest request = StickerRequestBuilder.create(topicBean);
-                                    PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+                                    Request request = StickerRequestBuilder.create(topicBean);
+                                    RequestManager.requestData(request, new RequestManager.DataLoadListener() {
                                         @Override
                                         public void onCacheLoaded(String content) {
 
@@ -478,7 +478,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
                                             dismissProgressDialog();
                                             CameraManager.getInst().close();
                                         }
-                                    }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+                                    }, RequestManager.CACHE_TYPE_NOCACHE);
 
 
                                 } catch (JSONException e) {

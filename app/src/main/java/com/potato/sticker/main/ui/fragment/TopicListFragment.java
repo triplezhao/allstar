@@ -29,8 +29,8 @@ import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
@@ -132,7 +132,7 @@ public class TopicListFragment extends BaseFragment {
 
 
     public void sendRequest2RefreshList() {
-        PotatoRequest request = null;
+        Request request = null;
         if (mSectionId.equals(MY_SECTION_ID)) {
             request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId(), 1 + "", mSize + "");
         } else if (mSectionId.equals(FOCUS_SECTION_ID)) {
@@ -148,7 +148,7 @@ public class TopicListFragment extends BaseFragment {
         } else {
             request = StickerRequestBuilder.getClassifyRela(mSectionId, 1 + "", mSize + "");
         }
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -167,7 +167,7 @@ public class TopicListFragment extends BaseFragment {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -175,7 +175,7 @@ public class TopicListFragment extends BaseFragment {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        PotatoRequest request = null;
+        Request request = null;
         if (mSectionId.equals(MY_SECTION_ID)) {
             request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "");
         } else if (mSectionId.equals(FOCUS_SECTION_ID)) {
@@ -191,7 +191,7 @@ public class TopicListFragment extends BaseFragment {
         } else {
             request = StickerRequestBuilder.getClassifyRela(mSectionId, mPage + 1 + "", mSize + "");
         }
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -209,7 +209,7 @@ public class TopicListFragment extends BaseFragment {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

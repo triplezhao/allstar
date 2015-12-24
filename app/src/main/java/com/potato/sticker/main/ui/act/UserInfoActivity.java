@@ -14,8 +14,8 @@ import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.view.hfrecyclerview.HFGridlayoutSpanSizeLookup;
 import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
@@ -168,8 +168,8 @@ public class UserInfoActivity extends BaseActivity {
         if (uid == null) {
             return;
         }
-        PotatoRequest request = StickerRequestBuilder.getUserInfo(uid);
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.getUserInfo(uid);
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -191,7 +191,7 @@ public class UserInfoActivity extends BaseActivity {
             public void onFailure(Throwable error, String errMsg) {
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -201,8 +201,8 @@ public class UserInfoActivity extends BaseActivity {
             return;
         }
 
-        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -222,7 +222,7 @@ public class UserInfoActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -233,8 +233,8 @@ public class UserInfoActivity extends BaseActivity {
         if (userBean == null) {
             return;
         }
-        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -252,7 +252,7 @@ public class UserInfoActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
     }
 
 
@@ -325,8 +325,8 @@ public class UserInfoActivity extends BaseActivity {
                 PageCtrl.start2UserListActivity(mContext, userBean.getId(), true);
                 break;
             case R.id.fab:
-                PotatoRequest request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
-                PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+                Request request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
+                RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
                     @Override
                     public void onCacheLoaded(String content) {
@@ -342,7 +342,7 @@ public class UserInfoActivity extends BaseActivity {
                     public void onFailure(Throwable error, String errMsg) {
 
                     }
-                }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+                }, RequestManager.CACHE_TYPE_NOCACHE);
                 break;
 
         }

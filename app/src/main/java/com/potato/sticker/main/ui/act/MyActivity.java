@@ -16,8 +16,8 @@ import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.PotatoRequest;
-import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.net.Request;
+import com.potato.library.net.RequestManager;
 import com.potato.library.view.hfrecyclerview.HFGridlayoutSpanSizeLookup;
 import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
@@ -142,8 +142,8 @@ public class MyActivity extends BaseActivity {
 
     public void requestRefreshUserBean() {
 
-        PotatoRequest request = StickerRequestBuilder.getUserInfo(userBean.getUid());
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.getUserInfo(userBean.getUid());
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -166,14 +166,14 @@ public class MyActivity extends BaseActivity {
             public void onFailure(Throwable error, String errMsg) {
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
     public void requestRefreshUserPic() {
 
-        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -193,7 +193,7 @@ public class MyActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -201,8 +201,8 @@ public class MyActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void requestMoreUserpic() {
-        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
-        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
+        Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
+        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -220,7 +220,7 @@ public class MyActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
+        }, RequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

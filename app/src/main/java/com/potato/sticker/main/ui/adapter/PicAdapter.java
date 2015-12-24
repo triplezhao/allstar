@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
-import com.potato.library.adapter.BaseRecyclerViewAdapter;
-import com.potato.library.adapter.BaseViewHolder;
+import com.potato.library.adapter.PotatoBaseRecyclerViewAdapter;
+import com.potato.library.adapter.PotatoBaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ItemPicBinding;
 import com.potato.sticker.main.data.bean.PicBean;
@@ -21,7 +21,7 @@ import com.potato.sticker.main.data.request.StickerRequestUrls;
 /**
  * Created by ztw on 2015/9/21.
  */
-public class PicAdapter extends BaseRecyclerViewAdapter {
+public class PicAdapter extends PotatoBaseRecyclerViewAdapter {
 
     public PicAdapter(Context context) {
         super(context);
@@ -59,7 +59,7 @@ public class PicAdapter extends BaseRecyclerViewAdapter {
     }
 
 
-    public static class VH extends BaseViewHolder {
+    public static class VH extends PotatoBaseViewHolder {
 
         private ViewDataBinding binding;
 

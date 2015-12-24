@@ -29,9 +29,9 @@ import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.FragmentTopicListBinding;
@@ -92,14 +92,14 @@ public class TopicListFragment extends BaseFragment {
         mAdapter = new TopicAdapter(mContext);
         binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
         binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
-        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(binding.list, R.layout.potato_listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
                 R.color.google_red,
                 R.color.google_yellow);
 
-        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
+        binding.swipeContainer.setScrollStateLisener(new PotatoRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
                 ImageLoader.getInstance().pause();
@@ -116,7 +116,7 @@ public class TopicListFragment extends BaseFragment {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new PotatoRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();
@@ -132,7 +132,7 @@ public class TopicListFragment extends BaseFragment {
 
 
     public void sendRequest2RefreshList() {
-        Request request = null;
+        PotatoRequest request = null;
         if (mSectionId.equals(MY_SECTION_ID)) {
             request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId(), 1 + "", mSize + "");
         } else if (mSectionId.equals(FOCUS_SECTION_ID)) {
@@ -148,7 +148,7 @@ public class TopicListFragment extends BaseFragment {
         } else {
             request = StickerRequestBuilder.getClassifyRela(mSectionId, 1 + "", mSize + "");
         }
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -167,7 +167,7 @@ public class TopicListFragment extends BaseFragment {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -175,7 +175,7 @@ public class TopicListFragment extends BaseFragment {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = null;
+        PotatoRequest request = null;
         if (mSectionId.equals(MY_SECTION_ID)) {
             request = StickerRequestBuilder.topic(DBUtil.getLoginUser().getId(), mPage + 1 + "", mSize + "");
         } else if (mSectionId.equals(FOCUS_SECTION_ID)) {
@@ -191,7 +191,7 @@ public class TopicListFragment extends BaseFragment {
         } else {
             request = StickerRequestBuilder.getClassifyRela(mSectionId, mPage + 1 + "", mSize + "");
         }
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -209,7 +209,7 @@ public class TopicListFragment extends BaseFragment {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

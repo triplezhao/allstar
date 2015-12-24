@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
-import com.potato.library.adapter.BaseRecyclerViewAdapter;
-import com.potato.library.adapter.BaseViewHolder;
+import com.potato.library.adapter.PotatoBaseRecyclerViewAdapter;
+import com.potato.library.adapter.PotatoBaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ItemUserBinding;
 import com.potato.sticker.main.data.bean.UserBean;
@@ -21,7 +21,7 @@ import java.net.URLDecoder;
 /**
  * Created by ztw on 2015/9/24.
  */
-public class UserAdapter extends BaseRecyclerViewAdapter {
+public class UserAdapter extends PotatoBaseRecyclerViewAdapter {
 
     public UserAdapter(Context context) {
         super(context);
@@ -64,7 +64,7 @@ public class UserAdapter extends BaseRecyclerViewAdapter {
     }
 
 
-    public static class VH extends BaseViewHolder {
+    public static class VH extends PotatoBaseViewHolder {
 
         private ViewDataBinding binding;
 

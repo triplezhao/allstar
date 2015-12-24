@@ -10,8 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
 import com.potato.chips.base.BaseActivity;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.library.util.L;
 import com.potato.sticker.R;
 import com.potato.sticker.main.data.bean.ClassifyBean;
@@ -69,8 +69,8 @@ public class ClassifyActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
         tabLayout.setTabsFromPagerAdapter(adapter);
 
-        Request request = StickerRequestBuilder.getClassify();
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.getClassify();
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
             @Override
             public void onCacheLoaded(String content) {
                 updateUI(content);
@@ -85,7 +85,7 @@ public class ClassifyActivity extends BaseActivity {
             public void onFailure(Throwable error, String errMsg) {
                 L.i(TAG, errMsg + "");
             }
-        }, RequestManager.CACHE_TYPE_NORMAL);
+        }, PotatoRequestManager.CACHE_TYPE_NORMAL);
 
     }
 

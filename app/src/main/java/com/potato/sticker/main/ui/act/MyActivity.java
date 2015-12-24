@@ -16,10 +16,10 @@ import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.library.view.hfrecyclerview.HFGridlayoutSpanSizeLookup;
-import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
+import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityMyBinding;
 import com.potato.sticker.login.ui.act.LoginActivity;
@@ -70,7 +70,7 @@ public class MyActivity extends BaseActivity {
         layoutManager.setSpanSizeLookup(new HFGridlayoutSpanSizeLookup(binding.swipeContainer.getHFAdapter(), 3));
         binding.swipeContainer.setLayoutManager(layoutManager);
 
-        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(binding.list, R.layout.potato_listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -84,7 +84,7 @@ public class MyActivity extends BaseActivity {
             }
         });
         //滑动时候，不加载图片
-        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
+        binding.swipeContainer.setScrollStateLisener(new PotatoRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
                 //设置为正在滚动
@@ -98,7 +98,7 @@ public class MyActivity extends BaseActivity {
             }
         });
 
-        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new PotatoRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 requestMoreUserpic();
@@ -142,8 +142,8 @@ public class MyActivity extends BaseActivity {
 
     public void requestRefreshUserBean() {
 
-        Request request = StickerRequestBuilder.getUserInfo(userBean.getUid());
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.getUserInfo(userBean.getUid());
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -166,14 +166,14 @@ public class MyActivity extends BaseActivity {
             public void onFailure(Throwable error, String errMsg) {
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
     public void requestRefreshUserPic() {
 
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -193,7 +193,7 @@ public class MyActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -201,8 +201,8 @@ public class MyActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void requestMoreUserpic() {
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -220,7 +220,7 @@ public class MyActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

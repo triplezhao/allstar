@@ -2,26 +2,22 @@ package com.potato.sticker.main.ui.act;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.transition.Explode;
 import android.view.View;
-import android.view.Window;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.library.view.hfrecyclerview.HFGridlayoutSpanSizeLookup;
-import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
+import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.ActivityUserBinding;
 import com.potato.sticker.login.ui.act.LoginActivity;
@@ -31,7 +27,6 @@ import com.potato.sticker.main.data.db.DBUtil;
 import com.potato.sticker.main.data.parser.PicListParser;
 import com.potato.sticker.main.data.parser.UserParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
-import com.potato.sticker.main.data.request.StickerRequestUrls;
 import com.potato.sticker.main.ui.adapter.PicAdapter;
 
 import java.net.URLDecoder;
@@ -91,7 +86,7 @@ public class UserInfoActivity extends BaseActivity {
         layoutManager.setSpanSizeLookup(new HFGridlayoutSpanSizeLookup(binding.swipeContainer.getHFAdapter(), 3));
         binding.swipeContainer.setLayoutManager(layoutManager);
 
-        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(binding.list, R.layout.potato_listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -105,7 +100,7 @@ public class UserInfoActivity extends BaseActivity {
             }
         });
         //滑动时候，不加载图片
-        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
+        binding.swipeContainer.setScrollStateLisener(new PotatoRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
                 //设置为正在滚动
@@ -119,7 +114,7 @@ public class UserInfoActivity extends BaseActivity {
             }
         });
 
-        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new PotatoRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 requestMoreUserpic();
@@ -173,8 +168,8 @@ public class UserInfoActivity extends BaseActivity {
         if (uid == null) {
             return;
         }
-        Request request = StickerRequestBuilder.getUserInfo(uid);
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.getUserInfo(uid);
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -196,7 +191,7 @@ public class UserInfoActivity extends BaseActivity {
             public void onFailure(Throwable error, String errMsg) {
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -206,8 +201,8 @@ public class UserInfoActivity extends BaseActivity {
             return;
         }
 
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -227,7 +222,7 @@ public class UserInfoActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -238,8 +233,8 @@ public class UserInfoActivity extends BaseActivity {
         if (userBean == null) {
             return;
         }
-        Request request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.userPic(userBean.getId(), mPage + 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -257,7 +252,7 @@ public class UserInfoActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
 
@@ -330,8 +325,8 @@ public class UserInfoActivity extends BaseActivity {
                 PageCtrl.start2UserListActivity(mContext, userBean.getId(), true);
                 break;
             case R.id.fab:
-                Request request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
-                RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+                PotatoRequest request = StickerRequestBuilder.focus(userBean.getId(), loginUserBean.getId());
+                PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
                     @Override
                     public void onCacheLoaded(String content) {
@@ -347,7 +342,7 @@ public class UserInfoActivity extends BaseActivity {
                     public void onFailure(Throwable error, String errMsg) {
 
                     }
-                }, RequestManager.CACHE_TYPE_NOCACHE);
+                }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
                 break;
 
         }

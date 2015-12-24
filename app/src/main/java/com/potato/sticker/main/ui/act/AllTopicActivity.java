@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -12,9 +11,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.potato.chips.base.BaseActivity;
 import com.potato.chips.events.TopicSendedEvent;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
-import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
+import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.util.CameraManager;
 import com.potato.sticker.databinding.ActivityAllTopicBinding;
@@ -56,7 +55,7 @@ public class AllTopicActivity extends BaseActivity {
         mAdapter = new TopicAdapter(mContext);
         binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
         binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
-        binding.swipeContainer.setFooterView( binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView( binding.list, R.layout.potato_listview_footer);
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -69,7 +68,7 @@ public class AllTopicActivity extends BaseActivity {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setScrollStateLisener(new HFRecyclerSwipeLayout.ScrollStateLisener() {
+        binding.swipeContainer.setScrollStateLisener(new PotatoRecyclerSwipeLayout.ScrollStateLisener() {
             @Override
             public void pause() {
                 ImageLoader.getInstance().pause();
@@ -86,7 +85,7 @@ public class AllTopicActivity extends BaseActivity {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new PotatoRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();
@@ -103,8 +102,8 @@ public class AllTopicActivity extends BaseActivity {
 
     public void sendRequest2RefreshList() {
 
-        Request request = StickerRequestBuilder.allTopic("", 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.allTopic("", 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -123,7 +122,7 @@ public class AllTopicActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -131,8 +130,8 @@ public class AllTopicActivity extends BaseActivity {
      * 刷新图册列表
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.allTopic("", mPage + 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.allTopic("", mPage + 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -150,7 +149,7 @@ public class AllTopicActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
 

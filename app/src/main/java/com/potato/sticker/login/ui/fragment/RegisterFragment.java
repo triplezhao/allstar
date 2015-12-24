@@ -14,8 +14,8 @@ import android.widget.ImageView;
 
 import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.library.util.StringUtils;
 import com.potato.sticker.R;
 import com.potato.sticker.databinding.FragmentRegisterBinding;
@@ -131,13 +131,13 @@ public class RegisterFragment extends BaseFragment {
 
         userBean.setPhone(mobile);
 
-        Request req = StickerRequestBuilder.updataUser(userBean);
+        PotatoRequest req = StickerRequestBuilder.updataUser(userBean);
 
         // 显示ProgressDialog
         final ProgressDialog progressDialog = ProgressDialog.show(mContext, "Loading...",
                 "Please wait...", true, false);
         // 实现回调方法
-        RequestManager.DataLoadListener dataloadListner = new RequestManager.DataLoadListener() {
+        PotatoRequestManager.DataLoadListener dataloadListner = new PotatoRequestManager.DataLoadListener() {
             /*
              * (non-Javadoc)
              *
@@ -185,8 +185,8 @@ public class RegisterFragment extends BaseFragment {
             }
         };
 
-        RequestManager.requestData(req, dataloadListner,
-                RequestManager.CACHE_TYPE_NOCACHE);
+        PotatoRequestManager.requestData(req, dataloadListner,
+                PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
 }

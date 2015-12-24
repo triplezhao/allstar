@@ -12,10 +12,10 @@ import com.potato.chips.app.MainApplication;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
-import com.potato.library.adapter.BaseRecyclerViewAdapter;
-import com.potato.library.adapter.BaseViewHolder;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.adapter.PotatoBaseRecyclerViewAdapter;
+import com.potato.library.adapter.PotatoBaseViewHolder;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.TagItem;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Created by ztw on 2015/9/24.
  */
-public class TopicAdapter extends BaseRecyclerViewAdapter {
+public class TopicAdapter extends PotatoBaseRecyclerViewAdapter {
 
     public TopicAdapter(Context context) {
         super(context);
@@ -122,8 +122,8 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
                 @Override
                 public void onClick(final View view) {
 
-                    Request request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
-                    RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+                    PotatoRequest request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
+                    PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
                         @Override
                         public void onCacheLoaded(String content) {
@@ -141,7 +141,7 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
                         public void onFailure(Throwable error, String errMsg) {
 
                         }
-                    }, RequestManager.CACHE_TYPE_NOCACHE);
+                    }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
                 }
             });
         }
@@ -162,7 +162,7 @@ public class TopicAdapter extends BaseRecyclerViewAdapter {
     }
 
 
-    public static class VH extends BaseViewHolder {
+    public static class VH extends PotatoBaseViewHolder {
 
         private ViewDataBinding binding;
 

@@ -9,8 +9,8 @@ import com.potato.chips.common.ChannelUtil;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.PhoneUtils;
 import com.potato.chips.util.QiniuUtil;
-import com.potato.library.net.RequestHttpClient;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequestHttpClient;
+import com.potato.library.net.PotatoRequestManager;
 import com.tendcloud.tenddata.TCAgent;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -52,9 +52,9 @@ public class MainApplication extends Application {
         //获取imei
         PhoneUtils.getIMEI(context);
         //请求缓存管理
-        RequestManager.init(context);
+        PotatoRequestManager.init(context);
         //请求初始化
-        AsyncHttpClient instence = RequestHttpClient.getInstence(context);
+        AsyncHttpClient instence = PotatoRequestHttpClient.getInstence(context);
 //        RequestConfig.addHttpClientRASHead(instence);
 //        instence.setUserAgent(PhoneUtils.getDeviceUA(context));
         initPicasso();

@@ -3,8 +3,8 @@ package com.potato.sticker.main.data.request;
 import android.text.TextUtils;
 
 import com.potato.chips.base.BaseRequestBuilder;
-import com.potato.library.net.DefaultRequest;
-import com.potato.library.net.Request;
+import com.potato.library.net.PotatoDefaultRequest;
+import com.potato.library.net.PotatoRequest;
 import com.potato.sticker.main.data.bean.TopicPicBean;
 import com.potato.sticker.main.data.bean.TagBean;
 import com.potato.sticker.main.data.bean.TopicBean;
@@ -25,18 +25,18 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     /**
      * 获取一次上传用的token。 是否能一次获取，永久使用，暂时不清楚
      */
-    public static Request getUpToken() {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_GET;
+    public static PotatoRequest getUpToken() {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_GET;
         request.url = StickerRequestUrls.UPTOKEN;
         request.params = new HashMap<String, Object>();
         return request;
     }
 
     //登录，只传递一个uid就ok。第三方的openid
-    public static Request login(String uid, String nickname) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest login(String uid, String nickname) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.USER;
 //        request.params = new HashMap<String, Object>();
 //        request.params.put("uid", uid);
@@ -54,9 +54,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //登录，只传递一个uid就ok。第三方的openid
-    public static Request login(PlatformDb platformDb) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest login(PlatformDb platformDb) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.USER;
 //        request.params = new HashMap<String, Object>();
 //        request.params.put("uid", uid);
@@ -76,9 +76,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //跟登录用一个接口，与修改个人资料也是一个接口。 如果登录后返回没有绑定手机号，则调用这个进行注册流程。
-    public static Request updataUser(UserBean bean) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest updataUser(UserBean bean) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.USER;
 //        request.params = new HashMap<String, Object>();
 
@@ -103,9 +103,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //获取最新user信息,使用第三方的那个id，不然接口错误
-    public static Request getUserInfo(String uid) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest getUserInfo(String uid) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.USER;
 //        request.params = new HashMap<String, Object>();
 
@@ -123,9 +123,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
 
     //获取用户发帖列表
-    public static Request topic(String uid, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest topic(String uid, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.USERTOPIC, new String[]{uid});
 
         JSONObject body = new JSONObject();
@@ -142,9 +142,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //获取所有帖子列表
-    public static Request allTopic(String title, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest allTopic(String title, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.ALLTOPIC;
 
         JSONObject body = new JSONObject();
@@ -161,9 +161,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     //获取关注的所有人所有帖子列表
-    public static Request focusTopic(String uid, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest focusTopic(String uid, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.FOCUSTOPIC,new String[]{uid});
 
         JSONObject body = new JSONObject();
@@ -202,9 +202,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         }
        }
     */
-    public static Request create(TopicBean bean) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest create(TopicBean bean) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.CREATE;
         JSONObject body = new JSONObject();
         try {
@@ -243,9 +243,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
 
-    public static Request getLoadImgRequest() {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_GET;
+    public static PotatoRequest getLoadImgRequest() {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_GET;
         request.url = StickerRequestUrls.UPTOKEN;
         request.params = new HashMap<String, Object>();
         return request;
@@ -253,9 +253,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
 
     //获取用户图册列表
-    public static Request userPic(String uid, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest userPic(String uid, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.USERPIC, new String[]{uid});
 
         JSONObject body = new JSONObject();
@@ -272,9 +272,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //获取帖子评论列表
-    public static Request commentList(String topicId, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest commentList(String topicId, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.COMMENTLIST, new String[]{topicId});
 
         JSONObject body = new JSONObject();
@@ -291,9 +291,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //获取帖子详情
-    public static Request topicDetail(String topicId) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_GET;
+    public static PotatoRequest topicDetail(String topicId) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_GET;
         request.url = getRealRequestUrl(StickerRequestUrls.TOPIC_DETAIL, new String[]{topicId});
         request.params = new HashMap<String, Object>();
 
@@ -301,9 +301,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //获取帖子详情
-    public static Request comment(String topicId, String userId, String reviewerId, String content) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest comment(String topicId, String userId, String reviewerId, String content) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.COMMENT;
         JSONObject body = new JSONObject();
         try {
@@ -322,9 +322,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
 
     //获取帖子详情
-    public static Request getClassify() {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_GET;
+    public static PotatoRequest getClassify() {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_GET;
         request.url = StickerRequestUrls.TOPIC_CLASSIFY;
         request.params = new HashMap<String, Object>();
 
@@ -332,9 +332,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //获取帖子评论列表
-    public static Request getClassifyRela(String classifyId, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest getClassifyRela(String classifyId, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.TOPIC_CLASSIFY_RELA, new String[]{classifyId});
 
         JSONObject body = new JSONObject();
@@ -353,9 +353,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     //点赞  “topicId”:, //帖子id
 //    “userId”:, //发帖人id
 //      “laudator”: //点赞人id
-    public static Request topicLaud(String topicId, String userId, String laudator) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest topicLaud(String topicId, String userId, String laudator) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.TOPIC_LAUD;
 
         JSONObject body = new JSONObject();
@@ -374,9 +374,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
 
 
     //用户关注其他用户
-    public static Request focus(String focusId, String fansId) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest focus(String focusId, String fansId) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.FOCUS;
 
         JSONObject body = new JSONObject();
@@ -393,9 +393,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //取消关注
-    public static Request unfocus(String userId, String focusId) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_GET;
+    public static PotatoRequest unfocus(String userId, String focusId) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_GET;
         request.url = getRealRequestUrl(StickerRequestUrls.UNFOCUS, new String[]{userId, focusId});
         request.params = new HashMap<String, Object>();
 
@@ -403,9 +403,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
     }
 
     //消息列表
-    public static Request message(String userId, String fromDate, String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest message(String userId, String fromDate, String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.MESSAGE, new String[]{userId});
         JSONObject body = new JSONObject();
         try {
@@ -423,9 +423,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     //关注人列表
-    public static Request focusUserList(String userId,  String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest focusUserList(String userId,  String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.FOCUS_USER, new String[]{userId});
         JSONObject body = new JSONObject();
         try {
@@ -440,9 +440,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     //粉丝列表
-    public static Request fansList(String userId,  String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest fansList(String userId,  String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.FANS, new String[]{userId});
         JSONObject body = new JSONObject();
         try {
@@ -457,9 +457,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     //收藏
-    public static Request favorite(String userId,  String topicId, String title) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest favorite(String userId,  String topicId, String title) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = StickerRequestUrls.FAVORITE;
         JSONObject body = new JSONObject();
         try {
@@ -475,9 +475,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     //收藏列表
-    public static Request favoriteList(String userId,  String page, String size) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest favoriteList(String userId,  String page, String size) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.FAVORITELIST, new String[]{userId});
         JSONObject body = new JSONObject();
         try {
@@ -492,9 +492,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     ////评论过的list
-    public static Request commentedTopicList(String userId,String page, String size, String fromDate) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest commentedTopicList(String userId,String page, String size, String fromDate) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.COMMENTEDTOPICLIST, new String[]{userId});
         JSONObject body = new JSONObject();
         try {
@@ -509,9 +509,9 @@ public class StickerRequestBuilder extends BaseRequestBuilder {
         return request;
     }
     ////评论过的list
-    public static Request laudededTopicList(String userId,String page, String size, String fromDate) {
-        Request request = new DefaultRequest();
-        request.reqMethod = Request.REQ_METHOD_POST;
+    public static PotatoRequest laudededTopicList(String userId,String page, String size, String fromDate) {
+        PotatoRequest request = new PotatoDefaultRequest();
+        request.reqMethod = PotatoRequest.REQ_METHOD_POST;
         request.url = getRealRequestUrl(StickerRequestUrls.LAUDEDEDTOPICLIST, new String[]{userId});
         JSONObject body = new JSONObject();
         try {

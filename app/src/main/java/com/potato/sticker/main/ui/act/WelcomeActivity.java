@@ -23,8 +23,8 @@ import android.widget.LinearLayout;
 import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.sticker.R;
 import com.potato.sticker.login.ui.act.LoginActivity;
 import com.potato.sticker.main.data.bean.LoadImgBean;
@@ -210,9 +210,9 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener,
     }
 
     private void loadData() {
-        Request req = StickerRequestBuilder.getLoadImgRequest();
-        RequestManager.requestData(req,
-                new RequestManager.DataLoadListener() {
+        PotatoRequest req = StickerRequestBuilder.getLoadImgRequest();
+        PotatoRequestManager.requestData(req,
+                new PotatoRequestManager.DataLoadListener() {
                     @Override
                     public void onSuccess(int statusCode, String content) {
                         // TODO Auto-generated method stub
@@ -256,7 +256,7 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener,
                         initView();
 
                     }
-                }, RequestManager.CACHE_TYPE_IGNORE_TIME);
+                }, PotatoRequestManager.CACHE_TYPE_IGNORE_TIME);
     }
 
     //引导页使用的pageview适配器

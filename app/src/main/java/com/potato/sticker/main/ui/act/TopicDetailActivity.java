@@ -20,10 +20,10 @@ import com.potato.chips.common.PageCtrl;
 import com.potato.chips.util.ImageLoaderUtil;
 import com.potato.chips.util.SPUtils;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.library.view.dialog.DialogUtil;
-import com.potato.library.view.refresh.HFRecyclerSwipeLayout;
+import com.potato.library.view.refresh.PotatoRecyclerSwipeLayout;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.customview.LabelView;
 import com.potato.sticker.camera.data.bean.TagItem;
@@ -111,7 +111,7 @@ public class TopicDetailActivity extends BaseActivity {
         binding.swipeContainer.setRecyclerView(binding.list, mAdapter);
         binding.swipeContainer.setLayoutManager(new LinearLayoutManager(mContext));
 
-        binding.swipeContainer.setFooterView(binding.list, R.layout.listview_footer);
+        binding.swipeContainer.setFooterView(binding.list, R.layout.potato_listview_footer);
         binding.swipeContainer.setHeaderView(binding.list, topicBinding.getRoot());
 
         binding.swipeContainer.setColorSchemeResources(R.color.google_blue,
@@ -131,7 +131,7 @@ public class TopicDetailActivity extends BaseActivity {
                 sendRequest2RefreshList();
             }
         });
-        binding.swipeContainer.setOnLoadListener(new HFRecyclerSwipeLayout.OnLoadListener() {
+        binding.swipeContainer.setOnLoadListener(new PotatoRecyclerSwipeLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 sendRequest2LoadMoreList();
@@ -156,8 +156,8 @@ public class TopicDetailActivity extends BaseActivity {
 
     public void sendRequest2RefreshList() {
 
-        Request request = StickerRequestBuilder.commentList(mTopic_id + "", 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.commentList(mTopic_id + "", 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -176,7 +176,7 @@ public class TopicDetailActivity extends BaseActivity {
                 binding.swipeContainer.showEmptyViewFail();
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 
@@ -184,8 +184,8 @@ public class TopicDetailActivity extends BaseActivity {
      * 更多
      */
     private void sendRequest2LoadMoreList() {
-        Request request = StickerRequestBuilder.commentList(mTopic_id + "", mPage + 1 + "", mSize + "");
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.commentList(mTopic_id + "", mPage + 1 + "", mSize + "");
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -203,7 +203,7 @@ public class TopicDetailActivity extends BaseActivity {
                 binding.swipeContainer.setLoading(false);
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
 
@@ -338,8 +338,8 @@ public class TopicDetailActivity extends BaseActivity {
                 @Override
                 public void onClick(final View view) {
 
-                    Request request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
-                    RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+                    PotatoRequest request = StickerRequestBuilder.topicLaud(bean.getId(), bean.getUserId(), DBUtil.getLoginUser().getId());
+                    PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
                         @Override
                         public void onCacheLoaded(String content) {
@@ -358,7 +358,7 @@ public class TopicDetailActivity extends BaseActivity {
                         public void onFailure(Throwable error, String errMsg) {
 
                         }
-                    }, RequestManager.CACHE_TYPE_NOCACHE);
+                    }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
                 }
             });
         }
@@ -374,8 +374,8 @@ public class TopicDetailActivity extends BaseActivity {
 
     public void sendRequestTopicDetail() {
 
-        Request request = StickerRequestBuilder.topicDetail(mTopic_id);
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.topicDetail(mTopic_id);
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -429,7 +429,7 @@ public class TopicDetailActivity extends BaseActivity {
 
                 UIUtils.toast(mContext, errMsg);
             }
-        }, RequestManager.CACHE_TYPE_NORMAL);
+        }, PotatoRequestManager.CACHE_TYPE_NORMAL);
 
     }
 
@@ -457,8 +457,8 @@ public class TopicDetailActivity extends BaseActivity {
             dialog.show();
 
 
-            Request request = StickerRequestBuilder.comment(topicBean.getId(), topicBean.getUserId(), DBUtil.getLoginUser().getId(), comment_content);
-            RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+            PotatoRequest request = StickerRequestBuilder.comment(topicBean.getId(), topicBean.getUserId(), DBUtil.getLoginUser().getId(), comment_content);
+            PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
                 @Override
                 public void onCacheLoaded(String content) {
@@ -484,7 +484,7 @@ public class TopicDetailActivity extends BaseActivity {
                     dialog.dismiss();
                     UIUtils.toast(mContext, errMsg);
                 }
-            }, RequestManager.CACHE_TYPE_NOCACHE);
+            }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
         } else {
 

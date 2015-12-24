@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.potato.chips.util.ImageLoaderUtil;
-import com.potato.library.adapter.BaseMutiRowAdapter;
-import com.potato.library.adapter.BaseViewHolder;
+import com.potato.library.adapter.PotatoBaseMutiRowAdapter;
+import com.potato.library.adapter.PotatoBaseViewHolder;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.data.bean.PhotoItem;
 import com.potato.sticker.camera.util.CameraManager;
@@ -21,7 +21,7 @@ import com.potato.sticker.databinding.ItemCamaraAblumBinding;
 /**
  * Created by ztw on 2015/9/21.
  */
-public class CameraAblumAdapter extends BaseMutiRowAdapter {
+public class CameraAblumAdapter extends PotatoBaseMutiRowAdapter {
 
     public CameraAblumAdapter(Context context) {
         super(context);
@@ -64,7 +64,7 @@ public class CameraAblumAdapter extends BaseMutiRowAdapter {
     }
 
 
-    public static class VH extends BaseViewHolder {
+    public static class VH extends PotatoBaseViewHolder {
 
         private ViewDataBinding binding;
 

@@ -3,8 +3,8 @@ package com.potato.chips.util;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.sticker.main.data.parser.TokenParser;
 import com.potato.sticker.main.data.request.StickerRequestBuilder;
 import com.qiniu.android.storage.UploadManager;
@@ -21,8 +21,8 @@ public class QiniuUtil {
     public static void init(final Context context) {
         uploadManager = new UploadManager();
 
-        Request request = StickerRequestBuilder.getUpToken();
-        RequestManager.requestData(request, new RequestManager.DataLoadListener() {
+        PotatoRequest request = StickerRequestBuilder.getUpToken();
+        PotatoRequestManager.requestData(request, new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onCacheLoaded(String content) {
@@ -50,7 +50,7 @@ public class QiniuUtil {
             public void onFailure(Throwable error, String errMsg) {
 
             }
-        }, RequestManager.CACHE_TYPE_NOCACHE);
+        }, PotatoRequestManager.CACHE_TYPE_NOCACHE);
 
     }
 

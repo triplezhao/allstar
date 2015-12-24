@@ -25,7 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.potato.chips.base.BaseFragment;
-import com.potato.library.adapter.BaseMutiRowAdapter;
+import com.potato.library.adapter.PotatoBaseMutiRowAdapter;
 import com.potato.sticker.R;
 import com.potato.sticker.camera.data.bean.PhotoItem;
 import com.potato.sticker.camera.ui.adapter.CameraAblumAdapter;
@@ -42,7 +42,7 @@ public class CameraAblumFragment extends BaseFragment {
 //    private long mSectionId;
 //    private String mTitle;
     private ArrayList<PhotoItem> mList = new ArrayList<PhotoItem>();
-    private BaseMutiRowAdapter mAdapter;
+    private PotatoBaseMutiRowAdapter mAdapter;
     private FragmentAblumCamaraBinding mBinding;
 
     @Nullable

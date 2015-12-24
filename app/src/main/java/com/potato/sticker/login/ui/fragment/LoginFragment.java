@@ -17,8 +17,8 @@ import android.widget.ImageView;
 
 import com.potato.chips.base.BaseFragment;
 import com.potato.chips.util.UIUtils;
-import com.potato.library.net.Request;
-import com.potato.library.net.RequestManager;
+import com.potato.library.net.PotatoRequest;
+import com.potato.library.net.PotatoRequestManager;
 import com.potato.library.util.L;
 import com.potato.library.view.dialog.DialogUtil;
 import com.potato.sticker.R;
@@ -160,10 +160,10 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
         final Dialog progressDialog = DialogUtil.createProgressDialog(mContext);
         progressDialog.show();
 
-        Request req = StickerRequestBuilder.login(platformDb);
+        PotatoRequest req = StickerRequestBuilder.login(platformDb);
 
         // 实现回调方法
-        RequestManager.DataLoadListener dataloadListner = new RequestManager.DataLoadListener() {
+        PotatoRequestManager.DataLoadListener dataloadListner = new PotatoRequestManager.DataLoadListener() {
 
             @Override
             public void onSuccess(int statusCode, String content) {
@@ -228,8 +228,8 @@ public class LoginFragment extends BaseFragment implements PlatformActionListene
             }
         };
 
-        RequestManager.requestData(req, dataloadListner,
-                RequestManager.CACHE_TYPE_NOCACHE);
+        PotatoRequestManager.requestData(req, dataloadListner,
+                PotatoRequestManager.CACHE_TYPE_NOCACHE);
     }
 
     @Override
